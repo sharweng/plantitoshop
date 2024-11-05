@@ -71,6 +71,6 @@ INSERT INTO user(email, password, lname, fname, addressline, phone, role_id)VALU
 ('marbellasj@gmail.com', 'marbella1', 'Marbella', 'Sharwin', 'Taguig', '09935312681', 1),
 ('lacortekc@gmail.com', 'lacorte1', 'Lacorte', 'Krsmur', 'Taguig', '09937564575', 1),
 ('pequemes@gmail.com', 'peque1', 'Peque', 'Erica', 'Taguig', '09063354124', 2),
-('labilabimk@gmail.com', 'labilabi1', 'Maria', 'Taguig', '09557966852', '', 2),
-('elediak@gmail.com', 'eledia1', 'Kimberly', 'Taguig', '09125474775', 2),
-('calungsodmp@gmail.com', 'calungsod1', 'Mary', 'Taguig', '09334567445', 2);
+('labilabimk@gmail.com', 'labilabi1', 'Labi-labi', 'Maria', 'Taguig', '09557966852', 2),
+('elediak@gmail.com', 'eledia1', 'Eledia', 'Kimberly', 'Taguig', '09125474775', 2),
+('calungsodmp@gmail.com', 'calungsod1', 'Calungsod', 'Mary', 'Taguig', '09334567445', 2);
