@@ -72,6 +72,14 @@ INSERT INTO role(description)VALUES
 ('admin'),
 ('customer');
 
+INSERT INTO category(description)VALUES
+('None'),
+('Herbs'),
+('Shrubs'),
+('Creepers'),
+('Climbers');
+
+
 INSERT INTO user(email, password, lname, fname, addressline, phone, role_id)VALUES
 ('marbellasj@gmail.com', 'marbella1', 'Marbella', 'Sharwin', 'Taguig', '09935312681', 1),
 ('lacortekc@gmail.com', 'lacorte1', 'Lacorte', 'Krsmur', 'Taguig', '09937564575', 1),
