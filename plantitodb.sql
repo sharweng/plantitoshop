@@ -27,7 +27,7 @@ CREATE TABLE product(
 
 CREATE TABLE image(
     prod_id INT NOT NULL PRIMARY KEY,
-    img_path varchar(128)
+    img_path varchar(128),
     CONSTRAINT image_prod_id_fk FOREIGN KEY (prod_id) REFERENCES product(prod_id) ON DELETE CASCADE
 );
 
@@ -56,7 +56,7 @@ CREATE TABLE orderline (
     orderinfo_id INT NOT NULL,
     prod_id INT NOT NULL,
     quantity TINYINT,
-    PRIMARY KEY (orderinfo_id, item_id),
+    PRIMARY KEY (orderinfo_id, prod_id),
     CONSTRAINT orderline_orderinfo_id_fk FOREIGN KEY (orderinfo_id) REFERENCES orderinfo(orderinfo_id) ON DELETE CASCADE,
     CONSTRAINT orderline_prod_id_fk FOREIGN KEY (prod_id) REFERENCES product(prod_id)  ON DELETE CASCADE
 );
