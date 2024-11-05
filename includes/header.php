@@ -52,7 +52,12 @@
         <li><a href="/LMShop/items" class="purple-hover">Items</a></li> 
         <li><a href="#" class="purple-hover">About</a></li> 
         <li><a href="#" class="purple-hover">Contact</a></li> 
-        <li><a href="#" class="purple-hover">Login</a></li> 
         </ul>
     </nav>
+    <div class="site-navigation">
+        <ul class="nav">
+            <li><a href="#" class="">Cart</a></li>
+            <li><a href="#" class="btn btn-primary">Login</a></li>
+        </ul>
+    </div>
 </header>
