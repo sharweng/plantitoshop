@@ -29,7 +29,7 @@ CREATE TABLE item (
 CREATE TABLE category(
     cat_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     description varchar(32)
-)
+);
 
 CREATE TABLE stock (
     item_id INT NOT NULL PRIMARY KEY,
