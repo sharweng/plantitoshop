@@ -48,16 +48,16 @@
     </div>  
     <nav class="site-navigation">
         <ul class="nav">
-        <li><a href="/LMShop" class="purple-hover">Home</a></li> 
-        <li><a href="/LMShop/items" class="purple-hover">Items</a></li> 
+        <li><a href="/plantitoshop" class="purple-hover">Home</a></li> 
+        <li><a href="/plantitoshop/product" class="purple-hover">Products</a></li> 
         <li><a href="#" class="purple-hover">About</a></li> 
         <li><a href="#" class="purple-hover">Contact</a></li> 
         </ul>
     </nav>
     <div class="site-navigation">
         <ul class="nav">
-            <li><a href="#" class="">Cart</a></li>
-            <li><a href="#" class="btn btn-primary">Login</a></li>
+            <li><a href="#">Cart</a></li>
+            <li><a href="#">Login</a></li>
         </ul>
     </div>
 </header>
