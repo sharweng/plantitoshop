@@ -64,7 +64,7 @@
     <div class="site-navigation">
         <ul class="nav">
             <li><a href="#" class="green-hover">Cart</a></li>
-            <li><form action="" method="post"><button name="admin">Logout</button></form></li>
+            <li><form action="" method="post"><button class="anchor-style green-hover" name="admin">Logout</button></form></li>
         </ul>
     </div>
 </header>
