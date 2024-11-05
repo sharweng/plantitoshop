@@ -18,12 +18,17 @@ CREATE TABLE role(
     description varchar(32)
 );
 
-CREATE TABLE item (
-    item_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+CREATE TABLE product(
+    prod_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     description varchar(200) NOT NULL,
     price decimal(7,2),
-    cat_id INT NOT NULL,
-    img_path varchar(64)
+    cat_id INT
+);
+
+CREATE TABLE image(
+    prod_id INT NOT NULL PRIMARY KEY,
+    img_path varchar(128)
+    CONSTRAINT image_prod_id_fk FOREIGN KEY (prod_id) REFERENCES product(prod_id) ON DELETE CASCADE
 );
 
 CREATE TABLE category(
@@ -32,9 +37,9 @@ CREATE TABLE category(
 );
 
 CREATE TABLE stock (
-    item_id INT NOT NULL PRIMARY KEY,
+    prod_id INT NOT NULL PRIMARY KEY,
     quantity INT,
-    CONSTRAINT stock_item_id_fk FOREIGN KEY (item_id) REFERENCES item(item_id) ON DELETE CASCADE
+    CONSTRAINT stock_prod_id_fk FOREIGN KEY (prod_id) REFERENCES product(prod_id) ON DELETE CASCADE
 );
 
 CREATE TABLE orderinfo (
@@ -49,11 +54,11 @@ CREATE TABLE orderinfo (
 
 CREATE TABLE orderline (
     orderinfo_id INT NOT NULL,
-    item_id INT NOT NULL,
+    prod_id INT NOT NULL,
     quantity TINYINT,
     PRIMARY KEY (orderinfo_id, item_id),
     CONSTRAINT orderline_orderinfo_id_fk FOREIGN KEY (orderinfo_id) REFERENCES orderinfo(orderinfo_id) ON DELETE CASCADE,
-    CONSTRAINT item_item_id_fk FOREIGN KEY (item_id) REFERENCES item(item_id)  ON DELETE CASCADE
+    CONSTRAINT orderline_prod_id_fk FOREIGN KEY (prod_id) REFERENCES product(prod_id)  ON DELETE CASCADE
 );
 
 CREATE TABLE review (
