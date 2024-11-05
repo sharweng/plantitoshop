@@ -12,6 +12,9 @@
         $_SESSION['prc'] = "";
         header("Location: /plantitoshop/product");
     }
+
+    $sql = "SELECT description FROM category";
+    $result = mysqli_query($conn, $sql);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -24,17 +27,25 @@
     </style>
 </head>
 <body>
-    <h1>This is the add item page.</h1>
+    <h1>This is the add product page.</h1>
     <form action="create.php" method="post">
         <button class="add-button" name="back">BACK</button>
     </form>    
     <form method="post" action="store.php" enctype="multipart/form-data">
-        <label>Item Name:</label>
+        <label>Product Name:</label>
         <input class="inputbox" type="text" name="description" value="<?php
             if(isset($_SESSION['desc'])){
                 echo $_SESSION['desc'];
             }?>"/>
         <br>
+        <?php 
+        while($row = mysqli_fetch_array($result)){
+            echo "<input type=\"radio\" id=\"cat\" name=\"category\" value=\"{$row['description']}\">
+        <label>{$row['description']}</label>
+        <br>
+            ";
+        }
+        ?>
         <label>Price:</label>
         <input class="inputbox" type="text" name="price" value="<?php
             if(isset($_SESSION['prc'])){
