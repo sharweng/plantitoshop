@@ -1,3 +1,11 @@
+<?php
+    if(isset($_POST['admin'])){
+        $_SESSION['isAdmin'] = true;
+        header("Location: /plantitoshop/");
+    }
+        
+?>
+<link rel="stylesheet" href="styles/style.css">
 <style type="text/css">
     body {
         font-family: Helvetica;
@@ -49,7 +57,6 @@
     <nav class="site-navigation">
         <ul class="nav">
         <li><a href="/plantitoshop" class="green-hover">Home</a></li> 
-        <li><a href="/plantitoshop/product" class="green-hover">Products</a></li> 
         <li><a href="#" class="green-hover">About</a></li> 
         <li><a href="#" class="green-hover">Contact</a></li> 
         </ul>
@@ -57,7 +64,7 @@
     <div class="site-navigation">
         <ul class="nav">
             <li><a href="#" class="green-hover">Cart</a></li>
-            <li><a href="#" class="green-hover">Login</a></li>
+            <li><form action="" method="post"><button name="admin">Login</button></form></li>
         </ul>
     </div>
 </header>
