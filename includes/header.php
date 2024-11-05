@@ -44,7 +44,7 @@
 </style>
 <header class="site-header">
     <div class="site-identity">
-        <h1><a href="/LMShop" class="purple-hover">LMShop</a></h1>
+        <h1><a href="/LMShop" class="purple-hover">Plantito's Shop</a></h1>
     </div>  
     <nav class="site-navigation">
         <ul class="nav">
@@ -52,6 +52,7 @@
         <li><a href="/LMShop/items" class="purple-hover">Items</a></li> 
         <li><a href="#" class="purple-hover">About</a></li> 
         <li><a href="#" class="purple-hover">Contact</a></li> 
+        <li><a href="#" class="purple-hover">Login</a></li> 
         </ul>
     </nav>
 </header>

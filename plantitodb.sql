@@ -1,6 +1,6 @@
-DROP DATABASE IF EXISTS lmshopdb;
-CREATE DATABASE lmshopdb;
-use lmshopdb;
+DROP DATABASE IF EXISTS plantitodb;
+CREATE DATABASE plantitodb;
+use plantitodb;
 
 CREATE TABLE user (
     user_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
