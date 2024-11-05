@@ -15,7 +15,7 @@
         left: 0;
         right: 0;
         padding: 2rem;
-        background: purple;
+        background: #337357;
         color: white;
         font-weight: 500;
         display: flex;

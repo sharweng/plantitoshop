@@ -37,27 +37,27 @@
         margin: 1.4em 1em 1em 1em;
     }
 
-    .purple-hover:hover{
+    .green-hover:hover{
         cursor: pointer;
-        color: #800080;
+        color: #337357;
     }
 </style>
 <header class="site-header">
     <div class="site-identity">
-        <h1><a href="/LMShop" class="purple-hover">Plantito's Shop</a></h1>
+        <h1><a href="/plantitoshop" class="green-hover">Plantito's Shop</a></h1>
     </div>  
     <nav class="site-navigation">
         <ul class="nav">
-        <li><a href="/plantitoshop" class="purple-hover">Home</a></li> 
-        <li><a href="/plantitoshop/product" class="purple-hover">Products</a></li> 
-        <li><a href="#" class="purple-hover">About</a></li> 
-        <li><a href="#" class="purple-hover">Contact</a></li> 
+        <li><a href="/plantitoshop" class="green-hover">Home</a></li> 
+        <li><a href="/plantitoshop/product" class="green-hover">Products</a></li> 
+        <li><a href="#" class="green-hover">About</a></li> 
+        <li><a href="#" class="green-hover">Contact</a></li> 
         </ul>
     </nav>
     <div class="site-navigation">
         <ul class="nav">
-            <li><a href="#">Cart</a></li>
-            <li><a href="#">Login</a></li>
+            <li><a href="#" class="green-hover">Cart</a></li>
+            <li><a href="#" class="green-hover">Login</a></li>
         </ul>
     </div>
 </header>
