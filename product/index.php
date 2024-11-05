@@ -17,6 +17,9 @@
 </head>
 <body>
     <h1>This is the product page.</h1>
+    <a href="create.php">
+        <button class="add-button">ADD</button>
+    </a>
 </body>
 </html>
 <?php

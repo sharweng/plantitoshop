@@ -45,7 +45,7 @@
         <input class="inputbox" type="number" value="1" placeholder="1" name="quantity" min="1">
         <br>
         <label>Item Picture:</label>
-        <input class="inputbox" type="file" name="img_path">
+        <input class="inputbox" type="file" name="imges[]" multiple>
         <br>
         <?php
             if(isset($_SESSION['descError'])){
