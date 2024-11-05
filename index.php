@@ -8,12 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
     <style>
-        body {
-            font-family: Helvetica;
-            margin: 0;
-            padding-top: 80px;
-            padding-bottom: 85px;
-        }
+        <?php include('includes/styles/style.css') ?>
     </style>
 </head>
 <body>
