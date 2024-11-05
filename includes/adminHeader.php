@@ -44,6 +44,56 @@
         margin: 1.4em 1em 1em 1em;
     }
 
+    /* Style The Dropdown Button */
+    .dropbtn {
+        color: black;
+        font-size: 16px;
+        border: none;
+        cursor: pointer;
+        background-color: white;
+    }
+
+    /* The container <div> - needed to position the dropdown content */
+    .dropdown {
+        position: relative;
+        display: inline-block;
+    }
+
+    /* Dropdown Content (Hidden by Default) */
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        left: -10;
+        background-color: #f9f9f9;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+    }
+
+    /* Links inside the dropdown */
+    .dropdown-content a {
+        min-width: 100;
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+    }
+
+    /* Change color of dropdown links on hover */
+    .dropdown-content a:hover {
+        background-color: #f1f1f1;
+        color: #337357;
+    }
+
+    /* Show the dropdown menu on hover */
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }
+
+    /* Change the background color of the dropdown button when the dropdown content is shown */
+    .dropdown:hover .dropbtn {
+        color: #337357;
+    }
+
     .green-hover:hover{
         cursor: pointer;
         color: #337357;
@@ -56,7 +106,18 @@
     <nav class="site-navigation">
         <ul class="nav">
         <li><a href="/plantitoshop" class="green-hover">Home</a></li> 
-        <li><a href="/plantitoshop/product" class="green-hover">Products</a></li> 
+        <li>
+          <div class="dropdown">
+            <button class="dropbtn">Admin</button>
+            <div class="dropdown-content">
+                <a href="#">Users</a>
+                <a href="/plantitoshop/product/">Products</a>
+                <a href="#">Reviews</a>
+                <a href="#">Category</a>
+                <a href="#">Roles</a>
+            </div>
+          </div>
+        </li>
         <li><a href="#" class="green-hover">About</a></li> 
         <li><a href="#" class="green-hover">Contact</a></li> 
         </ul>
