@@ -39,11 +39,20 @@
             }?>"/>
         <br>
         <?php 
+        $firstTime = true;
         while($row = mysqli_fetch_array($result)){
-            echo "<input type=\"radio\" id=\"cat\" name=\"category\" value=\"{$row['description']}\">
-        <label>{$row['description']}</label>
-        <br>
-            ";
+            if($firstTime){
+                echo "<input type=\"radio\" id=\"cat\" name=\"category\" value=\"{$row['description']}\" checked>
+                <label>{$row['description']}</label>
+                <br>
+                ";
+            }else{
+                echo "<input type=\"radio\" id=\"cat\" name=\"category\" value=\"{$row['description']}\">
+                <label>{$row['description']}</label>
+                <br>
+                ";
+            }
+            $firstTime = false;
         }
         ?>
         <label>Price:</label>
