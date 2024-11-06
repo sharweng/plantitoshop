@@ -26,8 +26,10 @@ CREATE TABLE product(
 );
 
 CREATE TABLE image(
-    prod_id INT NOT NULL PRIMARY KEY,
+    img_id INT NOT NULL AUTO_INCREMENT,
+    prod_id INT NOT NULL,
     img_path varchar(128) NOT NULL,
+    PRIMARY KEY (img_id, prod_id),
     CONSTRAINT image_prod_id_fk FOREIGN KEY (prod_id) REFERENCES product(prod_id) ON DELETE CASCADE
 );
 

@@ -1,6 +1,5 @@
 <?php
     session_start();
-    $_SESSION['isAdmin'];
     if($_SESSION['isAdmin'] == true)
         include('includes/adminHeader.php');
     else

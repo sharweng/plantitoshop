@@ -12,7 +12,7 @@
         header("Location: /plantitoshop/product");
     }
 
-    $sql = "SELECT description FROM category";
+    $sql = "SELECT * FROM category";
     $result = mysqli_query($conn, $sql);
 ?>
 <!DOCTYPE html>
@@ -35,18 +35,18 @@
         <input class="inputbox" type="text" name="description" value="<?php
             if(isset($_SESSION['desc'])){
                 echo $_SESSION['desc'];
-            }?>"/>
+            }?>" required/>
         <br>
         <?php 
         $firstTime = true;
         while($row = mysqli_fetch_array($result)){
             if($firstTime){
-                echo "<input type=\"radio\" id=\"cat\" name=\"category\" value=\"{$row['description']}\" checked>
+                echo "<input type=\"radio\" id=\"cat\" name=\"category\" value=\"{$row['cat_id']}\" checked>
                 <label>{$row['description']}</label>
                 <br>
                 ";
             }else{
-                echo "<input type=\"radio\" id=\"cat\" name=\"category\" value=\"{$row['description']}\">
+                echo "<input type=\"radio\" id=\"cat\" name=\"category\" value=\"{$row['cat_id']}\">
                 <label>{$row['description']}</label>
                 <br>
                 ";
@@ -58,13 +58,13 @@
         <input class="inputbox" type="text" name="price" value="<?php
             if(isset($_SESSION['prc'])){
                 echo $_SESSION['prc'];
-            }?>"/>
+            }?>" required/>
         <br>
         <label>Quantity:</label> 
-        <input class="inputbox" type="number" value="1" placeholder="1" name="quantity" min="1">
+        <input class="inputbox" type="number" value="1" placeholder="1" name="quantity" min="1" required>
         <br>
         <label>Item Picture:</label>
-        <input class="inputbox" type="file" name="imges[]" multiple>
+        <input class="inputbox" type="file" name="img_path[]" multiple required accept="image/*">
         <br>
         <?php
             if(isset($_SESSION['descError'])){
