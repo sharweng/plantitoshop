@@ -7,10 +7,16 @@
         $sql = "DELETE FROM product WHERE prod_id = {$d_id}";
         $result = mysqli_query($conn, $sql);
 
-        $sql = "DELETE FROM image WHERE prod_id = {$d_id}";
+        $sql = "SELECT img_path FROM image WHERE prod_id = {$d_id}";
         $result2 = mysqli_query($conn, $sql);
+        while($row = mysqli_fetch_array($result2)){
+            unlink($row['img_path']);
+        }
 
-        if($result && $result2){
+        $sql = "DELETE FROM image WHERE prod_id = {$d_id}";
+        $result3 = mysqli_query($conn, $sql);
+
+        if($result && $result3){
             header("Location: index.php");
         }
     }
