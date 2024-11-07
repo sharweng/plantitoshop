@@ -30,5 +30,5 @@
             $date = date('Y');
             echo "{$date}";
         ?>
-    <span> LMShop. All rights reserved.</span></div>
+    <span> Plantito's Shop. All rights reserved.</span></div>
 </footer>
