@@ -41,21 +41,26 @@
             while($row2 = mysqli_fetch_array($result2)){
                 echo "<img src=\"{$row2['img_path']}\" height=\"100px\" width=\"100px\">";
             }
-            echo "</td>
+                        echo "</td>
                         <td>{$row['description']}</td>
                         <td>{$row['price']}</td>
                         <td>{$row['quantity']}</td>
                         <td>
-                            <form action=\"edit.php\" method=\"post\">
-                                <button name=\"update_id\" value=\"{$row['prod_id']}\">EDIT</button>
-                            </form>
-                            <form action=\"edit.php\" method=\"post\">
-                                <button name=\"update_id\" value=\"{$row['prod_id']}\">EDIT</button>
-                            </form>
                             <form action=\"\" method=\"post\">
+                                <button name=\"update_btn\" value=\"{$row['prod_id']}\">EDIT</button>
+                            </form>";
+            if(isset($_POST['update_btn'])&&!isset($_POST['no'])&&$_POST['update_btn']==$row['prod_id']){
+                echo "<form action=\"edit.php\" method=\"post\">
+                    <button name=\"update_id\" value=\"{$row['prod_id']}\">YES</button>
+                </form>
+                <form action=\"\" method=\"post\">
+                    <button name=\"no\" value=\"{$row['prod_id']}\">NO</button>
+                </form>";
+            }
+                            echo"<form action=\"\" method=\"post\">
                                 <button name=\"delete_btn\" value=\"{$row['prod_id']}\">DELETE</button>
                             </form>";
-            if(isset($_POST['delete_btn'])&&!isset($_POST['no'])){
+            if(isset($_POST['delete_btn'])&&!isset($_POST['no'])&&$_POST['delete_btn']==$row['prod_id']){
                 echo "<form action=\"delete.php\" method=\"post\">
                     <button name=\"delete_id\" value=\"{$row['prod_id']}\">YES</button>
                 </form>
