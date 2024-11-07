@@ -1,9 +1,13 @@
 <?php
     session_start();
+    include('../includes/config.php');
     if($_SESSION['isAdmin'] == true)
         include('../includes/adminHeader.php');
     else
         include('../includes/header.php');
+
+    $sql = "SELECT p.prod_id, p.description, p.price, s.quantity FROM product p INNER JOIN stock s ON p.prod_id = s.prod_id";
+    $result = mysqli_query($conn, $sql);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -13,6 +17,13 @@
     <title>Products</title>
     <style>
         <?php include('../includes/styles/style.css') ?>
+        form{
+            margin: 0;
+            padding: 0;
+        }
+        .prod_img{
+            
+        }
     </style>
 </head>
 <body>
@@ -20,6 +31,37 @@
     <a href="create.php">
         <button class="add-button">ADD</button>
     </a>
+    <div class="container">
+    <?php 
+        while($row = mysqli_fetch_array($result)){
+            echo "
+                <table>
+                    <tr class=\"details\">
+                        <td>{$row['prod_id']}</td>
+                        <td>";
+            $sql = "SELECT img_path FROM image WHERE prod_id = {$row['prod_id']}";
+            $result2 = mysqli_query($conn, $sql);
+            while($row2 = mysqli_fetch_array($result2)){
+                echo "<img src=\"{$row2['img_path']}\" height=\"100px\" width=\"100px\">";
+            }
+            echo "</td>
+                        <td>{$row['description']}</td>
+                        <td>{$row['price']}</td>
+                        <td>{$row['quantity']}</td>
+                        <td>
+                            <form action=\"edit.php\" method=\"post\">
+                                <button name=\"update_id\" value=\"{$row['prod_id']}\">EDIT</button>
+                            </form>
+                            <form action=\"delete.php\" method=\"post\">
+                                <button name=\"update_id\" value=\"{$row['prod_id']}\">DELETE</button>
+                            </form>
+                        </td>
+                    </tr>
+                </table>
+            ";
+        }
+    ?>
+    </div>
 </body>
 </html>
 <?php
