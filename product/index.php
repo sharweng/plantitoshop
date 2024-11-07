@@ -49,10 +49,21 @@
                             <form action=\"edit.php\" method=\"post\">
                                 <button name=\"update_id\" value=\"{$row['prod_id']}\">EDIT</button>
                             </form>
-                            <form action=\"delete.php\" method=\"post\">
-                                <button name=\"update_id\" value=\"{$row['prod_id']}\">DELETE</button>
+                            <form action=\"edit.php\" method=\"post\">
+                                <button name=\"update_id\" value=\"{$row['prod_id']}\">EDIT</button>
                             </form>
-                        </td>
+                            <form action=\"\" method=\"post\">
+                                <button name=\"delete_btn\" value=\"{$row['prod_id']}\">DELETE</button>
+                            </form>";
+            if(isset($_POST['delete_btn'])&&!isset($_POST['no'])){
+                echo "<form action=\"delete.php\" method=\"post\">
+                    <button name=\"delete_id\" value=\"{$row['prod_id']}\">YES</button>
+                </form>
+                <form action=\"\" method=\"post\">
+                    <button name=\"no\" value=\"{$row['prod_id']}\">NO</button>
+                </form>";
+            }
+            echo"</td>
                     </tr>
                 </table>
             ";
