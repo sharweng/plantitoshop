@@ -21,9 +21,6 @@
             margin: 0;
             padding: 0;
         }
-        .prod_img{
-            
-        }
     </style>
 </head>
 <body>
