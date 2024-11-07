@@ -7,7 +7,7 @@
 ?>
 <header class="site-header">
     <div class="site-identity">
-        <h1><a href="/plantitoshop" class="green-hover">Plantito's Shop</a></h1>
+        <h1><a href="/plantitoshop" class="green-hover fw-bold">Plantito's Shop</a></h1>
     </div>  
     <nav class="site-navigation">
         <ul class="nav">
