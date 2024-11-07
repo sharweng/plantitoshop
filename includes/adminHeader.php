@@ -4,7 +4,6 @@
         header("Location: /plantitoshop/");
     }      
 ?>
-<link rel="stylesheet" href="styles/style.css">
 <header class="site-header">
     <div class="site-identity">
         <h1><a href="/plantitoshop" class="green-hover">Plantito's Shop</a></h1>
