@@ -6,8 +6,18 @@
     else
         include('../includes/header.php');
 
-    $sql = "SELECT p.prod_id, p.description, p.price, s.quantity FROM product p INNER JOIN stock s ON p.prod_id = s.prod_id";
-    $result = mysqli_query($conn, $sql);
+    if(isset($_GET['search']))
+        $keyword = strtolower(trim($_GET['search']));
+    else
+        $keyword = "";
+    
+    if($keyword){
+        $sql = "SELECT p.prod_id, p.description, p.price, s.quantity FROM product p INNER JOIN stock s ON p.prod_id = s.prod_id WHERE description LIKE '%{$keyword}%'";
+        $result = mysqli_query($conn, $sql);
+    }else{
+        $sql = "SELECT p.prod_id, p.description, p.price, s.quantity FROM product p INNER JOIN stock s ON p.prod_id = s.prod_id";
+        $result = mysqli_query($conn, $sql);
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -28,6 +38,10 @@
     <a href="create.php">
         <button class="add-button">ADD</button>
     </a>
+    <form action="" method="get">
+        <input type="text" name="search">
+        <button>Search</button>
+    </form>
     <div class="container">
     <?php 
         while($row = mysqli_fetch_array($result)){
