@@ -150,11 +150,10 @@ a {
 .dark2-green{
     color: #526E48;
 }
-.red-hover:hover{
-    background-color:red;
-    color: white;
-}
-.gray-hover:hover{
-    background-color: rgb(190, 190, 190);
-}
 
+.outer-box{
+    background-color: #9EDF9C;
+}
+.inner-box{
+    background-color: white;
+}
