@@ -67,7 +67,7 @@
                 $sql = "SELECT img_path FROM image WHERE prod_id = {$row['prod_id']}";
                 $result2 = mysqli_query($conn, $sql);
                 while($row2 = mysqli_fetch_array($result2)){
-                    echo "<img class=\"img-thumbnail\" src=\"{$row2['img_path']}\" height=\"100px\" width=\"100px\">";
+                    echo "<img class=\"img-thumbnail image-admin-css\" src=\"{$row2['img_path']}\" height=\"100px\" width=\"100px\">";
                 }
                             echo "</td>
                             <td class=\"col d-flex align-items-center\">
