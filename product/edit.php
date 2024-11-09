@@ -40,58 +40,62 @@
 </head>
 <body>
     <h1 class="text-center p-2 fw-bold">This is the edit product page.</h1>
-    <form action="create.php" method="post">
-        <button class="add-button" name="back">BACK</button>
-    </form>    
-    <form method="post" action="update.php" enctype="multipart/form-data">
-        <label>Product Name:</label>
-        <input class="inputbox" type="text" name="description"  value="<?php
-            echo $row['description'];
-        ?>" required/>
-        <br>
-        <label>Category:</label>
-        <select name="category" >  
-            <?php 
-            while($categories = mysqli_fetch_array($result)){
-                if($categories['cat_id'] == $row['cat_id'])
-                    echo "<option selected value=\"{$categories['cat_id']}\">{$categories['description']}</option>";
-                else
-                    echo "<option value=\"{$categories['cat_id']}\">{$categories['description']}</option>";
-            }
-        ?>
-        </select>
-        <br>
-        <label>Price:</label>
-        <input class="inputbox" type="text" name="price"  value="<?php
-            echo $row['price'];
-        ?>" required/>
-        <br>
-        <label>Quantity:</label> 
-        <input class="inputbox" type="number" placeholder="1" name="quantity" min="1"  value="<?php
-            echo $row['quantity'];
-        ?>" required>
-        <br>
-        <label>Item Picture:</label>
-        <input class="inputbox" type="file" name="img_path[]" multiple accept="image/*">
-        <br>
-        <label>No Upload = Image don't update</label>
-        <br>
-        <?php
-            if(isset($_SESSION['descError'])){
-                echo $_SESSION['descError'];
-                unset($_SESSION['descError']);
-            }
-            if(isset($_SESSION['prcError'])){
-                echo $_SESSION['prcError'];
-                unset($_SESSION['prcError']);
-            }
-            if(isset($_SESSION['qtyError'])){
-                echo $_SESSION['qtyError'];
-                unset($_SESSION['qtyError']);
-            }
-        ?>
-        <button class="button" name="submit">SUBMIT</button>
-    </form>
+    <div class="container-sm outer-box p-3 mb-3 shadow-lg  border border-success border-2">
+        <div class="row top-header pb-3 justify-content-between">
+            <div class="col-2 d-flex align-items-center justify-content-start">
+                <form action="" method="post">
+                    <button class="btn btn-success" name="back">BACK</button>
+                </form> 
+                </div>
+                <div class="col-4 d-flex align-items-center justify-content-end">
+            </div>
+        </div>
+        <div class="container inner-box border border-success border-2 py-2">
+        <form method="post" action="update.php" enctype="multipart/form-data">
+            <label class="form-label">Product Name:</label>
+            <input class="form-control" type="text" name="description"  value="<?php
+                echo $row['description'];
+            ?>" required/>
+            <label class="form-label">Category:</label>
+            <select class="form-select" name="category" >  
+                <?php 
+                while($categories = mysqli_fetch_array($result)){
+                    if($categories['cat_id'] == $row['cat_id'])
+                        echo "<option selected value=\"{$categories['cat_id']}\">{$categories['description']}</option>";
+                    else
+                        echo "<option value=\"{$categories['cat_id']}\">{$categories['description']}</option>";
+                }
+            ?>
+            </select>
+            <label class="form-label">Price:</label>
+            <input class="form-control" type="text" name="price"  value="<?php
+                echo $row['price'];
+            ?>" required/>
+            <label class="form-label">Quantity:</label> 
+            <input class="form-control" type="number" placeholder="1" name="quantity" min="1"  value="<?php
+                echo $row['quantity'];
+            ?>" required>
+            <label class="form-label">Item Picture:</label>
+            <input class="form-control" type="file" name="img_path[]" multiple accept="image/*">
+            <label class="form-text">No Upload = Image don't update</label>
+            <?php
+                if(isset($_SESSION['descError'])){
+                    echo $_SESSION['descError'];
+                    unset($_SESSION['descError']);
+                }
+                if(isset($_SESSION['prcError'])){
+                    echo $_SESSION['prcError'];
+                    unset($_SESSION['prcError']);
+                }
+                if(isset($_SESSION['qtyError'])){
+                    echo $_SESSION['qtyError'];
+                    unset($_SESSION['qtyError']);
+                }
+            ?>
+            <button class="btn btn-success w-100 form-btn my-2" name="submit">SUBMIT</button>
+        </form>
+        </div>
+    </div>
 </body>
 </html>
 <?php
