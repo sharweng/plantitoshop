@@ -29,65 +29,65 @@
 </head>
 <body>
     <h1 class="text-center p-2 fw-bold">This is the add product page.</h1>
-    <form action="create.php" method="post">
-        <button class="add-button" name="back">BACK</button>
-    </form>    
-    <form method="post" action="store.php" enctype="multipart/form-data">
-        <label>Product Name:</label>
-        <input class="inputbox" type="text" name="description" value="<?php
-            if(isset($_SESSION['desc'])){
-                echo $_SESSION['desc'];
-            }?>" required/>
-        <br>
-        <?php 
-        $firstTime = true;
-        while($row = mysqli_fetch_array($result)){
-            if($firstTime){
-                echo "<input type=\"radio\" id=\"cat\" name=\"category\" value=\"{$row['cat_id']}\" checked>
-                <label>{$row['description']}</label>
-                <br>
-                ";
-            }else{
-                echo "<input type=\"radio\" id=\"cat\" name=\"category\" value=\"{$row['cat_id']}\">
-                <label>{$row['description']}</label>
-                <br>
-                ";
-            }
-            $firstTime = false;
-        }
-        ?>
-        <label>Price:</label>
-        <input class="inputbox" type="text" name="price" value="<?php
-            if(isset($_SESSION['prc'])){
-                echo $_SESSION['prc'];
-            }?>" required/>
-        <br>
-        <label>Quantity:</label> 
-        <input class="inputbox" type="number" value="1" placeholder="1" name="quantity" min="1" required>
-        <br>
-        <label>Item Picture:</label>
-        <input class="inputbox" type="file" name="img_path[]" multiple required accept="image/*">
-        <br>
-        <?php
-            if(isset($_SESSION['descError'])){
-                echo $_SESSION['descError'];
-                unset($_SESSION['descError']);
-            }
-            if(isset($_SESSION['prcError'])){
-                echo $_SESSION['prcError'];
-                unset($_SESSION['prcError']);
-            }
-            if(isset($_SESSION['qtyError'])){
-                echo $_SESSION['qtyError'];
-                unset($_SESSION['qtyError']);
-            }
-            if(isset($_SESSION['imgError'])){
-                echo $_SESSION['imgError'];
-                unset($_SESSION['imgError']);
-            }
-        ?>
-        <button class="button" name="submit">SUBMIT</button>
-    </form>
+    <div class="container-sm outer-box p-3 mb-3 shadow-lg  border border-success border-2">
+        <div class="row top-header pb-3 justify-content-between">
+            <div class="col-2 d-flex align-items-center justify-content-start">
+                <form action="" method="post">
+                    <button class="btn btn-success" name="back">BACK</button>
+                </form> 
+            </div>
+            <div class="col-4 d-flex align-items-center justify-content-end">
+            </div>
+        </div>
+        <div class="container inner-box border border-success border-2 py-2">
+            <form method="post" action="store.php" enctype="multipart/form-data">
+                <label class="form-label">Product Name:</label>
+                <input class="form-control" type="text" name="description" value="<?php
+                    if(isset($_SESSION['desc'])){
+                        echo $_SESSION['desc'];
+                    }?>" required/>
+                <label class="form-label">Category:</label>
+                <select class="form-select" name="category">  
+                <?php 
+                    while($categories = mysqli_fetch_array($result)){
+                        if($categories['cat_id'] == $row['cat_id'])
+                            echo "<option selected value=\"{$categories['cat_id']}\">{$categories['description']}</option>";
+                        else
+                            echo "<option value=\"{$categories['cat_id']}\">{$categories['description']}</option>";
+                    }
+                ?>
+                </select>
+                <label class="form-label">Price:</label>
+                <input class="form-control" type="text" name="price" value="<?php
+                    if(isset($_SESSION['prc'])){
+                        echo $_SESSION['prc'];
+                    }?>" required/>
+                <label class="form-label">Quantity:</label> 
+                <input class="form-control" type="number" value="1" placeholder="1" name="quantity" min="1" required>
+                <label class="form-label">Item Picture:</label>
+                <input class="form-control" type="file" name="img_path[]" multiple required accept="image/*">
+                <?php
+                    if(isset($_SESSION['descError'])){
+                        echo $_SESSION['descError'];
+                        unset($_SESSION['descError']);
+                    }
+                    if(isset($_SESSION['prcError'])){
+                        echo $_SESSION['prcError'];
+                        unset($_SESSION['prcError']);
+                    }
+                    if(isset($_SESSION['qtyError'])){
+                        echo $_SESSION['qtyError'];
+                        unset($_SESSION['qtyError']);
+                    }
+                    if(isset($_SESSION['imgError'])){
+                        echo $_SESSION['imgError'];
+                        unset($_SESSION['imgError']);
+                    }
+                ?>
+                <button class="btn btn-success w-100 form-btn my-2" name="submit">SUBMIT</button>
+            </form>
+        </div>
+    </div>
 </body>
 </html>
 <?php
