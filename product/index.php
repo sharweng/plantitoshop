@@ -56,20 +56,15 @@
                     <div class="d-block">
                         <button class="btn btn-success btn-sm w-100">Search</button>
                     </div>
-                    
-                    
                 </div>
-                
             </form>
             </div>
         </div>
-        
-        
         <div class="container">
         <?php 
             while($row = mysqli_fetch_array($result)){
                 echo "
-                    <table>
+                    <table class=\"table table-hover\">
                         <tr class=\"details\">
                             <td>{$row['prod_id']}</td>
                             <td>";
@@ -82,30 +77,24 @@
                             <td>{$row['description']}</td>
                             <td>{$row['price']}</td>
                             <td>{$row['quantity']}</td>
-                            <td>
-                                <form action=\"\" method=\"post\">
-                                    <button name=\"update_btn\" value=\"{$row['prod_id']}\">EDIT</button>
-                                </form>";
-                if(isset($_POST['update_btn'])&&!isset($_POST['no'])&&$_POST['update_btn']==$row['prod_id']){
-                    echo "<form action=\"edit.php\" method=\"post\">
-                        <button name=\"update_id\" value=\"{$row['prod_id']}\">YES</button>
-                    </form>
-                    <form action=\"\" method=\"post\">
-                        <button name=\"no\" value=\"{$row['prod_id']}\">NO</button>
-                    </form>";
-                }
-                                echo"<form action=\"\" method=\"post\">
-                                    <button name=\"delete_btn\" value=\"{$row['prod_id']}\">DELETE</button>
-                                </form>";
-                if(isset($_POST['delete_btn'])&&!isset($_POST['no'])&&$_POST['delete_btn']==$row['prod_id']){
-                    echo "<form action=\"delete.php\" method=\"post\">
-                        <button name=\"delete_id\" value=\"{$row['prod_id']}\">YES</button>
-                    </form>
-                    <form action=\"\" method=\"post\">
-                        <button name=\"no\" value=\"{$row['prod_id']}\">NO</button>
-                    </form>";
-                }
-                echo"</td>
+                            <td class=\"row d-grid gap-1\">
+                                <form action=\"edit.php\" method=\"post\">
+                                    <button class=\"btn btn-warning btn-sm w-100\" name=\"update_id\" value=\"{$row['prod_id']}\">EDIT</button>
+                                </form>
+                                <div class=\"dropdown dropend d-block\">
+                                    <button class=\"btn btn-danger btn-sm w-100 dropdown-toggle\" type=\"button\" data-bs-toggle=\"dropdown\" aria-expanded=\"false\">
+                                        DELETE
+                                    </button>
+                                    <ul class=\"dropdown-menu\">
+                                        <form action=\"delete.php\" method=\"post\">
+                                            <button class=\"dropdown-item btn-sm w-100\" name=\"delete_id\" value=\"{$row['prod_id']}\">YES</button>
+                                        </form>
+                                        <form action=\"\" method=\"post\">
+                                            <button class=\"dropdown-item btn-sm w-100\" name=\"no\" value=\"{$row['prod_id']}\">NO</button>
+                                        </form>
+                                    </ul>
+                                </div>
+                            </td>
                         </tr>
                     </table>
                 ";
