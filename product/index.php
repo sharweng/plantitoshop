@@ -39,20 +39,16 @@
     <h1 class="text-center p-2 fw-bold">This is the product page.</h1>
     <div class="container-sm outer-box p-3 mb-3 shadow-lg  border border-success border-2">
         <div class="row top-header pb-3 justify-content-between">
-            <div class="col-2 d-flex align-items-center justify-content-start">
+            <div class="col-4 d-flex align-items-center justify-content-start">
                 <a href="create.php">
                     <button class="btn btn-success">ADD</button>
                 </a>
             </div>
-            <div class="col-4 d-flex align-items-center justify-content-end">
+            <div class="col-8 d-flex align-items-center justify-content-end">
                 <form action="" method="get">
-                    <div class="row d-grid gap-1">
-                        <div class="d-block">
-                            <input type="text" name="search">
-                        </div>
-                        <div class="d-block">
-                            <button class="btn btn-success w-100 btn-sm">Search</button>
-                        </div>
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="search">
+                        <button class="btn btn-success">Search</button>
                     </div>
                 </form>
             </div>
