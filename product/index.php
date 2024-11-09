@@ -36,7 +36,7 @@
     </style>
 </head>
 <body>
-    <h1 class="text-center p-2">This is the product page.</h1>
+    <h1 class="text-center p-2 fw-bold">This is the product page.</h1>
     <div class="container-sm outer-box p-3 mb-3 shadow-lg  border border-success border-2">
         <div class="row top-header pb-3 justify-content-between">
             <div class="col-2 d-flex align-items-center justify-content-start">

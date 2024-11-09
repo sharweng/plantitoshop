@@ -28,7 +28,7 @@
     </style>
 </head>
 <body>
-    <h1>This is the add product page.</h1>
+    <h1 class="text-center p-2 fw-bold">This is the add product page.</h1>
     <form action="create.php" method="post">
         <button class="add-button" name="back">BACK</button>
     </form>    
