@@ -52,7 +52,7 @@
             $q_stock = "UPDATE stock SET quantity = {$qty} WHERE prod_id = {$u_id}";
             $result2 = mysqli_query($conn, $q_stock);
             
-            if(isset($_FILES['img_path'])){
+            if(!empty($_FILES['img_path']['name'][0])){
                 $sql = "SELECT img_id, img_path FROM image WHERE prod_id = {$u_id}";
                 $result4 = mysqli_query($conn, $sql);
                 $existingImages = mysqli_fetch_all($result4, MYSQLI_ASSOC);
