@@ -68,7 +68,7 @@ if (isset($_POST['submit'])) {
             </div>
             <div class="col-8 d-flex align-items-center justify-content-end gap-2">
                 <button class="btn btn-success" disabled>Profile</button>
-                <a href="/plantitoshop/security.php">
+                <a href="/plantitoshop/user/security.php">
                     <button class="btn btn-success">Security</button>
                 </a>
             </div>

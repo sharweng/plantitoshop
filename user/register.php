@@ -61,12 +61,12 @@ include("../includes/header.php");
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-8">
                         <label class="form-label">Address:</label>
                         <input type="text" class="form-control" name="fname">
                         <label class="form-text"></label><br>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <label class="form-label">Phone Number:</label>
                         <input type="text" class="form-control" name="fname">
                         <label class="form-text"></label><br>
