@@ -30,7 +30,7 @@ include("../includes/header.php");
             <div class="col-8 d-flex align-items-center justify-content-end">
             </div>
         </div>
-        <div class="container inner-box border border-success border-2 py-2">
+        <div class="container inner-box border border-success border-2 py-3 px-4">
             <?php include("../includes/alert.php"); ?>
             <form action="store.php" method="POST">
                 <div class="row">

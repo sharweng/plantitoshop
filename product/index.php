@@ -53,7 +53,7 @@
                 </form>
             </div>
         </div>
-        <div class="container inner-box border border-success border-2">
+        <div class="container inner-box border border-success border-2 py-3 px-4">
         <?php 
             while($row = mysqli_fetch_array($result)){
                 echo "
@@ -68,7 +68,7 @@
                             echo "</td>
                             <td class=\"col d-flex align-items-center\">
                                 <div class=\"col d-grid align-items-center\">{$row['prod_id']}</div>
-                                <div class=\"col d-grid align-items-center\">{$row['description']}</div>
+                                <div class=\"col d-grid align-items-center text-wrap\">{$row['description']}</div>
                                 <div class=\"col d-grid align-items-center\">{$row['price']}</div>
                                 <div class=\"col d-grid align-items-center\">{$row['quantity']}</div>
                                 <div class=\"col d-grid align-items-center\">
