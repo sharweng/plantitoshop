@@ -34,7 +34,7 @@ include("../includes/header.php");
                 <div class="row">
                     <div class="col-md-6">
                         <label class="form-label">Last Name:</label>
-                        <input type="text" class="form-control" name="fname">
+                        <input type="text" class="form-control" name="lname">
                         <label class="form-text"></label><br>
                     </div>
                     <div class="col-md-6">
@@ -61,17 +61,17 @@ include("../includes/header.php");
                 <div class="row">
                     <div class="col-md-8">
                         <label class="form-label">Address:</label>
-                        <input type="text" class="form-control" name="fname">
+                        <input type="text" class="form-control" name="adress">
                         <label class="form-text"></label><br>
                     </div>
                     <div class="col-md-4">
                         <label class="form-label">Phone Number:</label>
-                        <input type="text" class="form-control" name="fname">
+                        <input type="text" class="form-control" name="phone">
                         <label class="form-text"></label><br>
                     </div>
                 </div>
                 <label hidden class="form-label">Role:</label>
-                <select hidden class="form-select" name="category">
+                <select hidden class="form-select" name="role">
                     <option value="">Admin</option>  
                     <option value="">User</option>
                 </select>

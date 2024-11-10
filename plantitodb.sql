@@ -71,8 +71,8 @@ CREATE TABLE review (
 );
 
 INSERT INTO role(description)VALUES
-('admin'),
-('customer');
+('user'),
+('admin');
 
 INSERT INTO category(description)VALUES
 ('None'),

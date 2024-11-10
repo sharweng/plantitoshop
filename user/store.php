@@ -6,6 +6,9 @@ include("../includes/header.php");
 $email = trim($_POST['email']);
 $password = trim($_POST['password']);
 $confirmPass = trim($_POST['confirmPass']);
+$address = trim($_POST['address']);
+$phone = trim($_POST['phone']);
+$role = $_POST['role'];
 if (empty($_POST['email']) || empty($_POST['password']) || empty($_POST['confirmPass'])) {
     $_SESSION['message'] = "\nAll fields are required. Please fill out each field.";
     header("Location: register.php");
