@@ -18,8 +18,8 @@
             header("Location: create.php");
         }else{
             $desc = trim($_POST['description']);
-            if(!preg_match("/^[a-zA-Z0-9\s\-_]$/", $desc)){
-                $_SESSION['descError'] = 'Error: must only contain letters, numbers, spaces, hyphens, and underscores.';
+            if(!preg_match("/^[a-zA-Z0-9\s\-_]{1,50}$/", $desc)){
+                $_SESSION['descError'] = 'Error: must only contain up to 50 letters, numbers, spaces, hyphens, and underscores.';
                 header("Location: create.php");
             }
         }
@@ -51,7 +51,7 @@
             header("Location: create.php");
         }
 
-        if((preg_match("/^[a-zA-Z0-9\s\-_]$/", $desc))&&(preg_match("/^(0|[1-9]\d*)(\.\d{1,2})?$/", $prc))
+        if((preg_match("/^[a-zA-Z0-9\s\-_]{1,50}$/", $desc))&&(preg_match("/^(0|[1-9]\d*)(\.\d{1,2})?$/", $prc))
         &&(preg_match("/^[1-9]\d*$/", $qty))&&(!empty($_FILES['img_path']['name'][0]))){
             // PRODUCT INSERT
             $sql = "INSERT INTO product(description, price, cat_id) VALUES('{$desc}', '{$prc}', '{$cat}')";
