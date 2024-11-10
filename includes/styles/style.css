@@ -153,7 +153,8 @@ a {
 
 .outer-box{
     background-color: #9EDF9C;
-    max-width: 70%;
+    width: 70%;
+    max-width: 700px;
 }
 .inner-box{
     background-color: white;
