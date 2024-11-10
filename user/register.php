@@ -20,7 +20,7 @@ include("../includes/header.php");
 </head>
 <body>
     <h1 class="text-center p-2 fw-bold">This is the register page.</h1>
-    <div class="container-sm outer-box p-3 mb-3 shadow-lg  border border-success border-2">
+    <div class="container-sm outer-box p-3 mb-3 shadow-lg  border border-success border-2 rounded">
         <div class="row top-header pb-3 justify-content-between">
             <div class="col-4 d-flex align-items-center justify-content-start">
                 <a href="/plantitoshop/user/login.php">
@@ -33,19 +33,58 @@ include("../includes/header.php");
         <div class="container inner-box border border-success border-2 py-2">
             <?php include("../includes/alert.php"); ?>
             <form action="store.php" method="POST">
-                <label for="email" class="form-label">Email:</label>
-                <input type="email" class="form-control" id="email" name="email">
+                <div class="row">
+                    <div class="col-md-6">
+                        <label class="form-label">Last Name:</label>
+                        <input type="text" class="form-control" name="fname">
+                        <label class="form-text"></label><br>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">First Name:</label>
+                        <input type="text" class="form-control" name="fname">
+                        <label class="form-text"></label><br>
+                    </div>
+                </div>
+                <label class="form-label">Email:</label>
+                <input type="email" class="form-control" name="email">
+                <label class="form-text"></label><br>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label class="form-label">Password:</label>
+                        <input type="password" class="form-control" name="password">
+                        <label class="form-text"></label><br>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Confirm Password:</label>
+                        <input type="password" class="form-control" name="confirmPass">
+                        <label class="form-text"></label><br>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label class="form-label">Address:</label>
+                        <input type="text" class="form-control" name="fname">
+                        <label class="form-text"></label><br>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Phone Number:</label>
+                        <input type="text" class="form-control" name="fname">
+                        <label class="form-text"></label><br>
+                    </div>
+                </div>
+
+                <label class="form-label">Role:</label>
+                <select class="form-select" name="category">
+                    <option value="">Admin</option>  
+                    <option value="">User</option>
+                </select>
                 <label class="form-text"></label><br>
 
-                <label for="password" class="form-label">Password:</label>
-                <input type="password" class="form-control" id="password" name="password">
-                <label class="form-text"></label><br>
-                
-                <label for="password2" class="form-label">Confirm Password:</label>
-                <input type="password" class="form-control" id="password2" name="confirmPass">
+                <label class="form-label">Profile Picture:</label>
+                <input class="form-control" type="file" name="img_path" accept="image/*">
                 <label class="form-text"></label><br>
 
-                <button type="submit" class="btn btn-success w-100 form-btn my-2" >Register</button>
+                <button type="submit" class="btn btn-success w-100 form-btn my-2" >REGISTER</button>
             </form>
         </div>
     </div>

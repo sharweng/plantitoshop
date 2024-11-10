@@ -69,7 +69,7 @@ if (isset($_POST['submit'])) {
                 <input type="password" class="form-control" name="password"/>
                 <label class="form-text"></label><br>
                 <!-- Submit button -->
-                <button type="submit" class="btn btn-success w-100 form-btn my-2" name="submit">Sign in</button>
+                <button type="submit" class="btn btn-success w-100 form-btn my-2" name="submit">SIGN IN</button>
                 <!-- Register link -->
                 <div class="text-center">
                     <p>Not a member? <a href="register.php" class="green-hover">Register</a></p>
