@@ -1,6 +1,5 @@
 <?php
 include("../includes/header.php");
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -31,7 +30,6 @@ include("../includes/header.php");
             </div>
         </div>
         <div class="container inner-box border border-success border-2 py-3 px-4">
-            <?php include("../includes/alert.php"); ?>
             <form action="store.php" method="POST">
                 <div class="row">
                     <div class="col-md-6">
@@ -72,9 +70,8 @@ include("../includes/header.php");
                         <label class="form-text"></label><br>
                     </div>
                 </div>
-
-                <label class="form-label">Role:</label>
-                <select class="form-select" name="category">
+                <label hidden class="form-label">Role:</label>
+                <select hidden class="form-select" name="category">
                     <option value="">Admin</option>  
                     <option value="">User</option>
                 </select>

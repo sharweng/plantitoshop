@@ -73,46 +73,43 @@ if (isset($_POST['submit'])) {
                 </a>
             </div>
         </div>
-        <div class="card">
-            <div class="card-header">Profile</div>
-            <div class="card-body">
-                <div class="row d-flex justify-content-center align-items-center text-center">
-                    <div class="col-md-6">
-                        <img src="images/default-avatar-icon.jpg" class="rounded-circle" style="width: 150px; height: 150px; object-fit: contain;">
-                        <div class="small font-italic text-muted mb-4">JPG or PNG no larger than 5 MB</div>
-                    </div>
-                    <div class="col-md-6 ">
-                        <!-- Profile picture upload button-->
-                        <input class="form-control" type="file" name="profile_photo" accept="image/*">
-                        <button type="submit" class="btn btn-success w-100 form-btn my-2" >UPLOAD</button>
-                    </div>
+        <div class="container inner-box border border-success border-2 py-3 px-4 pt-4">
+            <div class="row d-flex justify-content-center align-items-center text-center">
+                <div class="col-md-6">
+                    <img src="images/default-avatar-icon.jpg" class="rounded-circle" style="width: 150px; height: 150px; object-fit: contain;">
+                    <div class="small font-italic text-muted mb-4">JPG or PNG no larger than 5 MB</div>
                 </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <label class="form-label">Last Name:</label>
-                        <input type="text" class="form-control" name="fname">
-                        <label class="form-text"></label><br>
-                    </div>
-                    <div class="col-md-6">
-                        <label class="form-label">First Name:</label>
-                        <input type="text" class="form-control" name="fname">
-                        <label class="form-text"></label><br>
-                    </div>
+                <div class="col-md-6 ">
+                    <!-- Profile picture upload button-->
+                    <input class="form-control" type="file" name="profile_photo" accept="image/*">
+                    <button type="submit" class="btn btn-success w-100 form-btn my-2" >UPLOAD</button>
                 </div>
-                <div class="row">
-                    <div class="col-md-8">
-                        <label class="form-label">Address:</label>
-                        <input type="text" class="form-control" name="fname">
-                        <label class="form-text"></label><br>
-                    </div>
-                    <div class="col-md-4">
-                        <label class="form-label">Phone Number:</label>
-                        <input type="text" class="form-control" name="fname">
-                        <label class="form-text"></label><br>
-                    </div>
-                </div>
-                <button class="btn btn-success w-100 form-btn my-2" name="submit">SAVE CHANGES</button>
             </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <label class="form-label">Last Name:</label>
+                    <input type="text" class="form-control" name="fname">
+                    <label class="form-text"></label><br>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">First Name:</label>
+                    <input type="text" class="form-control" name="fname">
+                    <label class="form-text"></label><br>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-8">
+                    <label class="form-label">Address:</label>
+                    <input type="text" class="form-control" name="fname">
+                    <label class="form-text"></label><br>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Phone Number:</label>
+                    <input type="text" class="form-control" name="fname">
+                    <label class="form-text"></label><br>
+                </div>
+            </div>
+            <button class="btn btn-success w-100 form-btn my-2" name="submit">SAVE CHANGES</button>
         </div>
     </div>
 </body>
