@@ -9,35 +9,48 @@
     $_SESSION['u_id'] = $u_id;
 
     if (isset($_POST['submit'])) {
-        $desc = trim($_POST['description']);
-        $prc =  trim($_POST['price']);
-        $qty = $_POST['quantity'];
         $cat = $_POST['category'];
 
         if(empty($_POST['description'])){
-            $_SESSION['descError'] = '<label>Error: please input a PRODUCT DESCRIPTION.</label><br>';
+            $_SESSION['descError'] = 'Error: please enter a product name.';
             header("Location: edit.php");
-        }
-        if(empty($_POST['quantity']) || (! is_numeric($qty))){
-            $_SESSION['qtyError'] = '<label>Error: wrong QUANTITY FORMAT.</label><br>';
-            header("Location: edit.php");
-        }
-        if(empty($_POST['price']) || (! is_numeric($prc))){
-            $_SESSION['prcError'] = '<label>Error: wrong product PRICE FORMAT.</label><br>';
-            header("Location: edit.php");
+        }else{
+            $desc = trim($_POST['description']);
+            if(!preg_match("/^[a-zA-Z0-9\s\-_]{1,50}$/", $desc)){
+                $_SESSION['descError'] = 'Error: must only contain up to 50 letters, numbers, spaces, hyphens, and underscores.';
+                header("Location: edit.php");
+            }
         }
         
-        
+        if(empty($_POST['price'])){
+            $_SESSION['prcError'] = 'Error: please enter a price.';
+            header("Location: edit.php");
+        }else{
+            $prc =  trim($_POST['price']);
+            if(!preg_match("/^(|[1-9]\d*)(\.\d{1,2})?$/", $prc)){
+                $_SESSION['prcError'] = 'Error: must be a valid number, and up to 2 decimal places only.';
+                header("Location: edit.php");
+            }
+        }
 
-        if(!empty($_POST['description']) && !empty($_POST['price'])
-        && (is_numeric($prc)) && !empty($_POST['quantity'])){
+        if(empty($_POST['quantity'])){
+            $_SESSION['qtyError'] = 'Error: please enter a quantity.';
+            header("Location: edit.php");
+        }else{
+            $qty = $_POST['quantity'];
+            if(!preg_match("/^[1-9]\d*$/", $qty)){
+                $_SESSION['qtyError'] = 'Error: must be a positive whole number.';
+                header("Location: edit.php");
+            }
+        }
+
+        if((preg_match("/^[a-zA-Z0-9\s\-_]{1,50}$/", $desc))&&(preg_match("/^(0|[1-9]\d*)(\.\d{1,2})?$/", $prc))
+        &&(preg_match("/^[1-9]\d*$/", $qty))){
             $sql = "UPDATE product SET description = '{$desc}', price = '{$prc}', cat_id = '{$cat}' WHERE prod_id = {$u_id}";
             $result = mysqli_query($conn, $sql);
 
             $q_stock = "UPDATE stock SET quantity = {$qty} WHERE prod_id = {$u_id}";
             $result2 = mysqli_query($conn, $q_stock);
-
-            
             
             if(isset($_FILES['img_path'])){
                 $sql = "SELECT img_id, img_path FROM image WHERE prod_id = {$u_id}";
