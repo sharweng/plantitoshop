@@ -45,7 +45,13 @@
                 <input class="form-control" type="text" name="description" value="<?php
                     if(isset($_SESSION['desc'])){
                         echo $_SESSION['desc'];
-                    }?>" required/>
+                    }?>"/>
+                <label class="form-text text-danger"><?php
+                    if(isset($_SESSION['descError'])){
+                        echo $_SESSION['descError'];
+                        unset($_SESSION['descError']);
+                    }
+                ?></label><br>
                 <label class="form-label">Category:</label>
                 <select class="form-select" name="category">  
                 <?php 
@@ -57,33 +63,34 @@
                     }
                 ?>
                 </select>
+                <label class="form-text"></label><br>
                 <label class="form-label">Price:</label>
                 <input class="form-control" type="text" name="price" value="<?php
                     if(isset($_SESSION['prc'])){
                         echo $_SESSION['prc'];
-                    }?>" required/>
-                <label class="form-label">Quantity:</label> 
-                <input class="form-control" type="number" value="1" placeholder="1" name="quantity" min="1" required>
-                <label class="form-label">Item Picture:</label>
-                <input class="form-control" type="file" name="img_path[]" multiple required accept="image/*">
-                <?php
-                    if(isset($_SESSION['descError'])){
-                        echo $_SESSION['descError'];
-                        unset($_SESSION['descError']);
-                    }
+                    }?>"/>
+                <label class="form-text text-danger"><?php
                     if(isset($_SESSION['prcError'])){
                         echo $_SESSION['prcError'];
                         unset($_SESSION['prcError']);
                     }
+                ?></label><br>
+                <label class="form-label">Quantity:</label> 
+                <input class="form-control" type="number" value="1" placeholder="1" name="quantity" min="1">
+                <label class="form-text text-danger"><?php
                     if(isset($_SESSION['qtyError'])){
                         echo $_SESSION['qtyError'];
                         unset($_SESSION['qtyError']);
                     }
+                ?></label><br>
+                <label class="form-label">Item Picture:</label>
+                <input class="form-control" type="file" name="img_path[]" multiple accept="image/*">
+                <label class="form-text text-danger"><?php
                     if(isset($_SESSION['imgError'])){
                         echo $_SESSION['imgError'];
                         unset($_SESSION['imgError']);
                     }
-                ?>
+                ?></label><br>
                 <button class="btn btn-success w-100 form-btn my-2" name="submit">SUBMIT</button>
             </form>
         </div>

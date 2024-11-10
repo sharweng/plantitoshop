@@ -6,33 +6,53 @@
     $_SESSION['cat'] = $_POST['category'];
     $_SESSION['qty'] = $_POST['quantity'];
 
-
+    $_SESSION['descError'] = "";
+    $_SESSION['prcError'] = "";
+    $_SESSION['qtyError'] = "";
+    $_SESSION['imgcError'] = "";
     if (isset($_POST['submit'])) {
-        $desc = trim($_POST['description']);
-        $prc =  trim($_POST['price']);
-        $qty = $_POST['quantity'];
         $cat = $_POST['category'];
 
         if(empty($_POST['description'])){
-            $_SESSION['descError'] = '<label>Error: please input a PRODUCT DESCRIPTION.</label><br>';
+            $_SESSION['descError'] = 'Error: please enter a product name.';
             header("Location: create.php");
+        }else{
+            $desc = trim($_POST['description']);
+            if(!preg_match("/^[a-zA-Z0-9\s\-_]$/", $desc)){
+                $_SESSION['descError'] = 'Error: must only contain letters, numbers, spaces, hyphens, and underscores.';
+                header("Location: create.php");
+            }
         }
-        if(empty($_POST['quantity']) || (! is_numeric($qty))){
-            $_SESSION['qtyError'] = '<label>Error: wrong QUANTITY FORMAT.</label><br>';
+        
+        if(empty($_POST['price'])){
+            $_SESSION['prcError'] = 'Error: please enter a price.';
             header("Location: create.php");
+        }else{
+            $prc =  trim($_POST['price']);
+            if(!preg_match("/^(|[1-9]\d*)(\.\d{1,2})?$/", $prc)){
+                $_SESSION['prcError'] = 'Error: must be a valid number, and up to 2 decimal places only.';
+                header("Location: create.php");
+            }
         }
-        if(empty($_POST['price']) || (! is_numeric($prc))){
-            $_SESSION['prcError'] = '<label>Error: wrong product PRICE FORMAT.</label><br>';
+
+        if(empty($_POST['quantity'])){
+            $_SESSION['qtyError'] = 'Error: please enter a quantity.';
             header("Location: create.php");
+        }else{
+            $qty = $_POST['quantity'];
+            if(!preg_match("/^[1-9]\d*$/", $qty)){
+                $_SESSION['qtyError'] = 'Error: must be a positive whole number.';
+                header("Location: create.php");
+            }
         }
-        if(!isset($_FILES['img_path']) && empty($_FILES['img_path']['name'][0])){
-            $_SESSION['imgError'] = '<label>Error: upload atleast one FILE.</label><br>';
+
+        if(empty($_FILES['img_path']['name'][0])){
+            $_SESSION['imgError'] = 'Error: upload atleast one file.';
             header("Location: create.php");
         }
 
-        if(!empty($_POST['description']) && !empty($_POST['price'])
-        && (is_numeric($prc)) && !empty($_POST['quantity'])
-        &&(isset($_FILES['img_path']) && !empty($_FILES['img_path']['name'][0]))){
+        if((preg_match("/^[a-zA-Z0-9\s\-_]$/", $desc))&&(preg_match("/^(0|[1-9]\d*)(\.\d{1,2})?$/", $prc))
+        &&(preg_match("/^[1-9]\d*$/", $qty))&&(!empty($_FILES['img_path']['name'][0]))){
             // PRODUCT INSERT
             $sql = "INSERT INTO product(description, price, cat_id) VALUES('{$desc}', '{$prc}', '{$cat}')";
             $result = mysqli_query($conn, $sql);
