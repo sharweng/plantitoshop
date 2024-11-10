@@ -46,30 +46,41 @@ if (isset($_POST['submit'])) {
     </style>
 </head>
 <body>
-    <div class="d-flex justify-content-center align-items-center vh-100">
-        <div class="col-md-6 col-lg-4">
+    <h1 class="text-center p-2 fw-bold">This is the login page.</h1>
+    <div class="container-sm outer-box p-3 mb-3 shadow-lg  border border-success border-2">
+        <div class="row top-header pb-3 justify-content-between">
+            <div class="col-4 d-flex align-items-center justify-content-start">
+                <a href="/plantitoshop/">
+                    <button class="btn btn-success">BACK</button>
+                </a>
+            </div>
+            <div class="col-8 d-flex align-items-center justify-content-end">
+            </div>
+        </div>
+        <div class="container inner-box border border-success border-2 py-2">
             <?php include("../includes/alert.php"); ?>
             <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
                 <!-- Email input -->
-                <div class="form-outline mb-4">
-                    <label class="form-label" for="form2Example1">Email address</label>
-                    <input type="email" id="form2Example1" class="form-control" name="email" required />
-                </div>
-
+                <label class="form-label">Email address</label>
+                <input type="email" class="form-control" name="email" required />
+                <label class="form-text"></label><br>
                 <!-- Password input -->
-                <div class="form-outline mb-4">
-                    <label class="form-label" for="form2Example2">Password</label>
-                    <input type="password" id="form2Example2" class="form-control" name="password" required />
-                </div>
-
+                <label class="form-label">Password</label>
+                <input type="password" class="form-control" name="password" required />
+                <label class="form-text"></label><br>
                 <!-- Submit button -->
-                <button type="submit" class="btn btn-primary btn-block mb-4" name="submit">Sign in</button>
-
+                <button type="submit" class="btn btn-success w-100 form-btn my-2" name="submit">Sign in</button>
                 <!-- Register link -->
                 <div class="text-center">
-                    <p>Not a member? <a href="register.php">Register</a></p>
+                    <p>Not a member? <a href="register.php" class="green-hover">Register</a></p>
                 </div>
             </form>
+        </div>
+    </div>
+    
+    <div class="d-flex justify-content-center align-items-center vh-100">
+        <div class="col-md-6 col-lg-4">
+            
         </div>
     </div>
 </body>
