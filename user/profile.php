@@ -58,79 +58,65 @@ if (isset($_POST['submit'])) {
     </style>
 </head>
 <body>
-    <div class="container-xl px-4 mt-4">
-        <?php include("../includes/alert.php"); ?>
-        <!-- Account page navigation-->
-        <nav class="nav nav-borders">
-            <a class="nav-link active ms-0" href="#">Profile</a>
-        </nav>
-        <hr class="mt-0 mb-4">
-        <div class="row">
-            <div class="col-xl-4">
-                <!-- Profile picture card-->
-                <div class="card mb-4 mb-xl-0">
-                    <div class="card-header">Profile Picture</div>
-                    <div class="card-body text-center">
-                        <!-- Profile picture image-->
-                        <img class="img-account-profile rounded-circle mb-2" 
-                            src="<?php echo htmlspecialchars($photoPreview); ?>" 
-                            alt="Profile Picture" 
-                            style="width: 150px; height: 150px; object-fit: contain;">
-                        <div class="small font-italic text-muted mb-4">JPG or PNG no larger than 5 MB</div>
-                        <!-- Profile picture upload button-->
-                        <input type="file" name="profile_photo" id="profile_photo" accept="image/*" onchange="previewImage(event)" required>
-                    </div>
-                </div>
+    <h1 class="text-center p-2 fw-bold">This is the profile page.</h1>
+    <div class="container-sm outer-box p-3 mb-3 shadow-lg  border border-success border-2 rounded">
+        <div class="row top-header pb-3 justify-content-between">
+            <div class="col-4 d-flex align-items-center justify-content-start">
+                <a href="/plantitoshop/">
+                    <button class="btn btn-success">BACK</button>
+                </a>
             </div>
-            <div class="col-xl-8">
-                <!-- Account details card-->
-                <div class="card mb-4">
-                    <div class="card-header">Account Details</div>
-                    <div class="card-body">
-                        <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST" enctype="multipart/form-data">
-                            <!-- Form Row-->
-                            <div class="row gx-3 mb-3">
-                                <div class="col-md-6">
-                                    <label class="small mb-1" for="inputFirstName">First name</label>
-                                    <input class="form-control" id="inputFirstName" type="text" placeholder="Enter your first name" name="fname" required>
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="small mb-1" for="inputLastName">Last name</label>
-                                    <input class="form-control" id="inputLastName" type="text" placeholder="Enter your last name" name="lname" required>
-                                </div>
-                            </div>
-                            <div class="row gx-3 mb-3">
-                                <div class="col-md-6">
-                                    <label class="small mb-1" for="address">Address</label>
-                                    <input class="form-control" id="address" type="text" placeholder="Enter your address" name="addressline" required>
-                                </div>
-                            
-                            <div class="row gx-3 mb-3">
-                                <div class="col-md-6">
-                                    <label class="small mb-1" for="inputPhone">Phone number</label>
-                                    <input class="form-control" id="inputPhone" type="tel" placeholder="Enter your phone number" name="phone" required>
-                                </div>
-                                <div class="row gx-3 mb-3">
-                                <div class="col-md-6">
-                                    <label class="small mb-1" for="role">Role</label>
-                                    <input class="form-control" id="role" type="text" placeholder="choose your role" name="role_id" required>
-                                </div>
-                            </div>
-                            <button class="btn btn-primary" type="submit" name="submit">Save changes</button>
-                        </form>
+            <div class="col-8 d-flex align-items-center justify-content-end gap-2">
+                <button class="btn btn-success" disabled>Profile</button>
+                <a href="/plantitoshop/security.php">
+                    <button class="btn btn-success">Security</button>
+                </a>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header">Profile</div>
+            <div class="card-body">
+                <div class="row d-flex justify-content-center align-items-center text-center">
+                    <div class="col-md-6">
+                        <img src="images/default-avatar-icon.jpg" class="rounded-circle" style="width: 150px; height: 150px; object-fit: contain;">
+                        <div class="small font-italic text-muted mb-4">JPG or PNG no larger than 5 MB</div>
+                    </div>
+                    <div class="col-md-6 ">
+                        <!-- Profile picture upload button-->
+                        <input class="form-control" type="file" name="profile_photo" accept="image/*">
+                        <button type="submit" class="btn btn-success w-100 form-btn my-2" >UPLOAD</button>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label class="form-label">Last Name:</label>
+                        <input type="text" class="form-control" name="fname">
+                        <label class="form-text"></label><br>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">First Name:</label>
+                        <input type="text" class="form-control" name="fname">
+                        <label class="form-text"></label><br>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8">
+                        <label class="form-label">Address:</label>
+                        <input type="text" class="form-control" name="fname">
+                        <label class="form-text"></label><br>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Phone Number:</label>
+                        <input type="text" class="form-control" name="fname">
+                        <label class="form-text"></label><br>
+                    </div>
+                </div>
+                <button class="btn btn-success w-100 form-btn my-2" name="submit">SAVE CHANGES</button>
             </div>
         </div>
     </div>
 </body>
 </html>
-<script>
-function previewImage(event) {
-    const image = document.querySelector('.img-account-profile');
-    image.src = URL.createObjectURL(event.target.files[0]);
-}
-</script>
 <?php
 include("../includes/footer.php");
 ?>
