@@ -3,7 +3,9 @@
         $_SESSION['isAdmin'] = true;
         header("Location: /plantitoshop/");
     }
-        
+    if(isset($_POST['login'])){
+        header("Location: /plantitoshop/user/login.php");
+    }  
 ?>
 <header class="site-header">
     <div class="site-identity">
@@ -19,7 +21,7 @@
     <div class="site-navigation">
         <ul class="nav">
             <li><a href="#" class="green-hover">Cart</a></li>
-            <li><form action="" method="post"><button class="anchor-style green-hover" name="admin">Login</button></form></li>
+            <li><form action="" method="post"><button class="anchor-style green-hover" name="login">Login</button></form></li>
         </ul>
     </div>
 </header>
