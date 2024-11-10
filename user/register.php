@@ -19,26 +19,35 @@ include("../includes/header.php");
     </style>
 </head>
 <body>
-    <div class="container-fluid container-lg">
-        <?php include("../includes/alert.php"); ?>
-        <form action="store.php" method="POST">
-            <div class="mb-3">
-                <label for="email" class="form-label">email</label>
+    <h1 class="text-center p-2 fw-bold">This is the register page.</h1>
+    <div class="container-sm outer-box p-3 mb-3 shadow-lg  border border-success border-2">
+        <div class="row top-header pb-3 justify-content-between">
+            <div class="col-4 d-flex align-items-center justify-content-start">
+                <a href="/plantitoshop/user/login.php">
+                    <button class="btn btn-success">BACK</button>
+                </a>
+            </div>
+            <div class="col-8 d-flex align-items-center justify-content-end">
+            </div>
+        </div>
+        <div class="container inner-box border border-success border-2 py-2">
+            <?php include("../includes/alert.php"); ?>
+            <form action="store.php" method="POST">
+                <label for="email" class="form-label">Email:</label>
                 <input type="email" class="form-control" id="email" name="email">
-            </div>
+                <label class="form-text"></label><br>
 
-            <div class="mb-3">
-                <label for="password" class="form-label">password</label>
+                <label for="password" class="form-label">Password:</label>
                 <input type="password" class="form-control" id="password" name="password">
-            </div>
-
-            <div class="mb-3">
-                <label for="password2" class="form-label">confirm password</label>
+                <label class="form-text"></label><br>
+                
+                <label for="password2" class="form-label">Confirm Password:</label>
                 <input type="password" class="form-control" id="password2" name="confirmPass">
-            </div>
+                <label class="form-text"></label><br>
 
-            <button type="submit" class="btn btn-primary">Register</button>
-        </form>
+                <button type="submit" class="btn btn-success w-100 form-btn my-2" >Register</button>
+            </form>
+        </div>
     </div>
 </body>
 </html>

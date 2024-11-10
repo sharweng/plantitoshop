@@ -61,11 +61,11 @@ if (isset($_POST['submit'])) {
             <?php include("../includes/alert.php"); ?>
             <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
                 <!-- Email input -->
-                <label class="form-label">Email address</label>
+                <label class="form-label">Email Address:</label>
                 <input type="email" class="form-control" name="email"/>
                 <label class="form-text"></label><br>
                 <!-- Password input -->
-                <label class="form-label">Password</label>
+                <label class="form-label">Password:</label>
                 <input type="password" class="form-control" name="password"/>
                 <label class="form-text"></label><br>
                 <!-- Submit button -->
