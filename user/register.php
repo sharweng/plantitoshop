@@ -1,5 +1,10 @@
 <?php
-include("../includes/header.php");
+    session_start();
+    include("../includes/config.php");
+    include("../includes/header.php");
+
+    $sql = "SELECT * FROM role";
+    $roles = mysqli_query($conn, $sql);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -30,58 +35,112 @@ include("../includes/header.php");
             </div>
         </div>
         <div class="container inner-box border border-success border-2 py-3 px-4">
-            <form action="store.php" method="POST">
+            <form action="store.php" method="post">
                 <div class="row">
                     <div class="col-md-6">
                         <label class="form-label">Last Name:</label>
-                        <input type="text" class="form-control" name="lname">
-                        <label class="form-text"></label><br>
+                        <input type="text" class="form-control" name="lname" value="<?php
+                        if(isset($_SESSION['lname'])){
+                            echo $_SESSION['lname'];
+                        }?>">
                     </div>
                     <div class="col-md-6">
                         <label class="form-label">First Name:</label>
-                        <input type="text" class="form-control" name="fname">
-                        <label class="form-text"></label><br>
+                        <input type="text" class="form-control" name="fname" value="<?php
+                        if(isset($_SESSION['fname'])){
+                            echo $_SESSION['fname'];
+                        }?>">
                     </div>
                 </div>
+                <label class="form-text text-danger"><?php
+                    if(isset($_SESSION['lnameErr'])){
+                        echo $_SESSION['lnameErr'];
+                        unset($_SESSION['lnameErr']);
+                    }
+                    if(isset($_SESSION['fnameErr'])){
+                        echo $_SESSION['fnameErr'];
+                        unset($_SESSION['fnameErr']);
+                    }
+                ?></label><br>
                 <label class="form-label">Email:</label>
-                <input type="email" class="form-control" name="email">
-                <label class="form-text"></label><br>
+                <input type="email" class="form-control" name="email" value="<?php
+                    if(isset($_SESSION['email'])){
+                        echo $_SESSION['email'];
+                    }?>">
+                <label class="form-text text-danger"><?php
+                    if(isset($_SESSION['emailErr'])){
+                        echo $_SESSION['emailErr'];
+                        unset($_SESSION['emailErr']);
+                    }
+                ?></label><br>
                 <div class="row">
                     <div class="col-md-6">
                         <label class="form-label">Password:</label>
-                        <input type="password" class="form-control" name="password">
-                        <label class="form-text"></label><br>
+                        <input type="password" class="form-control" name="password" value="<?php
+                        if(isset($_SESSION['pass'])){
+                            echo $_SESSION['pass'];
+                        }?>">
                     </div>
                     <div class="col-md-6">
                         <label class="form-label">Confirm Password:</label>
-                        <input type="password" class="form-control" name="confirmPass">
-                        <label class="form-text"></label><br>
+                        <input type="password" class="form-control" name="confirmPass" value="<?php
+                        if(isset($_SESSION['cpass'])){
+                            echo $_SESSION['cpass'];
+                        }?>">
                     </div>
                 </div>
+                <label class="form-text text-danger"><?php
+                    if(isset($_SESSION['passErr'])){
+                        echo $_SESSION['passErr'];
+                        unset($_SESSION['passErr']);
+                    }
+                ?></label><br>
                 <div class="row">
                     <div class="col-md-8">
                         <label class="form-label">Address:</label>
-                        <input type="text" class="form-control" name="adress">
-                        <label class="form-text"></label><br>
+                        <input type="text" class="form-control" name="address" value="<?php
+                        if(isset($_SESSION['add'])){
+                            echo $_SESSION['add'];
+                        }?>">
                     </div>
                     <div class="col-md-4">
                         <label class="form-label">Phone Number:</label>
-                        <input type="text" class="form-control" name="phone">
-                        <label class="form-text"></label><br>
+                        <input type="text" class="form-control" name="phone" value="<?php
+                        if(isset($_SESSION['phone'])){
+                            echo $_SESSION['phone'];
+                        }?>">
                     </div>
                 </div>
+                <label class="form-text text-danger"><?php
+                    if(isset($_SESSION['addErr'])){
+                        echo $_SESSION['addErr'];
+                        unset($_SESSION['addErr']);
+                    }
+                    if(isset($_SESSION['phoneErr'])){
+                        echo $_SESSION['phoneErr'];
+                        unset($_SESSION['phoneErr']);
+                    }
+                ?></label><br>
                 <label hidden class="form-label">Role:</label>
                 <select hidden class="form-select" name="role">
-                    <option value="">Admin</option>  
-                    <option value="">User</option>
+                <?php
+                    while($role = mysqli_fetch_array($roles)){
+                        echo "<option value=\"{$role['role_id']}\">{$role['description']}</option>";
+                    }
+                ?>
                 </select>
-                <label class="form-text"></label><br>
+                <label class="form-text text-danger"></label><br>
 
                 <label class="form-label">Profile Picture:</label>
-                <input class="form-control" type="file" name="img_path" accept="image/*">
-                <label class="form-text"></label><br>
+                <input class="form-control" type="file" name="pfp_path" accept="image/*">
+                <label class="form-text text-danger"><?php
+                    if(isset($_SESSION['pfpErr'])){
+                        echo $_SESSION['pfpErr'];
+                        unset($_SESSION['pfpErr']);
+                    }
+                ?></label><br>
 
-                <button type="submit" class="btn btn-success w-100 form-btn my-2" >REGISTER</button>
+                <button type="submit" class="btn btn-success w-100 form-btn my-2" name="submit">REGISTER</button>
             </form>
         </div>
     </div>
