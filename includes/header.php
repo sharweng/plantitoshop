@@ -1,8 +1,4 @@
 <?php
-    if(isset($_POST['admin'])){
-        $_SESSION['isAdmin'] = true;
-        header("Location: /plantitoshop/");
-    }
     if(isset($_POST['login'])){
         header("Location: /plantitoshop/user/login.php");
     }  
