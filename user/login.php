@@ -77,12 +77,6 @@ if (isset($_POST['submit'])) {
             </form>
         </div>
     </div>
-    
-    <div class="d-flex justify-content-center align-items-center vh-100">
-        <div class="col-md-6 col-lg-4">
-            
-        </div>
-    </div>
 </body>
 </html>
 <?php
