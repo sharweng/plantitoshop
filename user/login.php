@@ -7,23 +7,20 @@ include("../includes/config.php");
 if (isset($_POST['submit'])) {
     $email = trim($_POST['email']);
     $pass = sha1(trim($_POST['password']));
-    $sql = "SELECT user_id, email, fname, lname, profile_photo FROM user WHERE email=? AND password=? LIMIT 1";
+    $sql = "SELECT u.user_id, u.email, r.description FROM user u INNER JOIN role r ON u.role_id = r.role_id WHERE u.email=? AND u.password=? LIMIT 1";
     $stmt = mysqli_prepare($conn, $sql);
     mysqli_stmt_bind_param($stmt, 'ss', $email, $pass);
     mysqli_stmt_execute($stmt);
     mysqli_stmt_store_result($stmt);
-    mysqli_stmt_bind_result($stmt, $user_id, $email, $fname, $lname, $profile_photo);
+    mysqli_stmt_bind_result($stmt, $user_id, $email, $role);
     if (mysqli_stmt_num_rows($stmt) === 1) {
         mysqli_stmt_fetch($stmt);
 
-        // Store user info in session
         $_SESSION['email'] = $email;
         $_SESSION['user_id'] = $user_id;
-        $_SESSION['fname'] = $fname;
-        $_SESSION['lname'] = $lname;
-        $_SESSION['profile_photo'] = $profile_photo; // Store profile photo path in session
+        $_SESSION['role'] = $role;
 
-        header("Location: ../index.php"); // Redirect to home page after successful login
+        header("Location: /plantitoshop/"); 
     } else {
         $_SESSION['message'] = 'Wrong email or password';
     }
