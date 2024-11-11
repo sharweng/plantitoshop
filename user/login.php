@@ -12,13 +12,13 @@ if (isset($_POST['submit'])) {
     mysqli_stmt_bind_param($stmt, 'ss', $email, $pass);
     mysqli_stmt_execute($stmt);
     mysqli_stmt_store_result($stmt);
-    mysqli_stmt_bind_result($stmt, $user_id, $email, $role);
+    mysqli_stmt_bind_result($stmt, $user_id, $email, $roleDesc);
     if (mysqli_stmt_num_rows($stmt) === 1) {
         mysqli_stmt_fetch($stmt);
 
-        $_SESSION['email'] = $email;
         $_SESSION['user_id'] = $user_id;
-        $_SESSION['role'] = $role;
+        $_SESSION['email'] = $email;
+        $_SESSION['roleDesc'] = $roleDesc;
 
         header("Location: /plantitoshop/"); 
     } else {
