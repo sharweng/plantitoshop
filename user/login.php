@@ -1,30 +1,29 @@
 <?php
+    session_start();
+    include("../includes/header.php");
+    include("../includes/config.php");
 
-include("../includes/header.php");
-include("../includes/config.php");
+    if (isset($_POST['submit'])) {
+        $email = trim($_POST['email']);
+        $pass = trim($_POST['password']);
+        $sql = "SELECT u.user_id, u.email, r.description FROM user u INNER JOIN role r ON u.role_id = r.role_id WHERE u.email=? AND u.password=? LIMIT 1";
+        $stmt = mysqli_prepare($conn, $sql);
+        mysqli_stmt_bind_param($stmt, 'ss', $email, $pass);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_store_result($stmt);
+        mysqli_stmt_bind_result($stmt, $user_id, $email, $roleDesc);
+        if (mysqli_stmt_num_rows($stmt) === 1) {
+            mysqli_stmt_fetch($stmt);
 
-// After successful login, fetch user data
-if (isset($_POST['submit'])) {
-    $email = trim($_POST['email']);
-    $pass = sha1(trim($_POST['password']));
-    $sql = "SELECT u.user_id, u.email, r.description FROM user u INNER JOIN role r ON u.role_id = r.role_id WHERE u.email=? AND u.password=? LIMIT 1";
-    $stmt = mysqli_prepare($conn, $sql);
-    mysqli_stmt_bind_param($stmt, 'ss', $email, $pass);
-    mysqli_stmt_execute($stmt);
-    mysqli_stmt_store_result($stmt);
-    mysqli_stmt_bind_result($stmt, $user_id, $email, $roleDesc);
-    if (mysqli_stmt_num_rows($stmt) === 1) {
-        mysqli_stmt_fetch($stmt);
+            $_SESSION['user_id'] = $user_id;
+            $_SESSION['email'] = $email;
+            $_SESSION['roleDesc'] = $roleDesc;
 
-        $_SESSION['user_id'] = $user_id;
-        $_SESSION['email'] = $email;
-        $_SESSION['roleDesc'] = $roleDesc;
-
-        header("Location: /plantitoshop/"); 
-    } else {
-        $_SESSION['message'] = 'Wrong email or password';
+            header("Location: /plantitoshop/"); 
+        } else {
+            $_SESSION['message'] = 'Wrong email or password';
+        }
     }
-}
 ?>
 <!DOCTYPE html>
 <html lang="en">

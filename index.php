@@ -1,6 +1,6 @@
 <?php
     session_start();
-    if($_SESSION['isAdmin'] == true)
+    if($_SESSION['roleDesc'] == 'admin')
         include('includes/adminHeader.php');
     else
         include('includes/header.php');
