@@ -164,3 +164,6 @@ a {
     width: 100px;
     object-fit: contain;
 }
+.header-width{
+    width: 62px;
+}

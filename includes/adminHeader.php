@@ -34,9 +34,9 @@
             <li><a href="#" class="green-hover">Cart</a></li>
             <?php
                 if($_SESSION['roleDesc'] == "admin" || $_SESSION['roleDesc'] == "user")
-                    echo "<li><form action=\"\" method=\"post\"><button class=\"anchor-style green-hover\" name=\"logout\">Logout</button></form></li>";
+                    echo "<li><form action=\"\" method=\"post\"><button class=\"anchor-style header-width green-hover\" name=\"logout\">Logout</button></form></li>";
                 else
-                    echo "<li><form action\ method=\"post\"><button class=\"anchor-style green-hover\" name=\"login\">Login</button></form></li>";
+                    echo "<li><form action\ method=\"post\"><button class=\"anchor-style header-width green-hover\" name=\"login\">Login</button></form></li>";
             ?>
         </ul>
     </div>
