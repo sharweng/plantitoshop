@@ -1,7 +1,6 @@
 <?php
     session_start();
     include("../includes/config.php");
-    include("../includes/header.php");
 
     $_SESSION['lname'] = trim($_POST['lname']);
     $_SESSION['fname'] = trim($_POST['fname']);
@@ -17,7 +16,7 @@
     $_SESSION['passErr'] = "";
     $_SESSION['addErr'] = "";
     $_SESSION['phoneErr'] = "";
-    $_SESSION['imgErr'] = "";
+    $_SESSION['pfpErr'] = "";
 
     if(isset($_POST['submit'])){
         if(empty($_POST['lname'])){
@@ -25,7 +24,7 @@
             header("Location: register.php");
         }else{
             $lname = trim($_POST['lname']);
-            if(!preg_match("/^[A-Za-z'-]{2,50}$/", $lname)){
+            if(!preg_match("/^[A-Za-z' -]{2,50}$/", $lname)){
                 $_SESSION['lnameErr'] = "Error: please enter a valid last name. ";
                 header("Location: register.php");
             }
@@ -36,7 +35,7 @@
             header("Location: register.php");
         }else{
             $fname = trim($_POST['fname']);
-            if(!preg_match("/^[A-Za-z'-]{2,50}$/", $fname)){
+            if(!preg_match("/^[A-Za-z' -]{2,50}$/", $fname)){
                 $_SESSION['fnameErr'] = "Error: please enter a valid first name. ";
                 header("Location: register.php");
             }
@@ -62,7 +61,7 @@
         }else{
             $pass = trim($_POST['password']);
             if(!preg_match("/^.{12,}$/", $pass)){
-                $_SESSION['passErr'] = "Error: password must be atleast 123 characters long. ";
+                $_SESSION['passErr'] = "Error: password must be atleast 12 characters long. ";
                 header("Location: register.php");
             }
         }
@@ -89,16 +88,17 @@
             }
         }
 
-        if(empty($_FILES['pfp_path'])){
-            $_SESSION['pfpErr'] = 'Error: please upload one file.';
-            
-            header("Location: register.php");
+        if(isset($_FILES['pfp_path'])){
+            if(!$_FILES['img_path']['type'] == "image/*"){
+                $_SESSION['pfpErr'] = 'Error: please upload one file.';
+                header("Location: register.php");    
+            }  
         }
 
-        if((preg_match("/^[A-Za-z'-]{2,50}$/", $lname))&&(preg_match("/^[A-Za-z'-]{2,50}$/", $fname))
+        if((preg_match("/^[A-Za-z' -]{2,50}$/", $lname))&&(preg_match("/^[A-Za-z' -]{2,50}$/", $fname))
         &&(preg_match("/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/", $email))
         &&(preg_match("/^.{12,}$/", $pass))&&(preg_match("/^[A-Za-z0-9\s.,'-]{5,100}$/", $add))
-        &&(preg_match("/^\d{11}$/", $phone))&&!(empty($_FILES['pfp_path']))){
+        &&(preg_match("/^\d{11}$/", $phone))&&(isset($_FILES['pfp_path']))){
             $password = sha1($pass);
             $role = $_POST['role'];
 
@@ -110,6 +110,13 @@
             ('$email', '$password', '$lname', '$fname', '$add', '$phone', '$target', $role)";
             $result = mysqli_query($conn, $sql);
             if($result){
+                $_SESSION['lname'] = '';
+                $_SESSION['fname'] = '';
+                $_SESSION['email'] = '';
+                $_SESSION['pass'] = '';
+                $_SESSION['cpass'] = '';
+                $_SESSION['add'] = '';
+                $_SESSION['phone'] = '';
                 header("Location: /plantitoshop/");
             }
         }

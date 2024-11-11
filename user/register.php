@@ -5,6 +5,16 @@
 
     $sql = "SELECT * FROM role";
     $roles = mysqli_query($conn, $sql);
+
+    if(isset($_POST['back'])){
+        $_SESSION['lname'] = '';
+        $_SESSION['fname'] = '';
+        $_SESSION['email'] = '';
+        $_SESSION['pass'] = '';
+        $_SESSION['cpass'] = '';
+        $_SESSION['add'] = '';
+        $_SESSION['phone'] = '';
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -27,15 +37,15 @@
     <div class="container-sm outer-box p-3 mb-3 shadow-lg  border border-success border-2 rounded">
         <div class="row top-header pb-3 justify-content-between">
             <div class="col-4 d-flex align-items-center justify-content-start">
-                <a href="/plantitoshop/user/login.php">
-                    <button class="btn btn-success">BACK</button>
-                </a>
+                <form action="login.php" method="post">
+                    <button class="btn btn-success" name="back">BACK</button>
+                </form>
             </div>
             <div class="col-8 d-flex align-items-center justify-content-end">
             </div>
         </div>
         <div class="container inner-box border border-success border-2 py-3 px-4">
-            <form action="store.php" method="post">
+            <form action="store.php" method="post" enctype="multipart/form-data">
                 <div class="row">
                     <div class="col-md-6">
                         <label class="form-label">Last Name:</label>
