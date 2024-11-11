@@ -1,5 +1,9 @@
 <?php
     session_start();
+    if(!isset($_SESSION['roleDesc'])){
+        $_SESSION['roleDesc'] = "";
+    }
+        
     if($_SESSION['roleDesc'] == 'admin')
         include('includes/adminHeader.php');
     else
