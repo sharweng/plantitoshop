@@ -138,8 +138,14 @@
                 <label hidden class="form-label">Role:</label>
                 <select hidden class="form-select" name="role">
                 <?php
+                    $counter = 1;
                     while($role = mysqli_fetch_array($roles)){
-                        echo "<option value=\"{$role['role_id']}\">{$role['description']}</option>";
+                        if($counter == 2){
+                            echo "<option selected value=\"{$role['role_id']}\">{$role['description']}</option>";
+                        }else{
+                            echo "<option value=\"{$role['role_id']}\">{$role['description']}</option>";
+                        }
+                        $counter++;
                     }
                 ?>
                 </select>

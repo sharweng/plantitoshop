@@ -9,7 +9,7 @@
 
     if (isset($_POST['submit'])) {
         $email = trim($_POST['email']);
-        $pass = trim($_POST['password']);
+        $pass = sha1(trim($_POST['password']));
         $sql = "SELECT u.user_id, u.email, r.description FROM user u INNER JOIN role r ON u.role_id = r.role_id WHERE u.email=? AND u.password=? LIMIT 1";
         $stmt = mysqli_prepare($conn, $sql);
         mysqli_stmt_bind_param($stmt, 'ss', $email, $pass);
