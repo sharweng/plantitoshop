@@ -5,9 +5,9 @@
     }
         
     if($_SESSION['roleDesc'] == 'admin')
-        include('includes/adminHeader.php');
+        include('../includes/adminHeader.php');
     else
-        include('includes/header.php');
+        include('../includes/header.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">

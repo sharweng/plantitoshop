@@ -2,9 +2,9 @@
 include("../includes/config.php");
 
 if($_SESSION['roleDesc'] == 'admin')
-    include('includes/adminHeader.php');
+    include('../includes/adminHeader.php');
 else
-    include('includes/header.php');
+    include('../includes/header.php');
 
 $photoPreview = ''; // Initialize photo preview variable
 
