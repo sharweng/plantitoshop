@@ -6,7 +6,7 @@
         header("Location: /plantitoshop/user/logout.php");
     }
 ?>
-<nav class="navbar navbar-expand-sm bg-body-tertiary site-header">
+<nav class="navbar navbar-expand-sm bg-body-tertiary site-header border-bottom">
     <div class="container-fluid" style="max-width: 1000px;">
         <a class="navbar-brand fw-bold green-hover" href="/plantitoshop/">Plantito's Shop</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
