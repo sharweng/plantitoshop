@@ -4,10 +4,7 @@
         $_SESSION['roleDesc'] = "";
     }
         
-    if($_SESSION['roleDesc'] == 'admin')
-        include('includes/adminHeader.php');
-    else
-        include('includes/header.php');
+    include('includes/headerBS.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">

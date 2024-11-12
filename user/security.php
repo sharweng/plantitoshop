@@ -38,7 +38,6 @@
             exit();
         }
         
-        // Handle the file upload
         
         if ($result) {
             $_SESSION['success'] = 'Security Saved';
