@@ -4,8 +4,7 @@
 
     include('../includes/headerBS.php');
 
-    $photoPreview = ''; 
-
+    $_SESSION['path'] = "";
     if (isset($_POST['submit'])) {
         $lname = trim($_POST['lname']);
         $fname = trim($_POST['fname']);
@@ -13,22 +12,21 @@
         $phone = trim($_POST['phone']);
         $role_id = trim($_POST['role_id']);
 
-        // Handle the file upload
-        if (isset($_FILES['profile_photo']) && $_FILES['profile_photo']['error'] === 0) {
-            $targetDir = "../uploads/profile_photos/";
-            $fileName = basename($_FILES['profile_photo']['name']);
-            $targetFilePath = $targetDir . $fileName;
+        echo $_SESSION['user_id'];
+        $sql = "SELECT pfp_path FROM user WHERE user_id = {$_SESSION['user_id']}";
+        $DBpath = mysqli_query($conn, $sql);
+        while($row = mysqli_fetch_array($DBpath)){
+            $_SESSION['path'] = $row['pfp_path'];
+        }
 
-            // Move uploaded file to target directory
-            if (move_uploaded_file($_FILES['profile_photo']['tmp_name'], $targetFilePath)) {
-                // Save relative path to database
-                $profilePhotoPath = "../uploads/profile_photos/" . $fileName;
-            } else {
-                // Handle error
-                $profilePhotoPath = "images/default_profile.png"; // Placeholder if upload fails
-            }
-        } else {
-            $profilePhotoPath = "images/default_profile.png"; // Default image if no file is uploaded
+        if (isset($_FILES['profile_photo'])) {
+            $source = $_FILES['pfp_path']['tmp_name'];
+            $target = 'images/' . $_FILES['pfp_path']['name'];
+           
+            if(!move_uploaded_file($source, $target))
+                $pfp_path = "images/default-avatar-icon.jpg"; 
+        }else{
+            $pfp_path = "images/default-avatar-icon.jpg"; 
         }
 
         // Insert user details into database
@@ -78,15 +76,15 @@
         <div class="container inner-box border border-success border-2 py-3 px-4 pt-4">
             <div class="row d-flex justify-content-center align-items-center text-center">
                 <div class="col-md-6">
-                    <img src="" class="rounded-circle" style="width: 150px; height: 150px; object-fit: contain;">
+                    <img src="<?php echo $_SESSION['path'] ?>" class="rounded-circle" style="width: 150px; height: 150px; object-fit: contain;">
                     <div class="small font-italic text-muted mb-4">JPG or PNG no larger than 5 MB</div>
                 </div>
                 <div class="col-md-6 ">
-                    <!-- Profile picture upload button-->
                     <input class="form-control" type="file" name="profile_photo" accept="image/*">
                     <button type="submit" class="btn btn-success w-100 form-btn my-2" >UPLOAD</button>
                 </div>
             </div>
+            <?php echo $_SESSION['path'] ?>
             <div class="row">
                 <div class="col-md-6">
                     <label class="form-label">Last Name:</label>
