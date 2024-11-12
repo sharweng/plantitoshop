@@ -9,38 +9,40 @@
         $currPass = sha1(trim($_POST['currpassword']));
         $pass = trim($_POST['password']);
         $passCon = trim($_POST['confirmPass']);
-
         $sql = "SELECT password FROM user WHERE user_id = $u_id";
         $DBpass = mysqli_query($conn, $sql);
-        while($row = mysqli_fetch_array($DBpass))
+        while($row = mysqli_fetch_array($DBpass)){
             $currpassDB = $row['password'];
+        }
 
         if(empty($_POST['currpassword'])){
             $_SESSION['currpassErr'] = 'Error: please enter your current password.';
             header("Location: security.php");
-        }
-        if($currPass != $currpassDB){
+        }elseif($currPass != $currpassDB){
             $_SESSION['currpassErr'] = 'Error: wrong current password.';
             header("Location: security.php");
         }
         if(empty($_POST['password'])||empty($_POST['confirmPass'])){
-            $_SESSION['passErr'] = 'Enter new password';
+            $_SESSION['passErr'] = 'Error: enter new password.';
             header("Location: security.php");
-
-        }
-        if($pass == $passCon){
-
+        }elseif($pass == $passCon && $currPass == $currpassDB){
+            if(!preg_match("/^.{12,}$/", $pass)){
+                $_SESSION['passErr'] = "Error: password must be atleast 12 characters long. ";
+                header("Location: security.php");
+            }else{
+                $shapass = sha1($pass);
+                $sql = "UPDATE user SET password = '$shapass' WHERE user_id = $u_id";
+                $result = mysqli_query($conn, $sql);
+                if($result){
+                    $_SESSION['success'] = 'Security Saved';
+                    header("Location: security.php");
+                }
+            }
         }else{
             $_SESSION['passErr'] = 'Error: new password doesn\'t match';
             header("Location: security.php");
         }
-        
-        
-        if ($result) {
-            $_SESSION['success'] = 'Security Saved';
-            header("Location: profile.php");
-            exit();
-        }
+        exit();
     }
 ?>
 <!DOCTYPE html>
