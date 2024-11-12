@@ -7,7 +7,7 @@
     else
         include('../includes/header.php');
 
-    $photoPreview = ''; // Initialize photo preview variable
+    $photoPreview = ''; 
 
     if (isset($_POST['submit'])) {
         $lname = trim($_POST['lname']);
@@ -81,7 +81,7 @@
         <div class="container inner-box border border-success border-2 py-3 px-4 pt-4">
             <div class="row d-flex justify-content-center align-items-center text-center">
                 <div class="col-md-6">
-                    <img src="images/default-avatar-icon.jpg" class="rounded-circle" style="width: 150px; height: 150px; object-fit: contain;">
+                    <img src="" class="rounded-circle" style="width: 150px; height: 150px; object-fit: contain;">
                     <div class="small font-italic text-muted mb-4">JPG or PNG no larger than 5 MB</div>
                 </div>
                 <div class="col-md-6 ">

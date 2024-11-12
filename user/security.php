@@ -10,37 +10,38 @@
     $photoPreview = ''; // Initialize photo preview variable
 
     if (isset($_POST['submit'])) {
-        $lname = trim($_POST['lname']);
-        $fname = trim($_POST['fname']);
-        $addressline = trim($_POST['addressline']);
-        $phone = trim($_POST['phone']);
-        $role_id = trim($_POST['role_id']);
+        $u_id = $_SESSION['user_id'];
+        $currPass = trim($_POST['currpassword']);
+        $pass = trim($_POST['password']);
+        $passCon = trim($_POST['confirmPass']);
 
-        // Handle the file upload
-        if (isset($_FILES['profile_photo']) && $_FILES['profile_photo']['error'] === 0) {
-            $targetDir = "../uploads/profile_photos/";
-            $fileName = basename($_FILES['profile_photo']['name']);
-            $targetFilePath = $targetDir . $fileName;
-
-            // Move uploaded file to target directory
-            if (move_uploaded_file($_FILES['profile_photo']['tmp_name'], $targetFilePath)) {
-                // Save relative path to database
-                $profilePhotoPath = "../uploads/profile_photos/" . $fileName;
-            } else {
-                // Handle error
-                $profilePhotoPath = "images/default_profile.png"; // Placeholder if upload fails
-            }
-        } else {
-            $profilePhotoPath = "images/default_profile.png"; // Default image if no file is uploaded
+        if(empty($_POST['currpassword'])){
+            $_SESSION['message'] = 'Enter current password';
+            header("Location: security.php");
+            exit();
         }
+        if($currPass != $currPassDB){
+            $_SESSION['message'] = 'Wrong current password';
+            header("Location: security.php");
+            exit();
+        }
+        if(empty($_POST['password'])||empty($_POST['confirmPass'])){
+            $_SESSION['message'] = 'Enter new password';
+            header("Location: security.php");
+            exit();
+        }
+        if($pass == $passCon){
 
-        // Insert user details into database
-        $sql = "INSERT INTO user (lname, fname, addressline, phone, role_id, profile_photo) 
-                VALUES ('$lname', '$fname', '$addressline', '$phone', '$role_id', '$profilePhotoPath')";
-
-        $result = mysqli_query($conn, $sql);
+        }else{
+            $_SESSION['message'] = 'New password doesn\'t match';
+            header("Location: security.php");
+            exit();
+        }
+        
+        // Handle the file upload
+        
         if ($result) {
-            $_SESSION['success'] = 'Profile saved';
+            $_SESSION['success'] = 'Security Saved';
             header("Location: profile.php");
             exit();
         }
@@ -78,11 +79,16 @@
                 <button class="btn btn-success" disabled>Security</button>
             </div>
         </div>
-        <div class="card">
-            <div class="card-header">Security</div>
-            <div class="card-body">
+        <div class="container inner-box border border-success border-2 py-3 px-4 pt-4">
+            <form action="" method="post">
+                <?php include("../includes/alert.php"); ?>    
                 <label class="form-label">Email:</label>
-                <input type="email" class="form-control" name="email">
+                <input type="email" class="form-control" name="email" value="<?php
+                    echo $_SESSION['email'];
+                ?>">
+                <label class="form-text"></label><br>
+                <label class="form-label">Current Password:</label>
+                <input type="password" class="form-control" name="currpassword">
                 <label class="form-text"></label><br>
                 <div class="row">
                     <div class="col-md-6">
@@ -97,7 +103,7 @@
                     </div>
                 </div>
                 <button class="btn btn-success w-100 form-btn my-2" name="submit">SAVE CHANGES</button>
-            </div>
+            </form>
         </div>
     </div>
 </body>
