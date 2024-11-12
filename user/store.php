@@ -88,11 +88,9 @@
             }
         }
 
-        if(isset($_FILES['pfp_path'])){
-            if(!$_FILES['img_path']['type'] == "image/*"){
-                $_SESSION['pfpErr'] = 'Error: please upload one file.';
-                header("Location: register.php");    
-            }  
+        if(!isset($_FILES['pfp_path'])){
+            $_SESSION['pfpErr'] = 'Error: please upload one file.';
+            header("Location: register.php");    
         }
 
         if((preg_match("/^[A-Za-z' -]{2,50}$/", $lname))&&(preg_match("/^[A-Za-z' -]{2,50}$/", $fname))
@@ -117,7 +115,16 @@
                 $_SESSION['cpass'] = '';
                 $_SESSION['add'] = '';
                 $_SESSION['phone'] = '';
-                header("Location: /plantitoshop/");
+
+                $last_id = $conn->insert_id;
+                $_SESSION['user_id'] = $last_id;
+                $_SESSION['email'] = $email;
+                if($role == 1)
+                    $_SESSION['roleDesc'] = "admin";
+                else
+                    $_SESSION['roleDesc'] = "user";
+                
+                header("Location: /plantitoshop/"); 
             }
         }
     }
