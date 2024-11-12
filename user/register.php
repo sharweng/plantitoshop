@@ -1,7 +1,11 @@
 <?php
     session_start();
     include("../includes/config.php");
-    include("../includes/header.php");
+    
+    if($_SESSION['roleDesc'] == 'admin')
+        include('includes/adminHeader.php');
+    else
+        include('includes/header.php');
 
     $sql = "SELECT * FROM role";
     $roles = mysqli_query($conn, $sql);

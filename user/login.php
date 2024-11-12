@@ -1,7 +1,11 @@
 <?php
     session_start();
-    include("../includes/header.php");
     include("../includes/config.php");
+
+    if($_SESSION['roleDesc'] == 'admin')
+        include('includes/adminHeader.php');
+    else
+        include('includes/header.php');
 
     if (isset($_POST['submit'])) {
         $email = trim($_POST['email']);
