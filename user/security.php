@@ -4,35 +4,35 @@
 
     include('../includes/headerBS.php');
 
-    $photoPreview = ''; // Initialize photo preview variable
-
-    if (isset($_POST['submit'])) {
+    if(isset($_POST['submit'])) {
         $u_id = $_SESSION['user_id'];
-        $currPass = trim($_POST['currpassword']);
+        $currPass = sha1(trim($_POST['currpassword']));
         $pass = trim($_POST['password']);
         $passCon = trim($_POST['confirmPass']);
 
+        $sql = "SELECT password FROM user WHERE user_id = $u_id";
+        $DBpass = mysqli_query($conn, $sql);
+        while($row = mysqli_fetch_array($DBpass))
+            $currpassDB = $row['password'];
+
         if(empty($_POST['currpassword'])){
-            $_SESSION['message'] = 'Enter current password';
+            $_SESSION['currpassErr'] = 'Error: please enter your current password.';
             header("Location: security.php");
-            exit();
         }
-        if($currPass != $currPassDB){
-            $_SESSION['message'] = 'Wrong current password';
+        if($currPass != $currpassDB){
+            $_SESSION['currpassErr'] = 'Error: wrong current password.';
             header("Location: security.php");
-            exit();
         }
         if(empty($_POST['password'])||empty($_POST['confirmPass'])){
-            $_SESSION['message'] = 'Enter new password';
+            $_SESSION['passErr'] = 'Enter new password';
             header("Location: security.php");
-            exit();
+
         }
         if($pass == $passCon){
 
         }else{
-            $_SESSION['message'] = 'New password doesn\'t match';
+            $_SESSION['passErr'] = 'Error: new password doesn\'t match';
             header("Location: security.php");
-            exit();
         }
         
         
@@ -85,19 +85,26 @@
                 <label class="form-text"></label><br>
                 <label class="form-label">Current Password:</label>
                 <input type="password" class="form-control" name="currpassword">
-                <label class="form-text"></label><br>
+                <label class="form-text text-danger"><?php 
+                    if(isset($_SESSION['currpassErr'])){
+                        echo $_SESSION['currpassErr'];
+                        unset($_SESSION['currpassErr']);
+                    }?></label><br>
                 <div class="row">
                     <div class="col-md-6">
                         <label class="form-label">Password:</label>
                         <input type="password" class="form-control" name="password">
-                        <label class="form-text"></label><br>
                     </div>
                     <div class="col-md-6">
                         <label class="form-label">Confirm Password:</label>
                         <input type="password" class="form-control" name="confirmPass">
-                        <label class="form-text"></label><br>
                     </div>
                 </div>
+                <label class="form-text text-danger"><?php 
+                    if(isset($_SESSION['passErr'])){
+                        echo $_SESSION['passErr'];
+                        unset($_SESSION['passErr']);
+                    }?></label><br>
                 <button class="btn btn-success w-100 form-btn my-2" name="submit">SAVE CHANGES</button>
             </form>
         </div>
