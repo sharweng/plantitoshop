@@ -1,49 +1,50 @@
 <?php
-include("../includes/config.php");
+    session_start();
+    include("../includes/config.php");
 
-if($_SESSION['roleDesc'] == 'admin')
-    include('../includes/adminHeader.php');
-else
-    include('../includes/header.php');
+    if($_SESSION['roleDesc'] == 'admin')
+        include('../includes/adminHeader.php');
+    else
+        include('../includes/header.php');
 
-$photoPreview = ''; // Initialize photo preview variable
+    $photoPreview = ''; // Initialize photo preview variable
 
-if (isset($_POST['submit'])) {
-    $lname = trim($_POST['lname']);
-    $fname = trim($_POST['fname']);
-    $addressline = trim($_POST['addressline']);
-    $phone = trim($_POST['phone']);
-    $role_id = trim($_POST['role_id']);
+    if (isset($_POST['submit'])) {
+        $lname = trim($_POST['lname']);
+        $fname = trim($_POST['fname']);
+        $addressline = trim($_POST['addressline']);
+        $phone = trim($_POST['phone']);
+        $role_id = trim($_POST['role_id']);
 
-    // Handle the file upload
-    if (isset($_FILES['profile_photo']) && $_FILES['profile_photo']['error'] === 0) {
-        $targetDir = "../uploads/profile_photos/";
-        $fileName = basename($_FILES['profile_photo']['name']);
-        $targetFilePath = $targetDir . $fileName;
+        // Handle the file upload
+        if (isset($_FILES['profile_photo']) && $_FILES['profile_photo']['error'] === 0) {
+            $targetDir = "../uploads/profile_photos/";
+            $fileName = basename($_FILES['profile_photo']['name']);
+            $targetFilePath = $targetDir . $fileName;
 
-        // Move uploaded file to target directory
-        if (move_uploaded_file($_FILES['profile_photo']['tmp_name'], $targetFilePath)) {
-            // Save relative path to database
-            $profilePhotoPath = "../uploads/profile_photos/" . $fileName;
+            // Move uploaded file to target directory
+            if (move_uploaded_file($_FILES['profile_photo']['tmp_name'], $targetFilePath)) {
+                // Save relative path to database
+                $profilePhotoPath = "../uploads/profile_photos/" . $fileName;
+            } else {
+                // Handle error
+                $profilePhotoPath = "images/default_profile.png"; // Placeholder if upload fails
+            }
         } else {
-            // Handle error
-            $profilePhotoPath = "images/default_profile.png"; // Placeholder if upload fails
+            $profilePhotoPath = "images/default_profile.png"; // Default image if no file is uploaded
         }
-    } else {
-        $profilePhotoPath = "images/default_profile.png"; // Default image if no file is uploaded
-    }
 
-    // Insert user details into database
-    $sql = "INSERT INTO user (lname, fname, addressline, phone, role_id, profile_photo) 
-            VALUES ('$lname', '$fname', '$addressline', '$phone', '$role_id', '$profilePhotoPath')";
+        // Insert user details into database
+        $sql = "INSERT INTO user (lname, fname, addressline, phone, role_id, profile_photo) 
+                VALUES ('$lname', '$fname', '$addressline', '$phone', '$role_id', '$profilePhotoPath')";
 
-    $result = mysqli_query($conn, $sql);
-    if ($result) {
-        $_SESSION['success'] = 'Profile saved';
-        header("Location: profile.php");
-        exit();
+        $result = mysqli_query($conn, $sql);
+        if ($result) {
+            $_SESSION['success'] = 'Profile saved';
+            header("Location: profile.php");
+            exit();
+        }
     }
-}
 ?>
 <!DOCTYPE html>
 <html lang="en">

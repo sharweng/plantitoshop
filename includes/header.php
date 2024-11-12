@@ -22,9 +22,16 @@
             <li><a href="#" class="green-hover">Cart</a></li>
             <?php
                 if($_SESSION['roleDesc'] == "admin" || $_SESSION['roleDesc'] == "user")
-                    echo "<li><form action=\"\" method=\"post\"><button class=\"anchor-style header-width green-hover\" name=\"logout\">Logout</button></form></li>";
+                    echo "<li><div class=\"dropdown\">
+                    <button class=\"dropbtn\">Settings</button>
+                    <div class=\"dropdown-content\">
+                        <a href=\"/plantitoshop/user/profile.php\">Profile</a>
+                        <a href=\"/plantitoshop/user/security.php\">Security</a>
+                        <a href=\"/plantitoshop/user/logout.php\">Logout</a>
+                    </div>
+                </div></li>";
                 else
-                    echo "<li><form action\ method=\"post\"><button class=\"anchor-style header-width green-hover\" name=\"login\">Login</button></form></li>";
+                    echo "<li><form action\ method=\"post\"><button class=\"anchor-style green-hover\" name=\"login\">Login</button></form></li>";
             ?>
         </ul>
     </div>
