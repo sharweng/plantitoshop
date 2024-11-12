@@ -6,10 +6,7 @@
         $_SESSION['roleDesc'] = "";
     }
         
-    if($_SESSION['roleDesc'] == 'admin')
-        include('../includes/adminHeader.php');
-    else
-        include('../includes/header.php');
+    include('../includes/headerBS.php');
 
     if(isset($_GET['search']))
         $keyword = strtolower(trim($_GET['search']));
@@ -50,7 +47,7 @@
                 </a>
             </div>
             <div class="col-8 d-flex align-items-center justify-content-end">
-                <form action="" method="get">
+                <form action="" method="get" class="d-inline-block">
                     <div class="input-group">
                         <input type="text" class="form-control" name="search">
                         <button class="btn btn-success">Search</button>
@@ -105,7 +102,6 @@
         ?>
         </div>
     </div>
-    
 </body>
 </html>
 <?php

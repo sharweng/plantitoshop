@@ -2,10 +2,7 @@
     session_start();
     include("../includes/config.php");
 
-    if($_SESSION['roleDesc'] == 'admin')
-        include('../includes/adminHeader.php');
-    else
-        include('../includes/header.php');
+    include('../includes/headerBS.php');
 
     $photoPreview = ''; 
 

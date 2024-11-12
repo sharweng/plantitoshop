@@ -8,30 +8,30 @@
 ?>
 <nav class="navbar navbar-expand-sm bg-body-tertiary site-header">
     <div class="container-fluid" style="max-width: 1000px;">
-        <a class="navbar-brand fw-bold" href="/plantitoshop/">Plantito's Shop</a>
+        <a class="navbar-brand fw-bold green-hover" href="/plantitoshop/">Plantito's Shop</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-sm-0">
                 <li class="nav-item">
-                    <a class="nav-link active" href="/plantitoshop/">Home</a>
+                    <a class="nav-link green-hover" href="/plantitoshop/">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" href="#">About</a>
+                    <a class="nav-link green-hover" href="#">About</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" href="#">Contact</a>
+                    <a class="nav-link green-hover" href="#">Contact</a>
                 </li>
             </ul>
             <ul class="navbar-nav mb-2 mb-sm-0">
                 <li class="nav-item">
-                    <a class="nav-link active" href="#">Cart</a>
+                    <a class="nav-link green-hover" href="#">Cart</a>
                 </li>
                 <?php
                     if($_SESSION['roleDesc'] == "admin"){
                         echo "<li class=\"nav-item dropdown\">
-                            <a class=\"nav-link dropdown-toggle active\" href=\"#\" role=\"button\" data-bs-toggle=\"dropdown\" aria-expanded=\"false\">
+                            <a class=\"nav-link dropdown-toggle green-hover\" href=\"#\" role=\"button\" data-bs-toggle=\"dropdown\" aria-expanded=\"false\">
                                 Admin
                             </a>
                             <ul class=\"dropdown-menu\">
@@ -45,7 +45,7 @@
                     }
                     if($_SESSION['roleDesc'] == "admin" || $_SESSION['roleDesc'] == "user")
                         echo "<li class=\"nav-item dropdown\">
-                                <a class=\"nav-link dropdown-toggle active\" href=\"#\" role=\"button\" data-bs-toggle=\"dropdown\" aria-expanded=\"false\">
+                                <a class=\"nav-link dropdown-toggle green-hover\" href=\"#\" role=\"button\" data-bs-toggle=\"dropdown\" aria-expanded=\"false\">
                                     Settings
                                 </a>
                                 <ul class=\"dropdown-menu dropdown-menu-end dropdown-menu-sm-start\">

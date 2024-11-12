@@ -2,10 +2,7 @@
     session_start();
     include("../includes/config.php");
 
-    if($_SESSION['roleDesc'] == 'admin')
-        include('../includes/adminHeader.php');
-    else
-        include('../includes/header.php');
+    include('../includes/headerBS.php');
 
     if (isset($_POST['submit'])) {
         $email = trim($_POST['email']);
@@ -72,7 +69,7 @@
                 <button type="submit" class="btn btn-success w-100 form-btn my-2" name="submit">SIGN IN</button>
                 <!-- Register link -->
                 <div class="text-center">
-                    <p>Not a member? <a href="register.php" class="green-hover">Register</a></p>
+                    <p>Not a member? <a href="register.php" class="green-hover dark-green" style="text-decoration: none;">Register</a></p>
                 </div>
             </form>
         </div>

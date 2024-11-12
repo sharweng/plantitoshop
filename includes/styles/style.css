@@ -23,6 +23,7 @@ form {
     right: 0;
     left: 0;
     height: 70px;
+    z-index: 1050;
 }
 
 /* FOOTER CSS */
@@ -47,6 +48,9 @@ form {
     gap: 0.2rem;
 }
 
+.green-hover{
+    color: black;
+}
 .green-hover:hover{
     cursor: pointer;
     color: #337357;
@@ -81,3 +85,4 @@ form {
 .header-width{
     width: 62px;
 }
+
