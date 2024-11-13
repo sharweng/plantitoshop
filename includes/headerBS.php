@@ -57,7 +57,7 @@
                             </li>";
                     else{
                         echo "<li class=\"nav-item\">
-                                <form action=\"\" method=\"post\"><button class=\"nav-link active\" name=\"login\">Login</button></form>
+                                <form action=\"\" method=\"post\"><button class=\"nav-link green-hover\" name=\"login\">Login</button></form>
                             </li>";
                     }
                 ?>

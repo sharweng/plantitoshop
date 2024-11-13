@@ -4,7 +4,6 @@
 
     include('../includes/headerBS.php');
 
-    $_SESSION['path'] = "";
     if (isset($_POST['submit'])) {
         $lname = trim($_POST['lname']);
         $fname = trim($_POST['fname']);
