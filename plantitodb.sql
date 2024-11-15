@@ -73,7 +73,8 @@ CREATE TABLE review (
 
 INSERT INTO role(description)VALUES
 ('admin'),
-('user');
+('user'),
+('deactivated');
 
 INSERT INTO category(description)VALUES
 ('None'),
