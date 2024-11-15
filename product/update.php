@@ -1,6 +1,8 @@
 <?php
     session_start();
     include('../includes/config.php');
+    include('../includes/adminRedirect.php');
+    
     $_SESSION['desc'] = trim($_POST['description']);
     $_SESSION['prc'] = trim($_POST['price']);
     $_SESSION['qty'] = $_POST['quantity'];
