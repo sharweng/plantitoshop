@@ -2,8 +2,8 @@
     session_start();
     include('../includes/config.php');
     include('../includes/headerBS.php');
-    include('../includes/adminRedirect.php');
-    
+    include('../includes/notAdminRedirect.php');
+
     if(isset($_POST['back'])){
         $_SESSION['desc'] = "";
         $_SESSION['prc'] = "";

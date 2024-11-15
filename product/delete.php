@@ -1,7 +1,7 @@
 <?php
     session_start();
     include('../includes/config.php');
-    include('../includes/adminRedirect.php');
+    include('../includes/notAdminRedirect.php');
 
     $d_id = $_POST['delete_id'];
     if(isset($_POST['delete_id'])){

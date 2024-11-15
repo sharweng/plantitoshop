@@ -2,7 +2,7 @@
     session_start();
     include('../includes/config.php');
     include('../includes/headerBS.php');
-    include('../includes/adminRedirect.php');
+    include('../includes/notAdminRedirect.php');
 
     if(isset($_GET['search']))
         $keyword = strtolower(trim($_GET['search']));
