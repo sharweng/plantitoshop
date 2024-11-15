@@ -4,6 +4,23 @@
 
     include('../includes/headerBS.php');
 
+    if(isset($_POST['back'])){
+        $_SESSION['lname'] = '';
+        $_SESSION['fname'] = '';
+        $_SESSION['add'] = '';
+        $_SESSION['phone'] = '';
+    }
+    $u_id = $_SESSION['user_id'];
+    $getInfo = "SELECT lname, fname, addressline, phone FROM user WHERE user_id = $u_id";
+    $info = mysqli_query($conn, $getInfo);
+    while($row = mysqli_fetch_array($info)){
+        $_SESSION['lname'] = $row['lname'];
+        $_SESSION['fname'] = $row['fname'];
+        $_SESSION['add'] = $row['addressline'];
+        $_SESSION['phone'] = $row['phone'];
+    }
+    
+
     $u_id = $_SESSION['user_id'];
     if(isset($_POST['upload'])){
         if(isset($_FILES['profile_photo'])&&!empty($_FILES['profile_photo'])){
@@ -27,15 +44,63 @@
     if (isset($_POST['submit'])) {
         $lname = trim($_POST['lname']);
         $fname = trim($_POST['fname']);
-        $addressline = trim($_POST['addressline']);
+        $addressline = trim($_POST['address']);
         $phone = trim($_POST['phone']);
         
-
-        if ($upload) {
-            $_SESSION['success'] = 'Profile saved';
+        if(empty($_POST['lname'])){
+            $_SESSION['lnameErr'] = "Error: please enter a last name. ";
             header("Location: profile.php");
-            exit();
+        }else{
+            $lname = trim($_POST['lname']);
+            if(!preg_match("/^[A-Za-z' -]{2,50}$/", $lname)){
+                $_SESSION['lnameErr'] = "Error: please enter a valid last name. ";
+                header("Location: profile.php");
+            }
         }
+    
+        if(empty($_POST['fname'])){
+            $_SESSION['fnameErr'] = "Error: please enter a first name. ";
+            header("Location: profile.php");
+        }else{
+            $fname = trim($_POST['fname']);
+            if(!preg_match("/^[A-Za-z' -]{2,50}$/", $fname)){
+                $_SESSION['fnameErr'] = "Error: please enter a valid first name. ";
+                header("Location: profile.php");
+            }
+        }
+        if(empty($_POST['address'])){
+            $_SESSION['addErr'] = "Error: please enter an address. ";
+            header("Location: profile.php");
+        }else{
+            $add = trim($_POST['address']);
+            if(!preg_match("/^[A-Za-z0-9\s.,'-]{5,100}$/", $add)){
+                $_SESSION['addErr'] = "Error: please enter a valid address. ";
+                header("Location: profile.php");
+            }
+        }
+
+        if(empty($_POST['phone'])){
+            $_SESSION['phoneErr'] = "Error: please enter a phone number. ";
+            header("Location: profile.php");
+        }else{
+            $phone = trim($_POST['phone']);
+            if(!preg_match("/^\d{11}$/", $phone)){
+                $_SESSION['phoneErr'] = "Error: please enter a 11 digit long phone number. ";
+                header("Location: profile.php");
+            }
+        }
+
+        if((preg_match("/^[A-Za-z' -]{2,50}$/", $lname))&&(preg_match("/^[A-Za-z' -]{2,50}$/", $fname))
+        &&(preg_match("/^[A-Za-z0-9\s.,'-]{5,100}$/", $add))
+        &&(preg_match("/^\d{11}$/", $phone))){
+            $sql = "UPDATE user SET lname = '$lname', fname = '$fname', addressline = '$addressline', phone = '$phone' WHERE user_id = $u_id";
+            $result = mysqli_query($conn, $sql);
+            if($result){
+                $_SESSION['success'] = 'Profile Saved';
+                header("Location: profile.php");
+            }
+        }
+        exit();
     }
 ?>
 <!DOCTYPE html>
@@ -59,9 +124,9 @@
     <div class="container-sm outer-box p-3 mb-3 shadow-lg  border border-success border-2 rounded">
         <div class="row top-header pb-3 justify-content-between">
             <div class="col-4 d-flex align-items-center justify-content-start">
-                <a href="/plantitoshop/">
-                    <button class="btn btn-success">BACK</button>
-                </a>
+                <form action="/plantitoshop/" method="post">
+                    <button class="btn btn-success" name="back">BACK</button>
+                </form>
             </div>
             <div class="col-8 d-flex align-items-center justify-content-end gap-2">
                 <button class="btn btn-success" disabled>Profile</button>
@@ -71,6 +136,7 @@
             </div>
         </div>
         <div class="container inner-box border border-success border-2 py-3 px-4 pt-4">
+            <?php include("../includes/alert.php"); ?>   
             <form action="" method="post" enctype="multipart/form-data">
                 <div class="row d-flex justify-content-center align-items-center text-center">
                     <div class="col-md-6">
@@ -90,32 +156,53 @@
                     </div>
                 </div>
             </form>
-            <?php echo $_SESSION['user_id'] ?>
             <form action="" method="post" enctype="multipart/form-data">
                 <div class="row">
                     <div class="col-md-6">
                         <label class="form-label">Last Name:</label>
-                        <input type="text" class="form-control" name="lname">
-                        <label class="form-text"></label><br>
+                        <input type="text" class="form-control" name="lname" value="<?php
+                            echo $_SESSION['lname'];
+                        ?>">
                     </div>
                     <div class="col-md-6">
                         <label class="form-label">First Name:</label>
-                        <input type="text" class="form-control" name="fname">
-                        <label class="form-text"></label><br>
+                        <input type="text" class="form-control" name="fname" value="<?php
+                            echo $_SESSION['fname'];
+                        ?>">
                     </div>
                 </div>
+                <label class="form-text text-danger"><?php 
+                    if(isset($_SESSION['lnameErr'])){
+                        echo $_SESSION['lnameErr'];
+                        unset($_SESSION['lnameErr']);
+                    }
+                    if(isset($_SESSION['fnameErr'])){
+                        echo $_SESSION['fnameErr'];
+                        unset($_SESSION['fnameErr']);
+                    }?></label><br>
                 <div class="row">
                     <div class="col-md-8">
                         <label class="form-label">Address:</label>
-                        <input type="text" class="form-control" name="addressline">
-                        <label class="form-text"></label><br>
+                        <input type="text" class="form-control" name="address" value="<?php
+                            echo $_SESSION['add'];
+                        ?>">
                     </div>
                     <div class="col-md-4">
                         <label class="form-label">Phone Number:</label>
-                        <input type="text" class="form-control" name="phone">
-                        <label class="form-text"></label><br>
+                        <input type="text" class="form-control" name="phone" value="<?php
+                            echo $_SESSION['phone'];
+                        ?>">  
                     </div>
                 </div>
+                <label class="form-text text-danger"><?php 
+                    if(isset($_SESSION['addErr'])){
+                        echo $_SESSION['addErr'];
+                        unset($_SESSION['addErr']);
+                    }
+                    if(isset($_SESSION['phoneErr'])){
+                        echo $_SESSION['phoneErr'];
+                        unset($_SESSION['phoneErr']);
+                    }?></label><br>
                 <button class="btn btn-success w-100 form-btn my-2" name="submit">SAVE CHANGES</button>
             </form>
         </div>
