@@ -65,12 +65,12 @@
                                 <div class=\"col d-grid align-items-center\">
                                     <img class=\"img-thumbnail image-admin-css\" src=\"{$row['pfp_path']}\" height=\"100px\" width=\"100px\">
                                 </div>
+                                <div class=\"col d-grid align-items-center text-wrap\">{$row['lname']}</div>
+                                <div class=\"col d-grid align-items-center text-wrap\">{$row['fname']}</div>
                                 <div class=\"col d-grid align-items-center text-wrap\">{$row['email']}</div>
                             </td>
                             <td class=\"col d-flex align-items-center\">
                                 <div class=\"col d-grid align-items-center text-wrap\">{$row['user_id']}</div>
-                                <div class=\"col d-grid align-items-center text-wrap\">{$row['lname']}</div>
-                                <div class=\"col d-grid align-items-center text-wrap\">{$row['fname']}</div>
                                 <div class=\"col d-grid align-items-center text-wrap\">{$row['addressline']}</div>
                                 <div class=\"col d-grid align-items-center text-wrap\">{$row['phone']}</div>
                                 <div class=\"col d-grid align-items-center text-wrap\">{$row['description']}</div>
