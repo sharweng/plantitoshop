@@ -63,7 +63,7 @@
                         <tr class=\"details row d-grid\">
                             <td class=\"col d-flex d-flex align-items-center\">
                                 <div class=\"col d-grid align-items-center\">
-                                    <img class=\"img-thumbnail image-admin-css\" src=\"{$row['pfp_path']}\">
+                                    <img class=\"img-thumbnail image-admin-css\" src=\"{$row['pfp_path']}\" style=\"object-fit: cover;\">
                                 </div>
                                 <div class=\"col d-grid align-items-center text-wrap\">{$row['lname']}</div>
                                 <div class=\"col d-grid align-items-center text-wrap\">{$row['fname']}</div>

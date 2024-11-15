@@ -9,8 +9,19 @@
 
     $addUser = false;
     if(isset($_POST['add_user'])){
+        $_SESSION['lname'] = '';
+        $_SESSION['fname'] = '';
+        $_SESSION['email'] = '';
+        $_SESSION['pass'] = '';
+        $_SESSION['cpass'] = '';
+        $_SESSION['add'] = '';
+        $_SESSION['phone'] = '';
         $addUser =  true;
         $_SESSION['adminEdit'] = $addUser;
+    }
+
+    if(!isset($_SESSION['adminEdit'])){
+        $_SESSION['adminEdit'] = false;
     }
 
     if(isset($_POST['back'])){
@@ -146,10 +157,15 @@
                         unset($_SESSION['phoneErr']);
                     }
                 ?></label><br>
-                <label hidden class="form-label">Role:</label>
-                <select hidden class="form-select" name="role">
                 <?php
                     $counter = 1;
+                    if($_SESSION['adminEdit']){
+                        echo "<label class=\"form-label\">Role:</label>
+                        <select class=\"form-select\" name=\"role\">";
+                    }else{
+                        echo "<label hidden class=\"form-label\">Role:</label>
+                        <select hidden class=\"form-select\" name=\"role\">";
+                    }
                     while($role = mysqli_fetch_array($roles)){
                         if($counter == 2){
                             echo "<option selected value=\"{$role['role_id']}\">{$role['description']}</option>";
