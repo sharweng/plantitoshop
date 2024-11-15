@@ -124,7 +124,11 @@
                 else
                     $_SESSION['roleDesc'] = "user";
                 
-                header("Location: /plantitoshop/"); 
+                    if($_SESSION['adminEdit']){
+                        header("Location: /plantitoshop/user/");
+                    }else{
+                        header("Location: /plantitoshop/");
+                    }
             }
         }
     }

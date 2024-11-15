@@ -65,6 +65,7 @@
                         if(isset($_SESSION['lname'])){
                             echo $_SESSION['lname'];
                         }?>">
+                        <label class="form-text"></label><br>
                     </div>
                     <div class="col-md-6">
                         <label class="form-label">First Name:</label>
@@ -102,6 +103,7 @@
                         if(isset($_SESSION['pass'])){
                             echo $_SESSION['pass'];
                         }?>">
+                        <label class="form-text"></label><br>
                     </div>
                     <div class="col-md-6">
                         <label class="form-label">Confirm Password:</label>
@@ -124,6 +126,7 @@
                         if(isset($_SESSION['add'])){
                             echo $_SESSION['add'];
                         }?>">
+                        <label class="form-text"></label><br>
                     </div>
                     <div class="col-md-4">
                         <label class="form-label">Phone Number:</label>

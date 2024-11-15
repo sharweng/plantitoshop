@@ -163,6 +163,7 @@
                         <input type="text" class="form-control" name="lname" value="<?php
                             echo $_SESSION['lname'];
                         ?>">
+                        <label class="form-text"></label><br>
                     </div>
                     <div class="col-md-6">
                         <label class="form-label">First Name:</label>
@@ -186,6 +187,7 @@
                         <input type="text" class="form-control" name="address" value="<?php
                             echo $_SESSION['add'];
                         ?>">
+                        <label class="form-text"></label><br>
                     </div>
                     <div class="col-md-4">
                         <label class="form-label">Phone Number:</label>

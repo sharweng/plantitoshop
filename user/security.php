@@ -96,6 +96,7 @@
                     <div class="col-md-6">
                         <label class="form-label">Password:</label>
                         <input type="password" class="form-control" name="password">
+                        <label class="form-text"></label><br>
                     </div>
                     <div class="col-md-6">
                         <label class="form-label">Confirm Password:</label>
