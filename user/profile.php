@@ -4,36 +4,34 @@
 
     include('../includes/headerBS.php');
 
+    $u_id = $_SESSION['user_id'];
+    if(isset($_POST['upload'])){
+        if(isset($_FILES['profile_photo'])&&!empty($_FILES['profile_photo'])){
+            $source = $_FILES['profile_photo']['tmp_name'];
+            $target = 'images/' . $_FILES['profile_photo']['name'];
+            if(move_uploaded_file($source, $target)){
+                $sql = "UPDATE user SET pfp_path = '$target' WHERE user_id = $u_id";
+                $upload = mysqli_query($conn, $sql);
+            }else{
+                $upload = false;
+            }
+        }
+        if($upload){
+            $_SESSION['success'] = 'Profile Photo Saved';
+            header("Location: profile.php");
+            exit();
+        }
+            
+    }
+
     if (isset($_POST['submit'])) {
         $lname = trim($_POST['lname']);
         $fname = trim($_POST['fname']);
         $addressline = trim($_POST['addressline']);
         $phone = trim($_POST['phone']);
-        $role_id = trim($_POST['role_id']);
+        
 
-        echo $_SESSION['user_id'];
-        $sql = "SELECT pfp_path FROM user WHERE user_id = {$_SESSION['user_id']}";
-        $DBpath = mysqli_query($conn, $sql);
-        while($row = mysqli_fetch_array($DBpath)){
-            $_SESSION['path'] = $row['pfp_path'];
-        }
-
-        if (isset($_FILES['profile_photo'])) {
-            $source = $_FILES['pfp_path']['tmp_name'];
-            $target = 'images/' . $_FILES['pfp_path']['name'];
-           
-            if(!move_uploaded_file($source, $target))
-                $pfp_path = "images/default-avatar-icon.jpg"; 
-        }else{
-            $pfp_path = "images/default-avatar-icon.jpg"; 
-        }
-
-        // Insert user details into database
-        $sql = "INSERT INTO user (lname, fname, addressline, phone, role_id, profile_photo) 
-                VALUES ('$lname', '$fname', '$addressline', '$phone', '$role_id', '$profilePhotoPath')";
-
-        $result = mysqli_query($conn, $sql);
-        if ($result) {
+        if ($upload) {
             $_SESSION['success'] = 'Profile saved';
             header("Location: profile.php");
             exit();
@@ -73,42 +71,53 @@
             </div>
         </div>
         <div class="container inner-box border border-success border-2 py-3 px-4 pt-4">
-            <div class="row d-flex justify-content-center align-items-center text-center">
-                <div class="col-md-6">
-                    <img src="<?php echo $_SESSION['path'] ?>" class="rounded-circle" style="width: 150px; height: 150px; object-fit: contain;">
-                    <div class="small font-italic text-muted mb-4">JPG or PNG no larger than 5 MB</div>
+            <form action="" method="post" enctype="multipart/form-data">
+                <div class="row d-flex justify-content-center align-items-center text-center">
+                    <div class="col-md-6">
+                        <img src="<?php 
+                            $sql = "SELECT pfp_path FROM user WHERE user_id = {$_SESSION['user_id']}";
+                            $DBpath = mysqli_query($conn, $sql);
+                            while($row = mysqli_fetch_array($DBpath)){
+                                echo $row['pfp_path'];
+                            }
+                            ?>" 
+                        class="rounded-circle" style="width: 150px; height: 150px; object-fit: cover;">
+                        <div class="small font-italic text-muted mb-4">JPG or PNG no larger than 5 MB</div>
+                    </div>
+                    <div class="col-md-6 ">
+                        <input class="form-control" type="file" name="profile_photo" accept="image/*">
+                        <button type="submit" class="btn btn-success w-100 form-btn my-2" name="upload" >UPLOAD</button>
+                    </div>
                 </div>
-                <div class="col-md-6 ">
-                    <input class="form-control" type="file" name="profile_photo" accept="image/*">
-                    <button type="submit" class="btn btn-success w-100 form-btn my-2" >UPLOAD</button>
+            </form>
+            <?php echo $_SESSION['user_id'] ?>
+            <form action="" method="post" enctype="multipart/form-data">
+                <div class="row">
+                    <div class="col-md-6">
+                        <label class="form-label">Last Name:</label>
+                        <input type="text" class="form-control" name="lname">
+                        <label class="form-text"></label><br>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">First Name:</label>
+                        <input type="text" class="form-control" name="fname">
+                        <label class="form-text"></label><br>
+                    </div>
                 </div>
-            </div>
-            <?php echo $_SESSION['path'] ?>
-            <div class="row">
-                <div class="col-md-6">
-                    <label class="form-label">Last Name:</label>
-                    <input type="text" class="form-control" name="fname">
-                    <label class="form-text"></label><br>
+                <div class="row">
+                    <div class="col-md-8">
+                        <label class="form-label">Address:</label>
+                        <input type="text" class="form-control" name="addressline">
+                        <label class="form-text"></label><br>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Phone Number:</label>
+                        <input type="text" class="form-control" name="phone">
+                        <label class="form-text"></label><br>
+                    </div>
                 </div>
-                <div class="col-md-6">
-                    <label class="form-label">First Name:</label>
-                    <input type="text" class="form-control" name="fname">
-                    <label class="form-text"></label><br>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-8">
-                    <label class="form-label">Address:</label>
-                    <input type="text" class="form-control" name="fname">
-                    <label class="form-text"></label><br>
-                </div>
-                <div class="col-md-4">
-                    <label class="form-label">Phone Number:</label>
-                    <input type="text" class="form-control" name="fname">
-                    <label class="form-text"></label><br>
-                </div>
-            </div>
-            <button class="btn btn-success w-100 form-btn my-2" name="submit">SAVE CHANGES</button>
+                <button class="btn btn-success w-100 form-btn my-2" name="submit">SAVE CHANGES</button>
+            </form>
         </div>
     </div>
 </body>
