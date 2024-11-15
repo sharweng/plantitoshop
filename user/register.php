@@ -7,6 +7,12 @@
     $sql = "SELECT * FROM role";
     $roles = mysqli_query($conn, $sql);
 
+    $addUser = false;
+    if(isset($_POST['add_user'])){
+        $addUser =  true;
+        $_SESSION['adminEdit'] = $addUser;
+    }
+
     if(isset($_POST['back'])){
         $_SESSION['lname'] = '';
         $_SESSION['fname'] = '';
@@ -15,6 +21,11 @@
         $_SESSION['cpass'] = '';
         $_SESSION['add'] = '';
         $_SESSION['phone'] = '';
+        if($_SESSION['adminEdit']){
+            header("Location: /plantitoshop/user/");
+        }else{
+            header("Location: login.php");
+        }
     }
 ?>
 <!DOCTYPE html>
@@ -38,7 +49,7 @@
     <div class="container-sm outer-box p-3 mb-3 shadow-lg  border border-success border-2 rounded">
         <div class="row top-header pb-3 justify-content-between">
             <div class="col-4 d-flex align-items-center justify-content-start">
-                <form action="login.php" method="post">
+                <form action="" method="post">
                     <button class="btn btn-success" name="back">BACK</button>
                 </form>
             </div>

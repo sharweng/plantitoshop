@@ -42,9 +42,9 @@
     <div class="container-sm outer-box p-3 mb-3 shadow-lg  border border-success border-2 rounded">
         <div class="row top-header pb-3 justify-content-between">
             <div class="col-4 d-flex align-items-center justify-content-start">
-                <a href="register.php">
-                    <button class="btn btn-success">ADD</button>
-                </a>
+                <form action="register.php" method="post">
+                    <button class="btn btn-success" name="add_user">ADD</button>
+                </form>
             </div>
             <div class="col-8 d-flex align-items-center justify-content-end">
                 <form action="" method="get" class="d-inline-block">
