@@ -5,42 +5,56 @@
     include('../includes/headerBS.php');
 
     if(isset($_POST['submit'])) {
+        $error = false;
         $u_id = $_SESSION['user_id'];
         $currPass = sha1(trim($_POST['currpassword']));
         $pass = trim($_POST['password']);
         $passCon = trim($_POST['confirmPass']);
-        $sql = "SELECT password FROM user WHERE user_id = $u_id";
+        $sql = "SELECT email, password FROM user WHERE user_id = $u_id";
         $DBpass = mysqli_query($conn, $sql);
         while($row = mysqli_fetch_array($DBpass)){
             $currpassDB = $row['password'];
+            $emailDB = $row['email'];
         }
-
-        if(empty($_POST['currpassword'])){
-            $_SESSION['currpassErr'] = 'Error: please enter your current password.';
-            header("Location: security.php");
-        }elseif($currPass != $currpassDB){
+        $email = $emailDB;
+        $password = $currpassDB;
+        if($emailDB != $_POST['email']){
+            $curremail = trim($_POST['email']);
+            if(!preg_match("/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/", $curremail)){
+                $_SESSION['emailErr'] = "Error: please enter a valid email. ";
+                header("Location: security.php");
+                $error = true;
+            }else{
+                $email = $curremail;
+            }
+        }
+        if(!empty($_POST['currpassword'])&&($currPass != $currpassDB)){
             $_SESSION['currpassErr'] = 'Error: wrong current password.';
             header("Location: security.php");
+            $error = true;
         }
-        if(empty($_POST['password'])||empty($_POST['confirmPass'])){
-            $_SESSION['passErr'] = 'Error: enter new password.';
-            header("Location: security.php");
-        }elseif($pass == $passCon && $currPass == $currpassDB){
-            if(!preg_match("/^.{12,}$/", $pass)){
-                $_SESSION['passErr'] = "Error: password must be atleast 12 characters long. ";
-                header("Location: security.php");
-            }else{
-                $shapass = sha1($pass);
-                $sql = "UPDATE user SET password = '$shapass' WHERE user_id = $u_id";
-                $result = mysqli_query($conn, $sql);
-                if($result){
-                    $_SESSION['success'] = 'Security Saved';
+        if(!empty($_POST['password'])&&!empty($_POST['confirmPass'])){
+            if($pass == $passCon && $currPass == $currpassDB){
+                if(!preg_match("/^.{12,}$/", $pass)){
+                    $_SESSION['passErr'] = "Error: password must be atleast 12 characters long. ";
                     header("Location: security.php");
+                    $error = true;
+                }else{
+                    $password = sha1($pass);
                 }
+            }else{
+                $_SESSION['passErr'] = 'Error: new password doesn\'t match';
+                header("Location: security.php");
+                $error = true;
             }
-        }else{
-            $_SESSION['passErr'] = 'Error: new password doesn\'t match';
+        }
+        $udsql = "UPDATE user SET email = '$email', password = '$password' WHERE user_id = $u_id";
+        $result = mysqli_query($conn, $udsql);
+        if($result&&!$error){
+            $_SESSION['success'] = 'Security Saved';
             header("Location: security.php");
+            $_SESSION['email'] = $email;
+           
         }
         exit();
     }
@@ -84,7 +98,11 @@
                 <input type="email" class="form-control" name="email" value="<?php
                     echo $_SESSION['email'];
                 ?>">
-                <label class="form-text"></label><br>
+                <label class="form-text text-danger"><?php 
+                    if(isset($_SESSION['emailErr'])){
+                        echo $_SESSION['emailErr'];
+                        unset($_SESSION['emailErr']);
+                    }?></label><br>
                 <label class="form-label">Current Password:</label>
                 <input type="password" class="form-control" name="currpassword">
                 <label class="form-text text-danger"><?php 
