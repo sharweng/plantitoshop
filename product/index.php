@@ -1,12 +1,22 @@
 <?php
     session_start();
     include('../includes/config.php');
-
-    if(!isset($_SESSION['roleDesc'])){
-        $_SESSION['roleDesc'] = "";
-    }
-        
     include('../includes/headerBS.php');
+
+    if($_SESSION['roleDesc'] == 'user'){
+        $_SESSION['message'] = 'You do not have the necessary permissions to access this page. <br>Please contact the administrator if you believe this is an error.';
+        header("Location: /plantitoshop/");
+        exit();
+    }elseif($_SESSION['roleDesc'] == 'deactivated'){
+        $_SESSION['message'] = 'Your account has been deactivated. Please contact support if you need assistance or wish to reactivate your account.';
+        header("Location: /plantitoshop/");
+        exit();
+    }elseif($_SESSION['roleDesc'] != 'admin'){
+        $_SESSION['message'] = 'You must be logged in to access this page. Please log in or create an account.';
+        header("Location: /plantitoshop/");
+        exit();
+    }
+   
 
     if(isset($_GET['search']))
         $keyword = strtolower(trim($_GET['search']));
