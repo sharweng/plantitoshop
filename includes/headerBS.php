@@ -39,7 +39,7 @@
                                 <li><a class=\"dropdown-item\" href=\"#\">Orders</a></li>
                                 <li><a class=\"dropdown-item\" href=\"/plantitoshop/product/\">Products</a></li>
                                 <li><a class=\"dropdown-item\" href=\"#\">Reviews</a></li>
-                                <li><a class=\"dropdown-item\" href=\"#\">Categories</a></li>
+                                <li><a class=\"dropdown-item\" href=\"/plantitoshop/category/\">Categories</a></li>
                             </ul>
                         </li>";
                     }
