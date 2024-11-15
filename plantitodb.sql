@@ -77,7 +77,7 @@ INSERT INTO role(description)VALUES
 ('deactivated');
 
 INSERT INTO category(description)VALUES
-('None'),
+('Miscellaneous'),
 ('Herbs'),
 ('Shrubs'),
 ('Creepers'),
@@ -91,3 +91,39 @@ INSERT INTO user(email, password, lname, fname, addressline, phone, pfp_path, ro
 ('labilabimk@gmail.com', 'c1e93b1f026abeac0e5a356535bfc2e3727c1045', 'Labi-labi', 'Maria', 'Taguig', '09557966852', 'images/default-avatar-icon.jpg', 2),
 ('elediak@gmail.com', 'e83d6fd53b9d1176232f5131b5b81c035b144b26', 'Eledia', 'Kimberly', 'Taguig', '09125474775', 'images/default-avatar-icon.jpg', 2),
 ('calungsodmp@gmail.com', 'adc8347c5f07d03e9d9dee22b8888aff349d5af7', 'Calungsod', 'Mary', 'Taguig', '09334567445', 'images/default-avatar-icon.jpg', 2);
+
+INSERT INTO product(description, price, cat_id)VALUES
+('Basil', 100, 2),
+('Parsley', 120, 2),
+('Rosemery', 200, 2),
+('Thyme', 150, 2),
+('Cilantro', 100, 3),
+('Santan', 200, 3),
+('Bougainvillea', 300, 3),
+('Yellow Bells', 250, 3),
+('Golden Pothos', 110, 4),
+('English Ivy', 220, 4),
+('String of Hearts', 310, 4),
+('Blue Pea Vine', 170, 4),
+('Philodendron Hearleaf', 230, 5),
+('Jasmine', 250, 5),
+('Philippine Flame vine', 340, 5),
+('Passion Flower', 400, 5);
+
+INSERT INTO stock(prod_id, quantity)VALUES
+(1, 100),
+(2, 100),
+(3, 100),
+(4, 100),
+(5, 100),
+(6, 100),
+(7, 100),
+(8, 100),
+(9, 100),
+(10, 100),
+(11, 100),
+(12, 100),
+(13, 100),
+(14, 100),
+(15, 100),
+(16, 100);
