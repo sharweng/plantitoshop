@@ -19,10 +19,15 @@
             $_SESSION['user_id'] = $user_id;
             $_SESSION['email'] = $email;
             $_SESSION['roleDesc'] = $roleDesc;
+            if($roleDesc == 'deactivated'){
+                $_SESSION['message'] = 'Account deactivated: Your account is currently inactive. Please contact support for assistance.';
+                header("Location: /plantitoshop/user/login.php");
+                exit();
+            }
 
             header("Location: /plantitoshop/"); 
         } else {
-            $_SESSION['message'] = 'Wrong email or password';
+            $_SESSION['message'] = 'Wrong Email or Password';
         }
     }
 ?>
