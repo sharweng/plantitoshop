@@ -19,7 +19,7 @@
     </style>
 </head>
 <body>
-    <h1>This is the home page.</h1>
+    <h1 class="text-center p-2 fw-bold">Homepage</h1>
     <?php include("includes/alert.php"); ?>   
 </body>
 </html>
