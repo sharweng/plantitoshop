@@ -93,6 +93,10 @@ INSERT INTO user(email, password, lname, fname, addressline, phone, pfp_path, ro
 ('calungsodmp@gmail.com', 'adc8347c5f07d03e9d9dee22b8888aff349d5af7', 'Calungsod', 'Mary', 'Taguig', '09334567445', 'images/default-avatar-icon.jpg', 2);
 
 INSERT INTO product(description, price, cat_id)VALUES
+('Watering Can', 100, 1),
+('Trowel', 130, 1),
+('Garden Rake', 170, 1),
+('Loam Soil', 150, 1),
 ('Basil', 100, 2),
 ('Parsley', 120, 2),
 ('Rosemery', 200, 2),
@@ -127,3 +131,7 @@ INSERT INTO stock(prod_id, quantity)VALUES
 (14, 100),
 (15, 100),
 (16, 100);
+(17, 100),
+(18, 100),
+(19, 100),
+(20, 100);
