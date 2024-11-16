@@ -68,6 +68,7 @@
             </div>
         </div>
         <div class="container inner-box border border-success border-2 py-3 px-4">
+        <?php include("../includes/alert.php"); ?>
             <form action="store.php" method="post" enctype="multipart/form-data">
                 <div class="row">
                     <div class="col-md-6">
