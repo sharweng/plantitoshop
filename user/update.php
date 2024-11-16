@@ -15,7 +15,14 @@
         if(isset($_FILES['profile_photo'])&&!empty($_FILES['profile_photo'])){
             $source = $_FILES['profile_photo']['tmp_name'];
             $target = 'images/' . $_FILES['profile_photo']['name'];
+            
             if(move_uploaded_file($source, $target)){
+                $sql = "SELECT pfp_path FROM user WHERE user_id = {$ud_id}";
+                $result2 = mysqli_query($conn, $sql);
+                while($row = mysqli_fetch_array($result2)){
+                    if($row['pfp_path'] != 'images/default-avatar-icon.jpg')
+                        unlink($row['pfp_path']);
+                }
                 $sql = "UPDATE user SET pfp_path = '$target' WHERE user_id = $ud_id";
                 $upload = mysqli_query($conn, $sql);
             }else{
