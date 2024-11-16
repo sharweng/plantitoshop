@@ -9,13 +9,22 @@
     else
         $keyword = "";
 
+    $sql = "SELECT p.prod_id, p.description, p.price, s.quantity, c.description as cat FROM product p INNER JOIN stock s ON p.prod_id = s.prod_id INNER JOIN category c ON p.cat_id = c.cat_id";
     if($keyword){
-        $sql = "SELECT p.prod_id, p.description, p.price, s.quantity FROM product p INNER JOIN stock s ON p.prod_id = s.prod_id WHERE description LIKE '%{$keyword}%'";
-        $result = mysqli_query($conn, $sql);
-    }else{
-        $sql = "SELECT p.prod_id, p.description, p.price, s.quantity FROM product p INNER JOIN stock s ON p.prod_id = s.prod_id";
-        $result = mysqli_query($conn, $sql);
+        $sql = $sql . " WHERE p.description LIKE '%{$keyword}%'";  
     }
+    if(isset($_POST['miscs'])){
+        $sql = $sql . " WHERE c.cat_id = 1";  
+    }elseif(isset($_POST['herbs'])){
+        $sql = $sql . " WHERE c.cat_id = 2";  
+    }elseif(isset($_POST['shrubs'])){
+        $sql = $sql . " WHERE c.cat_id = 3";  
+    }elseif(isset($_POST['creepers'])){
+        $sql = $sql . " WHERE c.cat_id = 4";  
+    }elseif(isset($_POST['climbers'])){
+        $sql = $sql . " WHERE c.cat_id = 5";    
+    }
+    $result = mysqli_query($conn, $sql);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -42,7 +51,22 @@
                     <button class="btn btn-success">ADD</button>
                 </a>
             </div>
-            <div class="col-8 d-flex align-items-center justify-content-end">
+            <div class="col-8 d-flex align-items-center justify-content-end gap-1">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-success dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                        Category
+                    </button>
+                    <div class="dropdown-menu">
+                        <form action="" method="post">
+                            <button class="dropdown-item" name="none">None</button>
+                            <button class="dropdown-item" name="herbs">Herbs</button>
+                            <button class="dropdown-item" name="shrubs">Shrubs</button>
+                            <button class="dropdown-item" name="creepers">Creepers</button>
+                            <button class="dropdown-item" name="climbers">Climbers</button>
+                            <button class="dropdown-item" name="miscs">Miscellaneous</button>
+                        </form>
+                    </div>
+                </div>
                 <form action="" method="get" class="d-inline-block">
                     <div class="input-group">
                         <input type="text" class="form-control" name="search">
@@ -64,9 +88,10 @@
                     echo "<img class=\"img-thumbnail image-admin-css\" src=\"{$row2['img_path']}\" height=\"100px\" width=\"100px\">";
                 }
                             echo "</td>
+                            <div class=\"col d-grid align-items-center fw-bold justify-content-center text-wrap\">{$row['description']}</div>
                             <td class=\"col d-flex align-items-center\">
                                 <div class=\"col d-grid align-items-center\">{$row['prod_id']}</div>
-                                <div class=\"col d-grid align-items-center text-wrap\">{$row['description']}</div>
+                                <div class=\"col d-grid align-items-center text-wrap\">{$row['cat']}</div>
                                 <div class=\"col d-grid align-items-center\">{$row['price']}</div>
                                 <div class=\"col d-grid align-items-center\">{$row['quantity']}</div>
                                 <div class=\"col d-grid align-items-center\">
