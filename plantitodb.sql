@@ -114,6 +114,7 @@ INSERT INTO product(description, price, cat_id)VALUES
 ('Philippine Flame vine', 340, 5),
 ('Passion Flower', 400, 5);
 
+
 INSERT INTO stock(prod_id, quantity)VALUES
 (1, 100),
 (2, 100),
@@ -130,7 +131,7 @@ INSERT INTO stock(prod_id, quantity)VALUES
 (13, 100),
 (14, 100),
 (15, 100),
-(16, 100);
+(16, 100),
 (17, 100),
 (18, 100),
 (19, 100),
