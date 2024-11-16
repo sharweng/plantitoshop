@@ -55,6 +55,16 @@
 
         if((preg_match("/^[a-zA-Z0-9\s\-_]{1,50}$/", $desc))&&(preg_match("/^(0|[1-9]\d*)(\.\d{1,2})?$/", $prc))
         &&(preg_match("/^[1-9]\d*$/", $qty))&&(!empty($_FILES['img_path']['name'][0]))){
+
+            $searchsql = "SELECT description FROM product";
+            $prodExists = mysqli_query($conn, $searchsql);
+            while($row = mysqli_fetch_array($prodExists)){
+                if(strtolower($desc) == strtolower($row['description'])){
+                    $_SESSION['message'] = 'This product already exists. Please use a different name or check the product list.';
+                    header("Location: /plantitoshop/product/create.php");
+                    exit();
+                }
+            }
             // PRODUCT INSERT
             $sql = "INSERT INTO product(description, price, cat_id) VALUES('{$desc}', '{$prc}', '{$cat}')";
             $result = mysqli_query($conn, $sql);

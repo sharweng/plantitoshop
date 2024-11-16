@@ -100,7 +100,7 @@
             $searchsql = "SELECT email FROM user";
             $emailExists = mysqli_query($conn, $searchsql);
             while($row = mysqli_fetch_array($emailExists)){
-                if($email == $row['email']){
+                if(strtolower($email) == strtolower($row['email'])){
                     $_SESSION['message'] = 'This email is already registered. Please log in or use a different email to sign up.';
                     header("Location: /plantitoshop/user/register.php");
                     exit();

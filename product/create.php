@@ -38,6 +38,7 @@
             </div>
         </div>
         <div class="container inner-box border border-success border-2 py-3 px-4">
+            <?php include("../includes/alert.php"); ?>
             <form method="post" action="store.php" enctype="multipart/form-data">
                 <label class="form-label">Product Name:</label>
                 <input class="form-control" type="text" name="description" value="<?php
