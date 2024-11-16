@@ -13,13 +13,18 @@
     else
         $keyword = "";
 
+    $sql = "SELECT u.user_id, u.lname, u.fname, u.email, u.addressline, u.phone, u.pfp_path, r.description FROM user u INNER JOIN role r ON u.role_id = r.role_id";
     if($keyword){
-        $sql = "SELECT u.user_id, u.lname, u.fname, u.email, u.addressline, u.phone, u.pfp_path, r.description FROM user u INNER JOIN role r ON u.role_id = r.role_id WHERE u.lname LIKE '%{$keyword}%'";
-        $result = mysqli_query($conn, $sql);
-    }else{
-        $sql = "SELECT u.user_id, u.lname, u.fname, u.email, u.addressline, u.phone, u.pfp_path, r.description FROM user u INNER JOIN role r ON u.role_id = r.role_id";
-        $result = mysqli_query($conn, $sql);
+        $sql = $sql . " WHERE u.lname LIKE '%{$keyword}%'";
     }
+    if(isset($_POST['admin'])){
+        $sql = $sql . " WHERE r.description = 'admin'";  
+    }elseif(isset($_POST['user'])){
+        $sql = $sql . " WHERE r.description = 'user'";  
+    }elseif(isset($_POST['deact'])){
+        $sql = $sql . " WHERE r.description = 'deactivated'";  
+    }
+    $result = mysqli_query($conn, $sql);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -46,7 +51,20 @@
                     <button class="btn btn-success" name="add_user">ADD</button>
                 </form>
             </div>
-            <div class="col-8 d-flex align-items-center justify-content-end">
+            <div class="col-8 d-flex align-items-center justify-content-end gap-1">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-success dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                        Role
+                    </button>
+                    <div class="dropdown-menu">
+                        <form action="" method="post">
+                            <button class="dropdown-item" name="none">None</button>
+                            <button class="dropdown-item" name="admin">Admin</button>
+                            <button class="dropdown-item" name="user">User</button>
+                            <button class="dropdown-item" name="deact">Deactivated</button>
+                        </form>
+                    </div>
+                </div>
                 <form action="" method="get" class="d-inline-block">
                     <div class="input-group">
                         <input type="text" class="form-control" name="search">
