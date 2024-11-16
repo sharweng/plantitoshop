@@ -83,15 +83,14 @@
                                 <div class=\"col d-grid align-items-center\">
                                     <img class=\"img-thumbnail image-admin-css\" src=\"{$row['pfp_path']}\" style=\"object-fit: cover;\">
                                 </div>
-                                <div class=\"col d-grid align-items-center text-wrap\">{$row['lname']}</div>
-                                <div class=\"col d-grid align-items-center text-wrap\">{$row['fname']}</div>
                                 <div class=\"col d-grid align-items-center text-wrap\">{$row['email']}</div>
+                                <div class=\"col d-grid align-items-venter text-wrap\">{$row['description']}</div>
                             </td>
+                            <div class=\"col d-grid align-items-start text-wrap justify-content-center fw-bold\">{$row['lname']}, {$row['fname']}</div>
                             <td class=\"col d-flex align-items-center\">
                                 <div class=\"col d-grid align-items-center text-wrap\">{$row['user_id']}</div>
                                 <div class=\"col d-grid align-items-center text-wrap\">{$row['addressline']}</div>
                                 <div class=\"col d-grid align-items-center text-wrap\">{$row['phone']}</div>
-                                <div class=\"col d-grid align-items-center text-wrap\">{$row['description']}</div>
                                 <div class=\"col d-grid align-items-center\">
                                     <div class=\"row d-grid gap-1\">
                                         <form action=\"edit.php\" method=\"post\">
