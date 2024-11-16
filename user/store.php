@@ -97,6 +97,16 @@
         &&(preg_match("/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/", $email))
         &&(preg_match("/^.{12,}$/", $pass))&&(preg_match("/^[A-Za-z0-9\s.,'-]{5,100}$/", $add))
         &&(preg_match("/^\d{11}$/", $phone))&&(isset($_FILES['pfp_path']))){
+            $searchsql = "SELECT email FROM user";
+            $emailExists = mysqli_query($conn, $searchsql);
+            while($row = mysqli_fetch_array($emailExists)){
+                if($email == $row['email']){
+                    $_SESSION['message'] = 'This email is already registered. Please log in or use a different email to sign up.';
+                    header("Location: /plantitoshop/user/register.php");
+                    exit();
+                }
+            }
+
             $password = sha1($pass);
             $role = $_POST['role'];
 

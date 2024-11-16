@@ -40,7 +40,7 @@
             }
         }
         if($upload){
-            $_SESSION['success'] = 'Profile Photo Saved';
+            $_SESSION['success'] = 'Profile picture updated successfully.';
             header("Location: profile.php");
             exit();
         }
@@ -102,7 +102,7 @@
             $sql = "UPDATE user SET lname = '$lname', fname = '$fname', addressline = '$addressline', phone = '$phone' WHERE user_id = $u_id";
             $result = mysqli_query($conn, $sql);
             if($result){
-                $_SESSION['success'] = 'Profile Saved';
+                $_SESSION['success'] = 'Profile saved successfully.';
                 header("Location: profile.php");
             }
         }

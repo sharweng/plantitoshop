@@ -27,7 +27,7 @@
 
             header("Location: /plantitoshop/"); 
         } else {
-            $_SESSION['message'] = 'Wrong Email or Password';
+            $_SESSION['message'] = 'Invalid email or password. Please try again.';
         }
     }
 ?>

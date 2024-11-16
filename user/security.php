@@ -51,7 +51,7 @@
         $udsql = "UPDATE user SET email = '$email', password = '$password' WHERE user_id = $u_id";
         $result = mysqli_query($conn, $udsql);
         if($result&&!$error){
-            $_SESSION['success'] = 'Security Saved';
+            $_SESSION['success'] = 'Security settings saved successfully.';
             header("Location: security.php");
             $_SESSION['email'] = $email;    
         }
