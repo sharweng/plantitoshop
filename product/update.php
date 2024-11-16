@@ -62,18 +62,69 @@
                 $uploadedFiles = $_FILES['img_path']['name'];
                 $uploadCount = count($uploadedFiles);
 
-                echo $uploadCount . " " . $existingCount . "<br>";;
                 $counter = 0;
                 foreach ($uploadedFiles as $key => $name) {
+                    if ($uploadCount < $existingCount) {
+                        for ($i = 0; $i < $existingCount; $i++) {
+                            $sql = "SELECT img_path FROM image WHERE img_id = {$existingImages[$i]['img_id']}";
+                            $result2 = mysqli_query($conn, $sql);
+                            while($row = mysqli_fetch_array($result2)){
+                                unlink($row['img_path']);
+                            }
+                        }
+                        for ($i = $uploadCount; $i < $existingCount; $i++) {
+                            $sql = "SELECT img_path FROM image WHERE img_id = {$existingImages[$i]['img_id']}";
+                            $result2 = mysqli_query($conn, $sql);
+                            while($row = mysqli_fetch_array($result2)){
+                                unlink($row['img_path']);
+                            }
+                            $delete_sql = "DELETE FROM image WHERE img_id = {$existingImages[$i]['img_id']}";
+                            $result5 = mysqli_query($conn, $delete_sql);
+                            if(!$result5)
+                                $isSuccess = false;
+                        }
+                    }
+                }
+                
+                foreach ($uploadedFiles as $key => $name) {
                     $source = $_FILES['img_path']['tmp_name'][$key];
-                    $target = 'images/' . basename($name);
+                    
+                    switch($cat){
+                        case 1:
+                            $target = 'images/Miscellaneous/' . basename($name);
+                            break;
+                        case 2:
+                            $target = 'images/Herbs/' . basename($name);
+                            break;
+                        case 3:
+                            $target = 'images/Shrubs/' . basename($name);
+                            break;
+                        case 4:
+                            $target = 'images/Creepers/' . basename($name);
+                            break;
+                        case 5:
+                            $target = 'images/Climbers/' . basename($name);
+                            break;
+                        default:
+                            $target = 'images/' . basename($name);    
+                    }
 
                     if (move_uploaded_file($source, $target)) {
                         if($counter < $existingCount){
+                            $sql = "SELECT img_path FROM image WHERE img_id = {$existingImages[$counter]['img_id']}";
+                            $result2 = mysqli_query($conn, $sql);
+                            while($row = mysqli_fetch_array($result2)){
+                                copy($row['img_path'], $target);
+                            }
                             $img_sql = "UPDATE image SET img_path = '{$target}' WHERE img_id = {$existingImages[$counter]['img_id']}";
                         }elseif ($counter < $uploadCount) {
                             $img_sql = "INSERT INTO image (prod_id, img_path) VALUES ({$u_id}, '{$target}')";
                         }else{
+                            $sql = "SELECT img_path FROM image WHERE img_id = {$existingImages[$counter]['img_id']}";
+                            $result2 = mysqli_query($conn, $sql);
+                            while($row = mysqli_fetch_array($result2)){
+                                unlink($row['img_path']);
+                            }
                             $img_sql = "DELETE FROM image WHERE img_id = {$existingImages[$counter]['img_id']}";
                         }
 
@@ -85,16 +136,7 @@
                     }
                     $counter++;
                     echo $counter . "<br>";
-                }
-                if ($uploadCount < $existingCount) {
-                    for ($i = $uploadCount; $i < $existingCount; $i++) {
-                        $delete_sql = "DELETE FROM image WHERE img_id = {$existingImages[$i]['img_id']}";
-                        echo $delete_sql . "<br>";
-                        $result5 = mysqli_query($conn, $delete_sql);
-                        if(!$result5)
-                            $isSuccess = false;
-                    }
-                }
+                }            
             }
             
             if($result && $result2) {

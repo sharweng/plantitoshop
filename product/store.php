@@ -73,7 +73,25 @@
             $isSuccess = true;
             foreach($_FILES['img_path']['name'] as $key => $name){
                 $source = $_FILES['img_path']['tmp_name'][$key];
-                $target = 'images/' . basename($name);
+                switch($cat){
+                    case 1:
+                        $target = 'images/Miscellaneous/' . basename($name);
+                        break;
+                    case 2:
+                        $target = 'images/Herbs/' . basename($name);
+                        break;
+                    case 3:
+                        $target = 'images/Shrubs/' . basename($name);
+                        break;
+                    case 4:
+                        $target = 'images/Creepers/' . basename($name);
+                        break;
+                    case 5:
+                        $target = 'images/Climbers/' . basename($name);
+                        break;
+                    default:
+                        $target = 'images/' . basename($name);    
+                }
 
                 if (move_uploaded_file($source, $target)) {
                     $img_sql = "INSERT INTO image(prod_id, img_path) VALUES({$last_id}, '{$target}')";
