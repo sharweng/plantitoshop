@@ -42,19 +42,31 @@
                             </ul>
                         </li>";
                     }
-                    if($_SESSION['roleDesc'] == "admin" || $_SESSION['roleDesc'] == "user")
+                    if($_SESSION['roleDesc'] == "admin" || $_SESSION['roleDesc'] == "user"){
+                        $sql = "SELECT lname, fname, pfp_path FROM user WHERE user_id = {$_SESSION['user_id']}";
+                        $DBpath = mysqli_query($conn, $sql);
+                        while($row = mysqli_fetch_array($DBpath)){
+                            $settingFname = $row['fname'];
+                            $settingLname = $row['lname'];
+                            $settingPath = "../plantitoshop/user/".$row['pfp_path'];
+                        }
                         echo "<li class=\"nav-item dropdown\">
                                 <a class=\"nav-link dropdown-toggle green-hover\" href=\"#\" role=\"button\" data-bs-toggle=\"dropdown\" aria-expanded=\"false\">
                                     Settings
                                 </a>
                                 <ul class=\"dropdown-menu dropdown-menu-end dropdown-menu-sm-start\">
+                                    <li class=\"text-center p-2\">
+                                        <img src=\"$settingPath\" class=\"rounded-circle\" style=\"width: 50px; height: 50px; object-fit: cover;\">
+                                        <div class=\"fw-bold text-wrap\">$settingFname $settingLname</div>
+                                    </li>
+                                    <li><hr class=\"dropdown-divider\"></li>
                                     <li><a class=\"dropdown-item\" href=\"/plantitoshop/user/profile.php\">Profile</a></li>
                                     <li><a class=\"dropdown-item\" href=\"/plantitoshop/user/security.php\">Security</a></li>
                                     <li><hr class=\"dropdown-divider\"></li>
                                     <li><a class=\"dropdown-item\" href=\"/plantitoshop/user/logout.php\">Logout</a></li>
                                 </ul>
                             </li>";
-                    else{
+                    }else{
                         echo "<li class=\"nav-item\">
                                 <form action=\"\" method=\"post\"><button class=\"nav-link green-hover\" name=\"login\">Login</button></form>
                             </li>";

@@ -3,7 +3,7 @@
     if(!isset($_SESSION['roleDesc'])){
         $_SESSION['roleDesc'] = "";
     }
-        
+    include('includes/config.php');
     include('includes/headerBS.php');
 ?>
 <!DOCTYPE html>

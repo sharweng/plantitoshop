@@ -156,7 +156,8 @@
                         class="rounded-circle" style="width: 150px; height: 150px; object-fit: cover;">
                         <div class="small font-italic text-muted mb-4">JPG or PNG no larger than 5 MB</div>
                     </div>
-                    <div class="col-md-6 ">
+                    <div class="col-md-6 text-start">
+                        <label class="form-label">Change Profile Picture:</label>
                         <input class="form-control" type="file" name="profile_photo" accept="image/*">
                         <button type="submit" class="btn btn-success w-100 form-btn my-2" name="upload" >UPLOAD</button>
                     </div>
