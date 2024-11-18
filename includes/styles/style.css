@@ -71,6 +71,8 @@ form {
 
 .outer-box{
     background-color: #9EDF9C;
+}
+.container-sm{
     width: 70%;
     max-width: 700px;
 }
@@ -84,5 +86,8 @@ form {
 }
 .header-width{
     width: 62px;
+}
+.index_search{
+    width: 350px;
 }
 
