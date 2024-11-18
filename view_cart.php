@@ -18,7 +18,6 @@
 </head>
 <body>
     <h1 class="text-center p-2 fw-bold">Your Cart</h1>
-
     <div class="container-sm outer-box p-3 mb-3 shadow-lg  border border-success border-2 rounded">
         <div class="row top-header pb-3 justify-content-between">
             <div class="col-4 d-flex align-items-center justify-content-start">
@@ -30,6 +29,7 @@
             </div>
         </div>
         <div class="container inner-box border border-success border-2 py-2">
+        <?php include("includes/alert.php"); ?>
         <?php
         if (isset($_SESSION["cart_products"]) && !empty($_SESSION["cart_products"])) {
             echo "<form action='cart_update.php' method='POST'>";

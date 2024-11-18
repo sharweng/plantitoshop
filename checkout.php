@@ -36,13 +36,18 @@ if (isset($_SESSION["cart_products"]) && !empty($_SESSION["cart_products"])) {
 
         $conn->commit();
         unset($_SESSION["cart_products"]); // Clear cart after checkout
-        echo "<p>Order placed successfully! Your Order ID is: $orderinfo_id</p>";
+        $_SESSION['success'] = "Order placed successfully! Thank you for your purchase.";
+        header("Location: view_cart.php");
+        exit();
     } catch (Exception $e) {
         $conn->rollback();
-        echo "Error processing order: " . $e->getMessage();
+        $_SESSION['message'] = "Error processing order: " . $e->getMessage();
+        header("Location: view_cart.php");
+        exit();
     }
 } else {
-    echo "<p>Your cart is empty!</p>";
+    $_SESSION['message'] = "Your cart is empty!";
+    header("Location: view_cart.php");
+    exit();
 }
 ?>
-<a href="index.php" class="btn btn-primary">Back to Home</a>
