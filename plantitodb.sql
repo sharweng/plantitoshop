@@ -49,7 +49,7 @@ CREATE TABLE orderinfo (
     orderinfo_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     user_id INT NOT NULL,
     date_placed date NOT NULL,
-    order_status INT,
+    status_id INT,
     shipping decimal(7,2),
     INDEX(user_id),
     CONSTRAINT orderinfo_user_id_fk FOREIGN KEY (user_id) REFERENCES user(user_id) ON DELETE CASCADE
