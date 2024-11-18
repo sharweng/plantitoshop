@@ -92,7 +92,7 @@
                                         <input type=\"hidden\" name=\"prod_id\" value=\"{$row['prod_id']}\" />
                                         <input class=\"form-control d-inline\" type=\"hidden\" value=\"1\" placeholder=\"1\" name=\"quantity\" min=\"1\">
                                         <input type=\"hidden\" name=\"type\" value=\"add\" />
-                                        <button class=\"col btn btn-success w-100 btn-sm\" name=\"add_to_cart\">Add to Cart</button>
+                                        <button class=\"col btn btn-success w-100 btn-sm\" name=\"add_cart\">Add to Cart</button>
                                     </form>
                                 </div>
                             </div>

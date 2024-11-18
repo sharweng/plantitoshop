@@ -48,6 +48,9 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     }
 }
 
-header('Location: view_cart.php');
+if(isset($_POST['add_cart']))
+    header('Location: index.php');
+else
+    header('Location: view_cart.php');
 exit;
 ?>

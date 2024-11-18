@@ -26,7 +26,18 @@
             </ul>
             <ul class="navbar-nav mb-2 mb-sm-0">
                 <li class="nav-item">
-                    <a class="nav-link green-hover" href="/plantitoshop/view_cart.php">Cart</a>
+                    <a class="nav-link green-hover position-relative" href="/plantitoshop/view_cart.php">Cart
+                        <?php 
+                            if(isset($_SESSION['cart_products'])){
+                                $product_count = count($_SESSION["cart_products"]);
+                                if($product_count > 0){
+                                    echo "<span class=\"position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger\">
+                                        $product_count
+                                    </span>";
+                                }
+                            }
+                        ?>
+                    </a>
                 </li>
                 <?php
                     if(!isset($_SESSION['roleDesc'])){
