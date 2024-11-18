@@ -49,7 +49,7 @@ CREATE TABLE orderinfo (
     orderinfo_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     user_id INT NOT NULL,
     date_placed date NOT NULL,
-    status_id INT,
+    stat_id INT,
     shipping decimal(7,2),
     INDEX(user_id),
     CONSTRAINT orderinfo_user_id_fk FOREIGN KEY (user_id) REFERENCES user(user_id) ON DELETE CASCADE
@@ -96,7 +96,7 @@ FROM
 JOIN 
     user u ON oi.user_id = u.user_id
 JOIN 
-    orderstatus os ON oi.order_status = os.stat_id
+    orderstatus os ON oi.stat_id = os.stat_id
 JOIN 
     orderline ol ON oi.orderinfo_id = ol.orderinfo_id
 JOIN 

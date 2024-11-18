@@ -13,7 +13,7 @@ if (isset($_SESSION["cart_products"]) && !empty($_SESSION["cart_products"])) {
 
     try {
         // Insert into `orderinfo`
-        $sql_order = "INSERT INTO orderinfo (user_id, date_placed, order_status, shipping) VALUES (?, NOW(), ?, ?)";
+        $sql_order = "INSERT INTO orderinfo (user_id, date_placed, stat_id, shipping) VALUES (?, NOW(), ?, ?)";
         $stmt_order = $conn->prepare($sql_order);
         $stmt_order->bind_param("iii", $user_id, $status, $shipping);
         $stmt_order->execute();
