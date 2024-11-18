@@ -49,10 +49,15 @@ CREATE TABLE orderinfo (
     orderinfo_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     user_id INT NOT NULL,
     date_placed date NOT NULL,
-    date_shipped date,
+    order_status INT,
     shipping decimal(7,2),
     INDEX(user_id),
     CONSTRAINT orderinfo_user_id_fk FOREIGN KEY (user_id) REFERENCES user(user_id) ON DELETE CASCADE
+);
+
+CREATE TABLE orderstatus(
+    stat_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    stat_name varchar(32)
 );
 
 CREATE TABLE orderline (
@@ -83,6 +88,11 @@ INSERT INTO category(description)VALUES
 ('Shrubs'),
 ('Creepers'),
 ('Climbers');
+
+INSERT INTO orderstatus(stat_name)VALUES
+('Ongoing'),
+('Delivered'),
+('Cancelled');
 
 
 INSERT INTO user(email, password, lname, fname, addressline, phone, pfp_path, role_id)VALUES

@@ -79,19 +79,15 @@
                                 </form>
                             </div>
                             <div class=\"col-md-6 inner-detail-width py-2 d-flex flex-column justify-content-center align-items-center\">
-                                <form action=\"\" class=\"detail-width d-flex flex-column justify-content-center align-items-start\">
+                                <form action=\"cart_update.php\" method=\"post\" class=\"detail-width d-flex flex-column justify-content-center align-items-start\">
                                     <h1 class=\"fw-bold\">{$row['description']}</h1>
                                     <label class=\"form-label h4\">Price: <p class=\"h1 fw-bold d-inline\">&#x20B1;{$row['price']}</p></label>
                                     <label class=\"form-label\">Stock: {$row['quantity']}</label>
-                                    <label class=\"form-label lbl-width\">Shipping:</label>
-                                    <select class=\"form-select d-inline\" name=\"shipping\">
-                                        <option value=\"1\">Standard: &#x20B1;40</option>
-                                        <option value=\"2\">Fast Delivery: &#x20B1;120</option>
-                                    </select>
                                     <label class=\"form-label lbl-width\">Quantity:</label>
                                     <input class=\"form-control d-inline\" type=\"number\" value=\"1\" placeholder=\"1\" name=\"quantity\" min=\"1\">
                                     <input type=\"hidden\" name=\"prod_id\" value=\"{$row['prod_id']}\"/>
-                                    <button class=\"btn btn-success w-100 form-btn my-2\" name=\"submit\">ADD TO CART</button>
+                                    <input type=\"hidden\" name=\"type\" value=\"add\" />
+                                    <button class=\"btn btn-success w-100 form-btn my-2\" name=\"add_to_cart\">ADD TO CART</button>
                                 </form>
                             </div>";
                     }

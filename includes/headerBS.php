@@ -26,7 +26,7 @@
             </ul>
             <ul class="navbar-nav mb-2 mb-sm-0">
                 <li class="nav-item">
-                    <a class="nav-link green-hover" href="#">Cart</a>
+                    <a class="nav-link green-hover" href="/plantitoshop/view_cart.php">Cart</a>
                 </li>
                 <?php
                     if(!isset($_SESSION['roleDesc'])){

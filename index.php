@@ -6,8 +6,7 @@
     if(isset($_POST['view'])){
         $_SESSION['prod_id'] = $_POST['prod_id'];
         header("Location: view_product.php");
-    }
-        
+    }       
 
     if(isset($_GET['search']))
         $keyword = strtolower(trim($_GET['search']));
@@ -81,14 +80,21 @@
                         echo "<img src=\"../plantitoshop/product/{$row2['img_path']}\" class=\"card-img-top\" style=\"width: 220px; height: 220px; object-fit: cover;\">";
                         break;
                     }
-                    echo "<div class=\"card-body mx-2\">
+                    echo "<div class=\"card-body \">
                                 <h5 class=\"card-title fw-bold\">{$row['description']}</h5>
                                 <p class=\"card-text\">Price: &#x20B1;{$row['price']}<br>Stock: {$row['quantity']}</p>
-                                <form action=\"\" method=\"post\" class=\"row gap-1\">
+                                <div class=\"d-flex gap-1\">
+                                    <form action=\"\" method=\"post\" class=\"col\">
                                     <input type=\"hidden\" name=\"prod_id\" value=\"{$row['prod_id']}\" />
-                                    <button class=\"col btn btn-success btn-sm\" name=\"view\">View Details</button>
-                                    <button class=\"col btn btn-success btn-sm\" name=\"add_cart\">Add to Cart</button>
-                                </form>
+                                        <button class=\"col btn btn-success w-100 btn-sm\" name=\"view\">View Detail</button>
+                                    </form>
+                                    <form action=\"cart_update.php\" method=\"post\" class=\"col\">
+                                        <input type=\"hidden\" name=\"prod_id\" value=\"{$row['prod_id']}\" />
+                                        <input class=\"form-control d-inline\" type=\"hidden\" value=\"1\" placeholder=\"1\" name=\"quantity\" min=\"1\">
+                                        <input type=\"hidden\" name=\"type\" value=\"add\" />
+                                        <button class=\"col btn btn-success w-100 btn-sm\" name=\"add_to_cart\">Add to Cart</button>
+                                    </form>
+                                </div>
                             </div>
                         </div>";
                 }
