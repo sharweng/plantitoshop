@@ -67,7 +67,8 @@ CREATE TABLE orderline (
 CREATE TABLE review (
     rev_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     user_id INT NOT NULL,
-    description varchar(200),
+    rev_num INT,
+    rev_msg varchar(200),
     CONSTRAINT review_user_id_fk FOREIGN KEY (user_id) REFERENCES user(user_id) ON DELETE CASCADE
 );
 
