@@ -111,7 +111,7 @@ INSERT INTO product(description, price, cat_id)VALUES
 ('Blue Pea Vine', 170, 4),
 ('Philodendron Heartleaf', 230, 5),
 ('Jasmine', 250, 5),
-('Philippine Flame vine', 340, 5),
+('Philippine Flame Vine', 340, 5),
 ('Passion Flower', 400, 5);
 
 INSERT INTO stock(prod_id, quantity)VALUES

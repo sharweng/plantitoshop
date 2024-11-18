@@ -29,6 +29,9 @@
                     <a class="nav-link green-hover" href="#">Cart</a>
                 </li>
                 <?php
+                    if(!isset($_SESSION['roleDesc'])){
+                        $_SESSION['roleDesc'] = "";
+                    }
                     if($_SESSION['roleDesc'] == "admin"){
                         echo "<li class=\"nav-item dropdown\">
                             <a class=\"nav-link dropdown-toggle green-hover\" href=\"#\" role=\"button\" data-bs-toggle=\"dropdown\" aria-expanded=\"false\">
@@ -48,7 +51,7 @@
                         while($row = mysqli_fetch_array($DBpath)){
                             $settingFname = $row['fname'];
                             $settingLname = $row['lname'];
-                            $settingPath = "../plantitoshop/user/".$row['pfp_path'];
+                            $settingPath = "/plantitoshop/user/".$row['pfp_path'];
                         }
                         echo "<li class=\"nav-item dropdown\">
                                 <a class=\"nav-link dropdown-toggle green-hover\" href=\"#\" role=\"button\" data-bs-toggle=\"dropdown\" aria-expanded=\"false\">
