@@ -3,6 +3,12 @@
     include('includes/config.php');
     include('includes/headerBS.php');
 
+    if(isset($_POST['view'])){
+        $_SESSION['prod_id'] = $_POST['prod_id'];
+        header("Location: view_product.php");
+    }
+        
+
     if(isset($_GET['search']))
         $keyword = strtolower(trim($_GET['search']));
     else
@@ -77,8 +83,8 @@
                     }
                     echo "<div class=\"card-body mx-2\">
                                 <h5 class=\"card-title fw-bold\">{$row['description']}</h5>
-                                <p class=\"card-text\">Price: &#x20B1;{$row['price']}<br>Quantity: {$row['quantity']}</p>
-                                <form action=\"\" class=\"row gap-1\">
+                                <p class=\"card-text\">Price: &#x20B1;{$row['price']}<br>Stock: {$row['quantity']}</p>
+                                <form action=\"\" method=\"post\" class=\"row gap-1\">
                                     <input type=\"hidden\" name=\"prod_id\" value=\"{$row['prod_id']}\" />
                                     <button class=\"col btn btn-success btn-sm\" name=\"view\">View Details</button>
                                     <button class=\"col btn btn-success btn-sm\" name=\"add_cart\">Add to Cart</button>

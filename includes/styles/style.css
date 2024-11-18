@@ -68,13 +68,13 @@ form {
 .dark2-green{
     color: #526E48;
 }
-
-.outer-box{
-    background-color: #9EDF9C;
-}
 .container-sm{
     width: 70%;
     max-width: 700px;
+}
+.outer-box{
+    background-color: #9EDF9C;
+    min-width: 455px;
 }
 .inner-box{
     background-color: white;
@@ -89,5 +89,22 @@ form {
 }
 .index_search{
     width: 350px;
+}
+.img-container{
+    width: 300px;
+    height: 300px;
+}
+.lbl-width{
+    width: 70px;
+}
+.detail-width{
+    width: 380px;
+}
+.detail-width2{
+    width: 85%;
+    max-width: 1000px;
+}
+.inner-detail-width{
+    min-width: 420px;
 }
 
