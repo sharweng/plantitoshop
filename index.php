@@ -91,6 +91,7 @@
                                     <form action=\"cart_update.php\" method=\"post\" class=\"col\">
                                         <input type=\"hidden\" name=\"prod_id\" value=\"{$row['prod_id']}\" />
                                         <input class=\"form-control d-inline\" type=\"hidden\" value=\"1\" placeholder=\"1\" name=\"quantity\" min=\"1\">
+                                        <input class=\"form-control d-inline\" type=\"hidden\" value=\"{$row['quantity']}\" placeholder=\"1\" name=\"stock\" min=\"1\">
                                         <input type=\"hidden\" name=\"type\" value=\"add\" />
                                         <button class=\"col btn btn-success w-100 btn-sm\" name=\"add_cart\">Add to Cart</button>
                                     </form>

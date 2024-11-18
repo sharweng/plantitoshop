@@ -77,6 +77,50 @@ CREATE TABLE review (
     CONSTRAINT review_user_id_fk FOREIGN KEY (user_id) REFERENCES user(user_id) ON DELETE CASCADE
 );
 
+CREATE VIEW order_transaction_details AS
+SELECT 
+    oi.orderinfo_id,
+    oi.date_placed,
+    CONCAT(u.fname, ' ', u.lname) AS customer_name,
+    u.email AS customer_email,
+    u.addressline AS shipping_address,
+    os.stat_name AS order_status,
+    p.description AS product_name,
+    p.price AS unit_price,
+    ol.quantity AS quantity_ordered,
+    (p.price * ol.quantity) AS total_price,
+    oi.shipping AS shipping_fee,
+    ((p.price * ol.quantity) + oi.shipping) AS grand_total
+FROM 
+    orderinfo oi
+JOIN 
+    user u ON oi.user_id = u.user_id
+JOIN 
+    orderstatus os ON oi.order_status = os.stat_id
+JOIN 
+    orderline ol ON oi.orderinfo_id = ol.orderinfo_id
+JOIN 
+    product p ON ol.prod_id = p.prod_id;
+
+DELIMITER $$
+CREATE TRIGGER update_stock_after_order
+AFTER INSERT ON orderline
+FOR EACH ROW
+BEGIN
+    DECLARE current_stock INT;
+
+    -- Get the current stock for the product
+    SELECT quantity INTO current_stock
+    FROM stock
+    WHERE prod_id = NEW.prod_id;
+
+    -- Update the stock by subtracting the quantity ordered
+    UPDATE stock
+    SET quantity = current_stock - NEW.quantity
+    WHERE prod_id = NEW.prod_id;
+END $$
+DELIMITER ;
+
 INSERT INTO role(description)VALUES
 ('admin'),
 ('user'),

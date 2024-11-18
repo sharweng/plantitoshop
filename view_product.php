@@ -86,6 +86,7 @@
                                     <label class=\"form-label lbl-width\">Quantity:</label>
                                     <input class=\"form-control d-inline\" type=\"number\" value=\"1\" placeholder=\"1\" name=\"quantity\" min=\"1\">
                                     <input type=\"hidden\" name=\"prod_id\" value=\"{$row['prod_id']}\"/>
+                                    <input class=\"form-control d-inline\" type=\"hidden\" value=\"{$row['quantity']}\" placeholder=\"1\" name=\"stock\" min=\"1\">
                                     <input type=\"hidden\" name=\"type\" value=\"add\" />
                                     <button class=\"btn btn-success w-100 form-btn my-2\" name=\"add_to_cart\">ADD TO CART</button>
                                 </form>

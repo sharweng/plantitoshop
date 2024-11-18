@@ -6,6 +6,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     if (isset($_POST["type"]) && $_POST["type"] == 'add' && $_POST["quantity"] > 0) {
         $prod_id = $_POST["prod_id"];
         $prod_qty = $_POST["quantity"];
+        $stk_qty = $_POST['stock'];
 
         // Fetch product details
         $sql = "SELECT prod_id, description, price FROM product WHERE prod_id = ?";
@@ -20,7 +21,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
                 'prod_id' => $product['prod_id'],
                 'prod_name' => $product['description'],
                 'prod_price' => $product['price'],
-                'prod_qty' => $prod_qty
+                'prod_qty' => $prod_qty,
+                'stk_qty' => $stk_qty
             ];
 
             if (isset($_SESSION["cart_products"][$prod_id])) {

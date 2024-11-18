@@ -34,7 +34,7 @@
         if (isset($_SESSION["cart_products"]) && !empty($_SESSION["cart_products"])) {
             echo "<form action='cart_update.php' method='POST'>";
             echo "<table class='table table-bordered align-middle'>";
-            echo "<tr><th>Product Name</th><th>Price</th><th>Quantity</th><th>Total</th><th class='text-center'>X</th></tr>";
+            echo "<tr><th>Product Name</th><th>Price</th><th>Quantity</th><th>Stock</th><th>Total</th><th class='text-center'>X</th></tr>";
 
             $grand_total = 0;
 
@@ -46,6 +46,7 @@
                         <td>{$product['prod_name']}</td>
                         <td>&#x20B1;{$product['prod_price']}</td>
                         <td><input type='number' name='product_qty[{$product_id}]' value='{$product['prod_qty']}' min='1' class='form-control' style='max-width:70px'></td>
+                        <td>{$product['stk_qty']}</td>
                         <td>&#x20B1;{$product_total}</td>
                         <td class='text-center'><input type='checkbox' class='form-check-input' name='remove_code[]' value='{$product_id}'></td>
                     </tr>";

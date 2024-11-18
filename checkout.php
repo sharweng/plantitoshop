@@ -6,8 +6,8 @@ if (isset($_SESSION["cart_products"]) && !empty($_SESSION["cart_products"])) {
     $order_total = 0;
     $status = 1; // Default order placed status (Pending, etc.)
     $user_id = $_SESSION['user_id']; // Ensure this exists
-
     $shipping = ($_POST['shipping'] == 1) ? 40 : 120;
+    
 
     $conn->begin_transaction();
 
@@ -25,13 +25,28 @@ if (isset($_SESSION["cart_products"]) && !empty($_SESSION["cart_products"])) {
         $stmt_details = $conn->prepare($sql_orderline);
 
         foreach ($_SESSION["cart_products"] as $product) {
+            if($product['prod_qty'] > $product['stk_qty']){
+                $_SESSION['message'] = "Invalid quantity: The quantity you selected is higher than the available stock.";
+                header("Location: view_cart.php");
+                exit();
+            }
+            
             $stmt_details->bind_param(
                 "iii",
                 $orderinfo_id,
                 $product["prod_id"],
                 $product["prod_qty"]
             );
+            if($product['prod_qty'] == $product['stk_qty']){
+                $stock = $product['prod_qty']+100;
+                $sql_update_stock = "UPDATE stock SET quantity = $stock WHERE prod_id = ?";
+                $stmt_update_stock = $conn->prepare($sql_update_stock);
+                $stmt_update_stock->bind_param("i", $product['prod_id']);
+                $stmt_update_stock->execute();
+            }
             $stmt_details->execute();
+
+            
         }
 
         $conn->commit();
