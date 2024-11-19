@@ -16,8 +16,6 @@
     $prod_query = mysqli_query($conn, $prod_sql);
 
     $select_sql = "SELECT ol.orderinfo_id, ol.prod_id, p.description, ol.quantity FROM orderline ol INNER JOIN product p ON ol.prod_id = p.prod_id WHERE ol.orderinfo_id = {$_SESSION['view_id']}";
-    echo $select_sql;
-    echo $prod_sql;
     $select_query = mysqli_query($conn, $select_sql);
 ?>
 <!DOCTYPE html>
