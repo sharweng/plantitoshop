@@ -74,6 +74,7 @@
                                         <div class=\"fw-bold text-wrap\">$settingFname $settingLname</div>
                                     </li>
                                     <li><hr class=\"dropdown-divider\"></li>
+                                    <li><a class=\"dropdown-item\" href=\"/plantitoshop/orders.php\">History</a></li>
                                     <li><a class=\"dropdown-item\" href=\"/plantitoshop/user/profile.php\">Profile</a></li>
                                     <li><a class=\"dropdown-item\" href=\"/plantitoshop/user/security.php\">Security</a></li>
                                     <li><hr class=\"dropdown-divider\"></li>
