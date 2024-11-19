@@ -9,9 +9,9 @@
     else
         $keyword = "";
 
-    $sql = "SELECT oi.orderinfo_id, CONCAT(u.lname,', ', u.fname) AS uname, oi.date_placed, os.stat_name, oi.shipping FROM orderinfo oi INNER JOIN user u ON oi.user_id = u.user_id INNER JOIN orderstatus os ON os.stat_id = oi.stat_id;";
+    $sql = "SELECT oi.orderinfo_id, CONCAT(u.lname,', ', u.fname) AS uname, oi.date_placed, os.stat_name, oi.shipping FROM orderinfo oi INNER JOIN user u ON oi.user_id = u.user_id INNER JOIN orderstatus os ON os.stat_id = oi.stat_id";
     if($keyword){
-        $sql = $sql . " WHERE u.lname LIKE '%{$keyword}%'";  
+        $sql = $sql . " WHERE CONCAT(u.lname,', ', u.fname) LIKE '%{$keyword}%'";  
     }
     $result = mysqli_query($conn, $sql);
 ?>
@@ -71,7 +71,7 @@
                 <td class=\"col \">
                     <div class=\"row d-grid gap-1\">
                         <form action=\"order_view.php\" method=\"post\">
-                            <button class=\"btn btn-warning btn-sm w-100\" name=\"update_id\" value=\"{$row['orderinfo_id']}\">VIEW</button>
+                            <button class=\"btn btn-warning btn-sm w-100\" name=\"view_id\" value=\"{$row['orderinfo_id']}\">VIEW</button>
                         </form>
                         <div class=\"dropdown d-block\">
                             <button class=\"btn btn-danger btn-sm w-100 dropdown-toggle\" type=\"button\" data-bs-toggle=\"dropdown\" aria-expanded=\"false\">
