@@ -12,6 +12,15 @@
         $sql_orderinfo = "UPDATE orderinfo SET user_id = '$user_id', date_placed = '$date_placed', stat_id = '$stat_id', shipping = '$shipping' WHERE orderinfo_id = $orderinfo_id";
         $result = mysqli_query($conn, $sql_orderinfo);
 
+        if($stat_id != 1){
+            $select_sql = "SELECT ol.orderinfo_id, ol.prod_id, p.description, ol.quantity FROM orderline ol INNER JOIN product p ON ol.prod_id = p.prod_id WHERE ol.orderinfo_id = {$_SESSION['view_id']}";
+            $select_query = mysqli_query($conn, $select_sql);
+            while($select = mysqli_fetch_array($select_query)){
+                $stock_sql = "UPDATE stock SET quantity = (quantity + {$select['quantity']}) WHERE prod_id = {$select['prod_id']}";
+                $stock_query = mysqli_query($conn, $stock_sql);
+            }
+        }
+
         if($result){
             header('Location: /plantitoshop/order/');
             exit();
