@@ -52,7 +52,7 @@
                                 <li><a class=\"dropdown-item\" href=\"/plantitoshop/user/\">Users</a></li>
                                 <li><a class=\"dropdown-item\" href=\"/plantitoshop/order/\">Orders</a></li>
                                 <li><a class=\"dropdown-item\" href=\"/plantitoshop/product/\">Products</a></li>
-                                <li><a class=\"dropdown-item\" href=\"#\">Reviews</a></li>
+                                <li><a class=\"dropdown-item\" href=\"/plantitoshop/review/\">Reviews</a></li>
                             </ul>
                         </li>";
                     }
