@@ -4,6 +4,20 @@
     include('../includes/headerBS.php');
     include('../includes/notAdminRedirect.php');
 
+    $select_sql = "SELECT stat_id FROM orderinfo WHERE orderinfo_id = {$_SESSION['view_id']}";
+    $select_query = mysqli_query($conn, $select_sql);
+    $select = mysqli_fetch_assoc($select_query);
+
+    if($select['stat_id'] == 2){
+        $_SESSION['message'] = "Cannot edit product. Order was already delivered.";
+        header('Location: /plantitoshop/order/order_view.php');
+        exit();
+    }elseif($select['stat_id'] == 3){
+        $_SESSION['message'] = "Cannot edit product. Order was already cancelled.";
+        header('Location: /plantitoshop/order/order_view.php');
+        exit();
+    }
+
     if(isset($_GET['prod-search']))
         $keyword = strtolower(trim($_GET['prod-search']));
     else

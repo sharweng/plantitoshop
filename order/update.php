@@ -37,7 +37,6 @@
         $quantity = $_POST['quantity'];             
         $bfr_qty = $_POST['bfr_qty'];              
 
-   
         $select_sql = "SELECT * FROM stock WHERE prod_id = $prod_id";
         $select_query = mysqli_query($conn, $select_sql);
         $select = mysqli_fetch_assoc($select_query);

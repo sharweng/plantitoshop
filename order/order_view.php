@@ -59,6 +59,7 @@
             </div>
         </div>
         <div class="container inner-box border border-success border-2 py-1">
+            <?php include("../includes/alert.php"); ?>   
             <table class="table text-center align-middle">
                 <tr class="">
                     <th>id</th>
