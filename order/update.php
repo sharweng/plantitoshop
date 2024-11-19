@@ -21,4 +21,73 @@
             exit();
         }
     }
+    if(isset($_POST['updateOI'])){
+        $oi_id = $_SESSION['view_id'];             
+        $bfr_prod_id = $_SESSION['editprod_id'];    
+        $prod_id = $_POST['prod'];                  
+        $quantity = $_POST['quantity'];             
+        $bfr_qty = $_POST['bfr_qty'];              
+
+   
+        $select_sql = "SELECT * FROM stock WHERE prod_id = $prod_id";
+        $select_query = mysqli_query($conn, $select_sql);
+        $select = mysqli_fetch_assoc($select_query);
+        $stock_qty = $select['quantity'];
+
+ 
+        if ($quantity > $stock_qty) { 
+            $_SESSION['message'] = "Invalid quantity: The quantity you selected is higher than the available stock.";
+            header("Location: editOI.php");
+            exit();
+        }
+
+      
+        $sql_orderline = "UPDATE orderline 
+                        SET prod_id = $prod_id, quantity = $quantity 
+                        WHERE orderinfo_id = $oi_id AND prod_id = $bfr_prod_id";
+        $result = mysqli_query($conn, $sql_orderline);
+
+      
+        if ($prod_id != $bfr_prod_id) {
+            $select_sql = "SELECT * FROM stock WHERE prod_id = $bfr_prod_id";
+            $select_query = mysqli_query($conn, $select_sql);
+            $select = mysqli_fetch_assoc($select_query);
+            $bfr_stock_qty = $select['quantity'];
+
+            $stock_sql = "UPDATE stock 
+                        SET quantity = ($bfr_qty + $bfr_stock_qty) 
+                        WHERE prod_id = $bfr_prod_id";
+            $stock_query = mysqli_query($conn, $stock_sql);
+
+            $stock_sql = "UPDATE stock 
+                        SET quantity = (quantity - $quantity) 
+                        WHERE prod_id = $prod_id";
+            $stock_query = mysqli_query($conn, $stock_sql);
+        }else{
+            if($quantity < $bfr_qty){
+                $stock_sql = "UPDATE stock 
+                    SET quantity = (quantity + ($bfr_qty - $quantity)) 
+                    WHERE prod_id = $prod_id";
+                $stock_query = mysqli_query($conn, $stock_sql);
+            }elseif($quantity > $bfr_qty){
+                $stock_sql = "UPDATE stock 
+                    SET quantity = (quantity - ($quantity - $bfr_qty)) 
+                    WHERE prod_id = $prod_id";
+                $stock_query = mysqli_query($conn, $stock_sql);
+            }
+            
+        }
+
+
+        
+
+        if ($result) {
+            header('Location: /plantitoshop/order/order_view.php');
+            exit();
+        } else {
+            $_SESSION['message'] = "Failed to update orderline.";
+            header('Location: /plantitoshop/order/order_view.php');
+            exit();
+        }
+    }
 ?>

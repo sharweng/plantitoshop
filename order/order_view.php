@@ -111,8 +111,8 @@
                                 <td class=\"col \">{$products['quantity']}</td>
                                 <td class=\"col \">
                                     <div class=\"row d-grid gap-1\">
-                                        <form action=\"order_view.php\" method=\"post\">
-                                            <button class=\"btn btn-warning btn-sm w-100\" name=\"view_id\" value=\"{$products['prod_id']}\">EDIT</button>
+                                        <form action=\"editOI.php\" method=\"post\">
+                                            <button class=\"btn btn-warning btn-sm w-100\" name=\"prod_id\" value=\"{$products['prod_id']}\">EDIT</button>
                                         </form>
                                         <div class=\"dropdown d-block\">
                                             <button class=\"btn btn-danger btn-sm w-100 dropdown-toggle\" type=\"button\" data-bs-toggle=\"dropdown\" aria-expanded=\"false\">
