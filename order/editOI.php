@@ -23,6 +23,9 @@
     $ol_sql = "SELECT orderinfo_id, prod_id, quantity FROM orderline WHERE orderinfo_id = {$_SESSION['view_id']} AND prod_id = {$_SESSION['editprod_id']}";
     $ol_query = mysqli_query($conn, $ol_sql);
     $orderline = mysqli_fetch_assoc($ol_query);
+
+    $select_sql = "SELECT ol.orderinfo_id, ol.prod_id, p.description, ol.quantity FROM orderline ol INNER JOIN product p ON ol.prod_id = p.prod_id WHERE ol.orderinfo_id = {$_SESSION['view_id']}";
+    $select_query = mysqli_query($conn, $select_sql);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -67,12 +70,24 @@
                 <label for="user_id" class="form-label">Product:</label>
                 <select class="form-select" name="prod">
                     <?php
-                    while($products = mysqli_fetch_array($prod_query)){
-                        if($products['prod_id'] == $orderline['prod_id'])
-                            echo "<option selected value=\"{$products['prod_id']}\">{$products['description']} / {$products['cat']} / &#x20B1;{$products['price']} / {$products['quantity']}</option>";
-                        else
-                            echo "<option value=\"{$products['prod_id']}\">{$products['description']} / {$products['cat']} / &#x20B1;{$products['price']} / {$products['quantity']}</option>";
-                    }
+                        $selected_products = [];
+                        while($select = mysqli_fetch_array($select_query)){
+                            if($select['prod_id'] != $orderline['prod_id'])
+                                $selected_products[] = $select['prod_id'];
+                        }
+                    
+                        while($products = mysqli_fetch_array($prod_query)){
+                        
+                            if(in_array($products['prod_id'], $selected_products)){
+                                continue;
+                            }
+
+                            if($products['prod_id'] == $orderline['prod_id']){
+                                echo "<option selected value=\"{$products['prod_id']}\">{$products['description']} / {$products['cat']} / &#x20B1;{$products['price']} / {$products['quantity']}</option>";
+                            } else {
+                                echo "<option value=\"{$products['prod_id']}\">{$products['description']} / {$products['cat']} / &#x20B1;{$products['price']} / {$products['quantity']}</option>";
+                            }
+                        }
                     ?>
                 </select>
                 <label class="form-text"></label><br>
