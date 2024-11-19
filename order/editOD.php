@@ -44,7 +44,7 @@
     <div class="container-sm outer-box p-3 mb-3 shadow-lg  border border-success border-2 rounded">
         <div class="row top-header pb-3 justify-content-between">
             <div class="col-2 d-flex align-items-center justify-content-start">
-                <a href="/plantitoshop/order/">
+                <a href="/plantitoshop/order/order_view.php">
                     <button class="btn btn-success">BACK</button>
                 </a>
             </div>
@@ -62,7 +62,7 @@
                 </div>
             </form>
             <form action="update.php" method="post">
-                <label for="user_id" class="form-label">Email:</label>
+                <label for="user_id" class="form-label  my-1">Email:</label>
                 <select class="form-select" name="email">
                     <?php
                     while($emails = mysqli_fetch_array($email_query)){
@@ -73,9 +73,9 @@
                     }
                     ?>
                 </select>
-                <label for="date_placed" class="form-label">Date Placed:</label>
+                <label for="date_placed" class=" my-1 form-label">Date Placed:</label>
                 <input type="date" class="form-control" name="date_placed" value="<?php echo $orderinfo['date_placed'] ?>">
-                <label class="form-label col-3">Status:</label>
+                <label class="form-label col-3  my-1">Status:</label>
                 <select class="form-select col" name="stat_id">
                     <?php
                         while($stats = mysqli_fetch_array($stat_query)){
@@ -87,7 +87,7 @@
                         }
                     ?>
                 </select>
-                <label class="form-label col-3">Shipping:</label>
+                <label class="form-label col-3  my-1">Shipping:</label>
                 <select class="form-select col" name="shipping">
                     <?php
                         if($orderinfo['shipping'] == 40){

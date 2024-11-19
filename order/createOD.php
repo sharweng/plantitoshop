@@ -55,7 +55,7 @@
                 </div>
             </form>
             <form action="store.php" method="post">
-                <label for="user_id" class="form-label">Email:</label>
+                <label for="user_id" class="form-label my-1">Email:</label>
                 <select class="form-select" name="email">
                     <?php
                     while($emails = mysqli_fetch_array($email_query)){
@@ -63,15 +63,15 @@
                     }
                     ?>
                 </select>
-                <label for="date_placed" class="form-label">Date Placed:</label>
+                <label for="date_placed" class="form-label my-1">Date Placed:</label>
                 <input type="date" class="form-control" name="date_placed">
-                <label class="form-label col-3">Status:</label>
+                <label class="form-label col-3  my-1">Status:</label>
                 <select class="form-select col" name="stat_id">
                     <option selected value="1">Ongoing</option>
                     <option value="2">Delivered</option>
                     <option value="3">Cancelled</option>";
                 </select>
-                <label class="form-label col-3">Shipping:</label>
+                <label class="form-label col-3  my-1">Shipping:</label>
                 <select class="form-select col" name="shipping">
                     <option selected value="40">Standard: &#x20B1;40</option>
                     <option value="120">Fast Delivery: &#x20B1;120</option>
