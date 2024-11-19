@@ -42,57 +42,41 @@
                 </a>
             </div>
             <div class="col-10 d-flex align-items-center justify-content-end gap-1">
-                <div class="col-8 d-flex align-items-center justify-content-end gap-2">
-                    <button class="btn btn-success" disabled>Order Details</button>
-                    <a href="/plantitoshop/order/createOI.php">
-                        <button class="btn btn-success">Order Items</button>
-                    </a>
-                </div>
             </div>
         </div>
         <div class="container inner-box border border-success border-2 py-3 px-4">
-                <h3 class="text-center fw-bold">Order Details</h3>
-                <div class="mb-3">
-                    <form action="" method="get" class="row">
-                        <label for="user_id" class="form-label">Search Email:</label>
-                        <div class="input-group ">
-                            <input type="text" class="form-control" name="email-search">
-                            <button class="btn btn-success">Search</button>
-                        </div>
-                    </form>
-                    <form action="store.php" method="post">
-                    <label for="user_id" class="form-label">Email:</label>
-                    <select class="form-select" name="email">
-                        <?php
-                        while($emails = mysqli_fetch_array($email_query)){
-                            echo "<option value=\"{$emails['user_id']}\">{$emails['email']}</option>";
-                        }
-                        ?>
-                    </select>
+            <?php include("../includes/alert.php"); ?>
+            <h3 class="text-center fw-bold">Order Details</h3>
+            <form action="" method="get" class="row">
+                <label for="user_id" class="form-label">Search Email:</label>
+                <div class="input-group ">
+                    <input type="text" class="form-control" name="email-search">
+                    <button class="btn btn-success">Search</button>
                 </div>
-                <div class="mb-3">
-                    <label for="date_placed" class="form-label">Date Placed:</label>
-                    <input type="date" class="form-control" name="date_placed">
-                </div>
-                <div class="mb-3">
-                    <label class="form-label col-3">Status:</label>
-                    <select class="form-select col" name="stat_id">
-                        <option selected value="1">Ongoing</option>
-                        <option value="2">Delivered</option>
-                        <option value="3">Cancelled</option>";
-                    </select>
-                </div>
-                <div class="mb-3">
+            </form>
+            <form action="store.php" method="post">
+                <label for="user_id" class="form-label">Email:</label>
+                <select class="form-select" name="email">
+                    <?php
+                    while($emails = mysqli_fetch_array($email_query)){
+                        echo "<option value=\"{$emails['user_id']}\">{$emails['email']}</option>";
+                    }
+                    ?>
+                </select>
+                <label for="date_placed" class="form-label">Date Placed:</label>
+                <input type="date" class="form-control" name="date_placed">
+                <label class="form-label col-3">Status:</label>
+                <select class="form-select col" name="stat_id">
+                    <option selected value="1">Ongoing</option>
+                    <option value="2">Delivered</option>
+                    <option value="3">Cancelled</option>";
+                </select>
                 <label class="form-label col-3">Shipping:</label>
-                    <select class="form-select col" name="shipping">
-                        <option selected value="40">Standard: &#x20B1;40</option>
-                        <option value="120">Fast Delivery: &#x20B1;120</option>
-                    </select>
-                </div>
-            
-                <div class="row gap-1">
-                    <button type="submit" class="col btn btn-success mt-3" name="createOD">CREATE ORDER INFO</button>
-                </div>
+                <select class="form-select col" name="shipping">
+                    <option selected value="40">Standard: &#x20B1;40</option>
+                    <option value="120">Fast Delivery: &#x20B1;120</option>
+                </select>
+                <button type="submit" class="col btn btn-success mt-3 w-100" name="createOI">CREATE ORDER INFO</button>
             </form>
         </div>
     </div>
