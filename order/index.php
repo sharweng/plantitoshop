@@ -50,7 +50,7 @@
             </div>
         </div>
         <div class="container inner-box border border-success border-2 py-1">
-        <table class="table text-center ">
+        <table class="table text-center align-middle">
             <tr class="">
                 <th>id</th>
                 <th>Name</th>
