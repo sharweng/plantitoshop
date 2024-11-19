@@ -79,7 +79,7 @@
                         <td class=\"col \">{$row['shipping']}</td>
                         <td class=\"col \">
                             <div class=\"row\">
-                                <form action=\"createOD.php\" method=\"post\">
+                                <form action=\"editOD.php\" method=\"post\">
                                     <button class=\"btn btn-warning btn-sm w-100 px-4\" name=\"update_id\" value=\"{$row['orderinfo_id']}\">EDIT</button>
                                 </form>
                             </div>
