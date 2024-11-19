@@ -36,7 +36,7 @@
     <div class="container-sm outer-box p-3 mb-3 shadow-lg  border border-success border-2 rounded">
         <div class="row top-header pb-3 justify-content-between">
             <div class="col-4 d-flex align-items-center justify-content-start">
-                <a href="create.php">
+                <a href="createOD.php">
                     <button class="btn btn-success">ADD</button>
                 </a>
             </div>
@@ -50,14 +50,15 @@
             </div>
         </div>
         <div class="container inner-box border border-success border-2 py-1">
+        <?php include("../includes/alert.php"); ?>   
         <table class="table text-center align-middle">
             <tr class="">
                 <th>id</th>
                 <th>Name</th>
                 <th>Date Placed</th>
                 <th>Status</th>
-                <th>Shipping Fee</th>
-                <th>Button</th>
+                <th>Ship Fee</th>
+                <th></th>
             </tr>
             
         <?php 
@@ -79,7 +80,7 @@
                             </button>
                             <ul class=\"dropdown-menu\">
                                 <form action=\"delete.php\" method=\"post\">
-                                    <button class=\"dropdown-item btn-sm w-100\" name=\"delete_id\" value=\"{$row['orderinfo_id']}\">YES</button>
+                                    <button class=\"dropdown-item btn-sm w-100\" name=\"orderinfo_id\" value=\"{$row['orderinfo_id']}\">YES</button>
                                 </form>
                                 <form action=\"\" method=\"post\">
                                     <button class=\"dropdown-item btn-sm w-100\" name=\"no\" value=\"{$row['orderinfo_id']}\">NO</button>

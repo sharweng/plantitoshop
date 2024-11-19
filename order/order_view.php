@@ -65,8 +65,8 @@
                     <th>Name</th>
                     <th>Date Placed</th>
                     <th>Status</th>
-                    <th>Shipping Fee</th>
-                    <th>Button</th>
+                    <th>Ship Fee</th>
+                    <th></th>
                 </tr>
                 
                 <?php 
@@ -78,23 +78,10 @@
                         <td class=\"col \">{$row['stat_name']}</td>
                         <td class=\"col \">{$row['shipping']}</td>
                         <td class=\"col \">
-                            <div class=\"row d-grid gap-1\">
-                                <form action=\"edit.php\" method=\"post\">
-                                    <button class=\"btn btn-warning btn-sm w-100\" name=\"update_id\" value=\"{$row['orderinfo_id']}\">EDIT</button>
+                            <div class=\"row\">
+                                <form action=\"createOD.php\" method=\"post\">
+                                    <button class=\"btn btn-warning btn-sm w-100 px-4\" name=\"update_id\" value=\"{$row['orderinfo_id']}\">EDIT</button>
                                 </form>
-                                <div class=\"dropdown d-block\">
-                                    <button class=\"btn btn-danger btn-sm w-100 dropdown-toggle\" type=\"button\" data-bs-toggle=\"dropdown\" aria-expanded=\"false\">
-                                        DELETE
-                                    </button>
-                                    <ul class=\"dropdown-menu\">
-                                        <form action=\"delete.php\" method=\"post\">
-                                            <button class=\"dropdown-item btn-sm w-100\" name=\"delete_id\" value=\"{$row['orderinfo_id']}\">YES</button>
-                                        </form>
-                                        <form action=\"\" method=\"post\">
-                                            <button class=\"dropdown-item btn-sm w-100\" name=\"no\" value=\"{$row['orderinfo_id']}\">NO</button>
-                                        </form>
-                                    </ul>
-                                </div>
                             </div>
                         </td>
                     </tr>";
@@ -103,12 +90,18 @@
             </table>
             <table class="table text-center align-middle">
                 <tr>
-                    <td colspan="3" class="fw-bold h3">ORDERS</td>
+                    <td colspan="4" class="fw-bold h3">ORDERS</td>
+                </tr>
+                <tr>
+                    <td colspan="4" class="">
+                        <a href="/plantitoshop/order/createOI.php" class="btn btn-success w-100">ADD PRODUCT</a>
+                    </td>
                 </tr>
                 <tr>
                     <th>prodID</th>
                     <th>Product Name</th>
                     <th>Quantity</th>
+                    <th></th>
                 </tr>
                 <?php
                     while($products = mysqli_fetch_array($prod_query)){
@@ -116,6 +109,27 @@
                                 <td class=\"col \">{$products['prod_id']}</td>
                                 <td class=\"col text-wrap\">{$products['description']}</td>
                                 <td class=\"col \">{$products['quantity']}</td>
+                                <td class=\"col \">
+                                    <div class=\"row d-grid gap-1\">
+                                        <form action=\"order_view.php\" method=\"post\">
+                                            <button class=\"btn btn-warning btn-sm w-100\" name=\"view_id\" value=\"{$products['prod_id']}\">EDIT</button>
+                                        </form>
+                                        <div class=\"dropdown d-block\">
+                                            <button class=\"btn btn-danger btn-sm w-100 dropdown-toggle\" type=\"button\" data-bs-toggle=\"dropdown\" aria-expanded=\"false\">
+                                                DELETE
+                                            </button>
+                                            <ul class=\"dropdown-menu\">
+                                                <form action=\"delete.php\" method=\"post\">
+                                                    <input type=\"hidden\" name=\"oi_id\" value=\"{$products['orderinfo_id']}\"/>
+                                                    <button class=\"dropdown-item btn-sm w-100\" name=\"orderline\" value=\"{$products['prod_id']}\">YES</button>
+                                                </form>
+                                                <form action=\"\" method=\"post\">
+                                                    <button class=\"dropdown-item btn-sm w-100\" name=\"no\" value=\"{$products['prod_id']}\">NO</button>
+                                                </form>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </td>
                             </tr>";
                     }
                 ?>
