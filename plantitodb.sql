@@ -72,9 +72,11 @@ CREATE TABLE orderline (
 CREATE TABLE review (
     rev_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     user_id INT NOT NULL,
+    prod_id INT NOT NULL,
     rev_num INT,
-    rev_msg varchar(200),
-    CONSTRAINT review_user_id_fk FOREIGN KEY (user_id) REFERENCES user(user_id) ON DELETE CASCADE
+    rev_msg TEXT,
+    CONSTRAINT review_user_id_fk FOREIGN KEY (user_id) REFERENCES user(user_id) ON DELETE CASCADE,
+    CONSTRAINT review_prod_id_fk FOREIGN KEY (prod_id) REFERENCES product(prod_id) ON DELETE CASCADE
 );
 
 CREATE VIEW order_transaction_details AS

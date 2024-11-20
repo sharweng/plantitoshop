@@ -6,6 +6,7 @@
         header("Location: /plantitoshop/user/logout.php");
     }
 ?>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 <nav class="navbar navbar-expand-sm bg-body-tertiary site-header border-bottom">
     <div class="container-fluid" style="max-width: 1000px;">
         <a class="navbar-brand fw-bold green-hover" href="/plantitoshop/">Plantito's Shop</a>
