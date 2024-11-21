@@ -1,7 +1,7 @@
 <?php
     session_start();
     include("../includes/config.php");
-
+    include('../includes/notUserRedirect.php');
     include('../includes/headerBS.php');
 
     if(isset($_POST['submit'])) {

@@ -101,14 +101,16 @@
         <div class="container inner-box border border-success border-2 py-3 px-4">
             <h3 class="fw-bold text-center">Reviews</h3>
             <?php
-                $deliveredsql = "SELECT oi.stat_id, u.user_id FROM user u INNER JOIN orderinfo oi ON u.user_id = oi.user_id WHERE oi.stat_id = 2 AND u.user_id = {$_SESSION['user_id']}";
-                $deliveredquery = mysqli_query($conn, $deliveredsql);
-
-                if($deliveredquery->num_rows != 0){
-                    echo "<button class=\"btn btn-success btn-sm\" type=\"button\" data-bs-toggle=\"collapse\" data-bs-target=\"#collapseExample\" aria-expanded=\"false\" aria-controls=\"collapseExample\">
-                            ADD REVIEW
-                        </button>";
-                }
+                if(!empty($_SESSION['user_id'])){
+                    $deliveredsql = "SELECT oi.stat_id, u.user_id FROM user u INNER JOIN orderinfo oi ON u.user_id = oi.user_id WHERE oi.stat_id = 2 AND u.user_id = {$_SESSION['user_id']}";
+                    $deliveredquery = mysqli_query($conn, $deliveredsql);
+                    
+                    if($deliveredquery->num_rows != 0){
+                        echo "<button class=\"btn btn-success btn-sm\" type=\"button\" data-bs-toggle=\"collapse\" data-bs-target=\"#collapseExample\" aria-expanded=\"false\" aria-controls=\"collapseExample\">
+                                ADD REVIEW
+                            </button>";
+                    }
+                
             ?>
             <div class="mt-2 collapse" id="collapseExample">
                 <div class="card card-body">
@@ -188,6 +190,9 @@
                             </div>
                         </div>";
                 }
+            }else{
+                echo "<p class=\"text-center\">No Reviews.</p>";
+            }
             ?>
         </div>
     </div>

@@ -1,6 +1,7 @@
 <?php
 session_start();
 include('includes/config.php');
+include('includes/notUserRedirect.php');
 
 if (isset($_SESSION["cart_products"]) && !empty($_SESSION["cart_products"])) {
     $order_total = 0;

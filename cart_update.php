@@ -1,6 +1,7 @@
 <?php
 session_start();
 include('includes/config.php');
+include('includes/notUserRedirect.php');
 
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
     if (isset($_POST["type"]) && $_POST["type"] == 'add' && $_POST["quantity"] > 0) {

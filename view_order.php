@@ -1,6 +1,7 @@
 <?php
 session_start();
 include('includes/config.php'); // Database connection
+include('includes/notUserRedirect.php');
 include('includes/headerBS.php');
 
 if(isset($_POST['review'])){

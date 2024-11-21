@@ -1,6 +1,7 @@
 <?php
     session_start();
     include('includes/config.php');
+    include('includes/notUserRedirect.php');
     use PHPMailer\PHPMailer\PHPMailer;
     use PHPMailer\PHPMailer\Exception;
 

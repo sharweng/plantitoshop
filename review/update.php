@@ -1,6 +1,7 @@
 <?php
     session_start();
     include('../includes/config.php');
+    include('../includes/notUserRedirect.php');
     if(isset($_POST['create_send'])){
         $rev_id = $_SESSION['rev_id'];
         $user_id = $_POST['email'];

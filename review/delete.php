@@ -1,6 +1,7 @@
 <?php
     session_start();
     include('../includes/config.php');
+    include('../includes/notUserRedirect.php');
 
     if (isset($_POST['delete']) || isset($_POST['delete_rev_prod'])) {
         if(isset($_POST['delete_rev_prod']))
