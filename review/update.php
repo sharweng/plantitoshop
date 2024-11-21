@@ -14,7 +14,7 @@
                     'jerk', 'loser', 'slut', 'whore', 'asshole', 'bastard', 'fuck', 'dick', 'burat', 'bayag',
                     'inutil', 'nigger', 'nigga', 'cunt', 'dumbass', 'fucker', 'shithead', 'douchebag', 'retard', 'faggot',
                     'douche', 'jackass', 'bayot', 'pakshet', 'bwisit', 'leche', 'gaga', 'buang', 'boang', 'putragis', 'kupal',
-                    'punyeta', 'shet', 'tangina'];
+                    'punyeta', 'shet', 'tangina', 'pakyu'];
         $pattern = '/\b(' . implode('|', array_map('preg_quote', $badWords)) . ')\b/i';
         $maskedMessage = preg_replace_callback($pattern, function($matches) {
             return str_repeat('*', strlen($matches[0]));
@@ -41,7 +41,7 @@
                     'jerk', 'loser', 'slut', 'whore', 'asshole', 'bastard', 'fuck', 'dick', 'burat', 'bayag',
                     'inutil', 'nigger', 'nigga', 'cunt', 'dumbass', 'fucker', 'shithead', 'douchebag', 'retard', 'faggot',
                     'douche', 'jackass', 'bayot', 'pakshet', 'bwisit', 'leche', 'gaga', 'buang', 'boang', 'putragis', 'kupal',
-                    'punyeta', 'shet', 'tangina'];
+                    'punyeta', 'shet', 'tangina', 'pakyu'];
         $pattern = '/\b(' . implode('|', array_map('preg_quote', $badWords)) . ')\b/i';
         $maskedMessage = preg_replace_callback($pattern, function($matches) {
             return str_repeat('*', strlen($matches[0]));
