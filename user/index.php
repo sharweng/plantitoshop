@@ -5,7 +5,6 @@
     if(!isset($_SESSION['roleDesc'])){
         $_SESSION['roleDesc'] = "";
     }
-    
     include('../includes/notAdminRedirect.php');
     include('../includes/headerBS.php');
 
@@ -76,6 +75,7 @@
         </div>
         <div class="container inner-box border border-success border-2 py-3 px-4">
         <?php 
+        if($result->num_rows!=0){
             while($row = mysqli_fetch_array($result)){
                 echo "
                     <table class=\"table text-center \">
@@ -118,6 +118,9 @@
                     </table>
                 ";
             }
+        }else{
+            echo "<p class=\"text-center mt-2 fw-bold\">No users found.</p>";
+        }
         ?>
         </div>
     </div>

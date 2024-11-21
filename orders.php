@@ -41,7 +41,8 @@
             </div>
         </div>
         <div class="container inner-box border border-success border-2 py-1">
-        <?php include("includes/alert.php"); ?>   
+        <?php include("includes/alert.php"); 
+            if($result->num_rows!=0){?>   
         <table class="table text-center align-middle">
             <tr class="">
                 <th>Order #</th>
@@ -74,7 +75,13 @@
                 </td>
             </tr>";
             }
+        }else{
+            echo "<tr col='4'>
+                    <p class=\"text-center mt-2 fw-bold\">No Order History.</p>
+                </tr>";
+        }
         ?>
+        </table>
         </div>
     </div>
 </body>

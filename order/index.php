@@ -51,6 +51,7 @@
         </div>
         <div class="container inner-box border border-success border-2 py-1">
         <?php include("../includes/alert.php"); ?>   
+        <?php if($result->num_rows!=0){ ?>
         <table class="table text-center align-middle">
             <tr class="">
                 <th>id</th>
@@ -91,6 +92,9 @@
                 </td>
             </tr>";
             }
+        }else{
+            echo "<p class=\"text-center mt-2 fw-bold\">No orders found.</p>";
+        }
         ?>
         </div>
     </div>

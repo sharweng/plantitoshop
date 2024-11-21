@@ -281,6 +281,7 @@
             </div>
         </div>
         <div class="container inner-box border border-success border-2">
+            <?php if($result->num_rows!=0){ ?>
             <table class="table mt-2">
                 <thead class="text-center">
                     <tr>
@@ -331,6 +332,7 @@
                     <?php } ?>
                 </tbody>
             </table>
+            <?php }else{echo "<p class=\"text-center mt-2 fw-bold\">No reviews found.</p>";} ?>
         </div>
     </div>
     <script>

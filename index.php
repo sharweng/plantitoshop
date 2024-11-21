@@ -72,6 +72,7 @@
         </div>
         <div class="container d-flex flex-wrap justify-content-center gap-3">
             <?php
+            if($result->num_rows != 0){
                 while($row = mysqli_fetch_array($result)){
                     echo "<div class=\"card p-1\" style=\"width: 230px;\">";
                     $sql = "SELECT img_path FROM image WHERE prod_id = {$row['prod_id']}";
@@ -99,6 +100,9 @@
                             </div>
                         </div>";
                 }
+            }else{
+                echo "<p class=\"text-center mt-2 fw-bold\">No results found.</p>";
+            }
             ?>
         </div>
     </div>
