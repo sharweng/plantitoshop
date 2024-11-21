@@ -3,7 +3,7 @@
         $_SESSION['message'] = 'Account deactivated: Your account is currently inactive. Please contact support for assistance.';
         header("Location: /plantitoshop/user/login.php");
         exit();
-    }elseif(($_SESSION['roleDesc'] != 'admin')||($_SESSION['roleDesc'] != 'user')){
+    }elseif(($_SESSION['roleDesc'] != 'admin')&&($_SESSION['roleDesc'] != 'user')){
         $_SESSION['message'] = 'Access denied: You must be a registered user to access that page. Please log in or sign up to continue.';
         header("Location: /plantitoshop/user/login.php");
         exit();

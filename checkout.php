@@ -20,6 +20,8 @@ if (isset($_SESSION["cart_products"]) && !empty($_SESSION["cart_products"])) {
 
         $orderinfo_id = $conn->insert_id; // Get generated order ID
 
+        $_SESSION['fromAdmin'] = false;
+        $_SESSION['view_id'] = $orderinfo_id;
         // Insert each product into `orderline`
         $sql_orderline = "INSERT INTO orderline (orderinfo_id, prod_id, quantity) VALUES (?, ?, ?)";
         $stmt_details = $conn->prepare($sql_orderline);
@@ -49,10 +51,12 @@ if (isset($_SESSION["cart_products"]) && !empty($_SESSION["cart_products"])) {
             
         }
 
+
         $conn->commit();
+        
         unset($_SESSION["cart_products"]); // Clear cart after checkout
         $_SESSION['success'] = "Order placed successfully! Thank you for your purchase.";
-        header("Location: view_cart.php");
+        header("Location: send_email.php");
         exit();
     } catch (Exception $e) {
         $conn->rollback();

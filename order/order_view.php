@@ -4,12 +4,14 @@
     include('../includes/headerBS.php');
     include('../includes/notAdminRedirect.php');
 
+    $_SESSION['fromAdmin'] = true;
+
     if(isset($_GET['search']))
         $keyword = strtolower(trim($_GET['search']));
     else
         $keyword = "";
 
-    $sql = "SELECT oi.orderinfo_id, CONCAT(u.lname,', ', u.fname) AS uname, oi.date_placed, os.stat_name, oi.shipping FROM orderinfo oi INNER JOIN user u ON oi.user_id = u.user_id INNER JOIN orderstatus os ON os.stat_id = oi.stat_id";
+    $sql = "SELECT oi.orderinfo_id, CONCAT(u.lname,', ', u.fname) AS uname, u.email, oi.date_placed, os.stat_name, oi.shipping FROM orderinfo oi INNER JOIN user u ON oi.user_id = u.user_id INNER JOIN orderstatus os ON os.stat_id = oi.stat_id";
     if(isset($_POST['view_id'])){
         $view_id = $_POST['view_id'];
         $_SESSION['view_id'] = $view_id;
@@ -88,6 +90,17 @@
                     </tr>";
                     }
                 ?>
+                <tr>
+                    <td colspan="6">
+                        <form action="/plantitoshop/send_email.php" method="post">
+                            <input type="number" name="orderinfo_id" hidden value="<?php $email = mysqli_fetch_assoc($result); echo $email['orderinfo_id']; ?>">
+                            <button class="btn btn-secondary w-100 btn-sm" name="send_order_receipt" value="<?php
+                            $email = mysqli_fetch_assoc($result);
+                             echo $email['email'] ?>">SEND ORDER RECEIPT</button>
+                        </form>
+
+                    </td>
+                </tr>
             </table>
             <table class="table text-center align-middle">
                 <tr>
