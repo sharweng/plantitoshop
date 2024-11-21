@@ -19,7 +19,7 @@
                     <a class="nav-link green-hover" href="/plantitoshop/">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link green-hover" href="#">About</a>
+                    <a class="nav-link green-hover" href="/plantitoshop/about.php">About</a>
                 </li>
             </ul>
             <ul class="navbar-nav mb-2 mb-sm-0">
