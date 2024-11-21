@@ -5,7 +5,8 @@
     if(!isset($_SESSION['roleDesc'])){
         $_SESSION['roleDesc'] = "";
     }
-        
+    
+    include('../includes/notAdminRedirect.php');
     include('../includes/headerBS.php');
 
     if(isset($_GET['search']))

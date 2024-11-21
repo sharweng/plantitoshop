@@ -1,6 +1,7 @@
 <?php
 session_start();
 include('../includes/config.php');
+include('../includes/notAdminRedirect.php');
 
 if(isset($_POST['createOD'])){
     $user_id = $_POST['email'];

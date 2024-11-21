@@ -1,6 +1,7 @@
 <?php
     session_start();
     include("../includes/config.php");
+    include('../includes/notAdminRedirect.php');
 
     $_SESSION['lnameErr'] = "";
     $_SESSION['fnameErr'] = "";

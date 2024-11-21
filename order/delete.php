@@ -1,6 +1,7 @@
 <?php
 session_start();
 include('../includes/config.php');
+include('../includes/notAdminRedirect.php');
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['orderinfo_id'])) {
     $orderinfo_id = $_POST['orderinfo_id'];
