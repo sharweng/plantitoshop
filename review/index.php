@@ -144,7 +144,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <form action="" method="post" class="d-flex w-100 flex-flow-reverse align-items-center">
-                        <h1 class="modal-title fs-5 fw-bold" id="exampleModalLabel"><?php echo truncateText($select['rev_msg'], 40); ?></h1>
+                        <h1 class="modal-title fs-5 fw-bold text-truncate" id="exampleModalLabel"><?php echo $select['rev_msg'] ?></h1>
                         <button type="submit" class="btn-close" data-bs-dismiss="modal" aria-label="Close" name="close"></button>
                     </form>
                 </div>
