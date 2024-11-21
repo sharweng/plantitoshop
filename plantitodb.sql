@@ -87,6 +87,7 @@ SELECT
     u.email AS customer_email,
     u.addressline AS shipping_address,
     os.stat_name AS order_status,
+    p.prod_id AS product_id,
     p.description AS product_name,
     p.price AS unit_price,
     ol.quantity AS quantity_ordered,

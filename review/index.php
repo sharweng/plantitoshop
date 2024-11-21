@@ -35,6 +35,10 @@
     $query = "SELECT r.rev_id, r.user_id, CONCAT(u.lname,', ', u.fname) as uname, u.email, p.prod_id, r.rev_num, p.description, r.rev_msg FROM review r
     INNER JOIN user u ON r.user_id = u.user_id INNER JOIN product p ON p.prod_id = r.prod_id";
     
+    if(isset($_POST['view']) || isset($_POST['edit'])){
+        $_SESSION['rev_id'] = $_POST['rev_id'];
+    }
+
     if(isset($_SESSION['rev_id'])){
         $select_sql = $query . " WHERE rev_id = {$_SESSION['rev_id']}";
         $select_query = mysqli_query($conn, $select_sql);
@@ -45,10 +49,6 @@
         $query = $query . " WHERE CONCAT(u.lname,', ', u.fname) LIKE '%{$keyword3}%'";  
     }
     $result = mysqli_query($conn, $query);
-
-    if(isset($_POST['view']) || isset($_POST['edit'])){
-        $_SESSION['rev_id'] = $_POST['rev_id'];
-    }
 
     function truncateText($text, $maxLength = 30) {
         if (strlen($text) > $maxLength) {
@@ -156,6 +156,10 @@
                     <div class="row">
                         <div class="col-2 fw-bold">Customer:</div>
                         <div class="col"><?php echo $select['uname']; ?></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2 fw-bold">Product:</div>
+                        <div class="col"><?php echo $select['description']; ?></div>
                     </div>
                     <div class="row">
                         <div class="col-2 fw-bold">Rating:</div>
