@@ -21,9 +21,6 @@
                 <li class="nav-item">
                     <a class="nav-link green-hover" href="#">About</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link green-hover" href="#">Contact</a>
-                </li>
             </ul>
             <ul class="navbar-nav mb-2 mb-sm-0">
                 <li class="nav-item">
