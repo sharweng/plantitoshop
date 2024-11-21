@@ -13,7 +13,7 @@
     elseif(isset($_POST['previous']))
         $_SESSION['img_pos']--;
 
-    $sql = "SELECT p.prod_id, p.description, p.price, s.quantity FROM product p INNER JOIN stock s ON p.prod_id = s.prod_id INNER JOIN category c ON p.cat_id = c.cat_id WHERE p.prod_id = $prod_id";
+    $sql = "SELECT p.prod_id, p.description, p.definition, p.price, s.quantity FROM product p INNER JOIN stock s ON p.prod_id = s.prod_id INNER JOIN category c ON p.cat_id = c.cat_id WHERE p.prod_id = $prod_id";
     $result = mysqli_query($conn, $sql);
 ?>
 <!DOCTYPE html>
@@ -81,6 +81,7 @@
                             <div class=\"col-md-6 inner-detail-width py-2 d-flex flex-column justify-content-center align-items-center\">
                                 <form action=\"cart_update.php\" method=\"post\" class=\"detail-width d-flex flex-column justify-content-center align-items-start\">
                                     <h1 class=\"fw-bold\">{$row['description']}</h1>
+                                    <p class=\"fst-italic\" style=\"text-align: justify;\">{$row['definition']}</p>
                                     <label class=\"form-label h4\">Price: <p class=\"h1 fw-bold d-inline\">&#x20B1;{$row['price']}</p></label>
                                     <label class=\"form-label\">Stock: {$row['quantity']}</label>
                                     <label class=\"form-label lbl-width\">Quantity:</label>
