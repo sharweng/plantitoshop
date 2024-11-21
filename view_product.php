@@ -131,68 +131,70 @@
                     </form>
                 </div>
             </div>
+            <?php } ?>
             <?php 
                 $rev_sql = "SELECT r.rev_id, r.user_id, CONCAT(u.lname,', ', u.fname) AS uname, r.rev_num, r.rev_msg FROM review r INNER JOIN user u ON u.user_id = r.user_id
                     WHERE prod_id = {$_SESSION['prod_id']}";
                 $rev_query = mysqli_query($conn, $rev_sql);
-                while($reviews = mysqli_fetch_array($rev_query)) {
-                    echo "<div class=\"mt-2 card\">
-                            <div class=\"card-header d-flex justify-content-between\">
-                                <div>{$reviews['uname']}</div>";
-                                if($_SESSION['user_id'] == $reviews['user_id']){
-                                    echo "<div class=\"dropdown\">
-                                            <button class=\"btn btn-sm\" type=\"button\" data-bs-toggle=\"dropdown\" aria-expanded=\"false\">
-                                                <i class=\"bi bi-three-dots\"></i>
-                                            </button>
-                                            <ul class=\"dropdown-menu\">
-                                                <li><button class=\"dropdown-item\" data-bs-toggle=\"collapse\" data-bs-target=\"#editReview{$reviews['rev_id']}\" aria-expanded=\"false\" aria-controls=\"collapseExample\">Edit</button></li>
-                                                <form action='/plantitoshop/review/delete.php' method=\"post\">    
-                                                    <li><button class=\"dropdown-item\"  name=\"delete_rev_prod\" value=\"{$reviews['rev_id']}\">Delete</button></li>
-                                                </form>
-                                            </ul>
-                                        </div>";
-                                }
-                            echo" </div>
-
-                            <div class=\"mt-2 collapse card-body\" id=\"editReview{$reviews['rev_id']}\">
-                                <div class=\"card card-body\">
-                                    <form action=\"/plantitoshop/review/update.php\" method=\"post\">
-                                        <label for=\"message-text\" class=\"col-form-label\">Rating:</label>
-                                        <select name=\"rev_num\" class=\"form-select\">";
-                                            for($i = 1; $i <= 5; $i++){
-                                                if($i == $reviews['rev_num'])
-                                                    echo "<option selected value=\"{$i}\">{$i}</option>";
-                                                else
-                                                    echo "<option value=\"{$i}\">{$i}</option>";
-                                            }
-                                        echo "</select>
-                                        <label for=\"message-text\" class=\"col-form-label\">Message:</label>
-                                        <textarea class=\"form-control\" id=\"message-text\" name=\"rev_msg\">{$reviews['rev_msg']}</textarea>
-                                        <input type=\"hidden\" value=\"{$reviews['rev_id']}\" name=\"rev_id\">
-                                        <input type=\"hidden\" value=\"{$_SESSION['user_id']}\" name=\"user\">
-                                        <input type=\"hidden\" value=\"{$_SESSION['prod_id']}\" name=\"prod\">
-                                        <button class=\"btn btn-sm btn-success mt-3 w-100\" type=\"submit\" name=\"update_prod\">Update</button>
-                                        </form>
-                                        <button class=\"btn btn-sm btn-secondary mt-1\" data-bs-toggle=\"collapse\" data-bs-target=\"#editReview\" aria-expanded=\"false\" aria-controls=\"collapseExample\">Close</button>
+                if($rev_query->num_rows != 0){
+                    while($reviews = mysqli_fetch_array($rev_query)) {
+                        echo "<div class=\"mt-2 card\">
+                                <div class=\"card-header d-flex justify-content-between\">
+                                    <div>{$reviews['uname']}</div>";
+                                    if(!empty($_SESSION['user_id'])){
+                                        if($_SESSION['user_id'] == $reviews['user_id']){
+                                            echo "<div class=\"dropdown\">
+                                                    <button class=\"btn btn-sm\" type=\"button\" data-bs-toggle=\"dropdown\" aria-expanded=\"false\">
+                                                        <i class=\"bi bi-three-dots\"></i>
+                                                    </button>
+                                                    <ul class=\"dropdown-menu\">
+                                                        <li><button class=\"dropdown-item\" data-bs-toggle=\"collapse\" data-bs-target=\"#editReview{$reviews['rev_id']}\" aria-expanded=\"false\" aria-controls=\"collapseExample\">Edit</button></li>
+                                                        <form action='/plantitoshop/review/delete.php' method=\"post\">    
+                                                            <li><button class=\"dropdown-item\"  name=\"delete_rev_prod\" value=\"{$reviews['rev_id']}\">Delete</button></li>
+                                                        </form>
+                                                    </ul>
+                                                </div>";
+                                        }
+                                    }
+                                echo" </div>
+                                <div class=\"mt-2 collapse card-body\" id=\"editReview{$reviews['rev_id']}\">
+                                    <div class=\"card card-body\">
+                                        <form action=\"/plantitoshop/review/update.php\" method=\"post\">
+                                            <label for=\"message-text\" class=\"col-form-label\">Rating:</label>
+                                            <select name=\"rev_num\" class=\"form-select\">";
+                                                for($i = 1; $i <= 5; $i++){
+                                                    if($i == $reviews['rev_num'])
+                                                        echo "<option selected value=\"{$i}\">{$i}</option>";
+                                                    else
+                                                        echo "<option value=\"{$i}\">{$i}</option>";
+                                                }
+                                            echo "</select>
+                                            <label for=\"message-text\" class=\"col-form-label\">Message:</label>
+                                            <textarea class=\"form-control\" id=\"message-text\" name=\"rev_msg\">{$reviews['rev_msg']}</textarea>
+                                            <input type=\"hidden\" value=\"{$reviews['rev_id']}\" name=\"rev_id\">
+                                            <input type=\"hidden\" value=\"{$_SESSION['user_id']}\" name=\"user\">
+                                            <input type=\"hidden\" value=\"{$_SESSION['prod_id']}\" name=\"prod\">
+                                            <button class=\"btn btn-sm btn-success mt-3 w-100\" type=\"submit\" name=\"update_prod\">Update</button>
+                                            </form>
+                                            <button class=\"btn btn-sm btn-secondary mt-1\" data-bs-toggle=\"collapse\" data-bs-target=\"#editReview\" aria-expanded=\"false\" aria-controls=\"collapseExample\">Close</button>
+                                    </div>
+                                </div>";
+                                echo "<div class=\"card-body\">
+                                    <blockquote class=\"blockquote mb-0\">
+                                        <p class=\"fs-6\">{$reviews['rev_msg']}</p>
+                                        <footer class=\"blockquote-footer fs-6\">";
+                                        if($reviews['rev_num']==1)
+                                            echo "{$reviews['rev_num']} star ";
+                                        else 
+                                            echo "{$reviews['rev_num']} stars ";
+                                        echo "</footer>
+                                    </blockquote>
                                 </div>
-                            </div>
-
-                            <div class=\"card-body\">
-                                <blockquote class=\"blockquote mb-0\">
-                                    <p class=\"fs-6\">{$reviews['rev_msg']}</p>
-                                    <footer class=\"blockquote-footer fs-6\">";
-                                    if($reviews['rev_num']==1)
-                                        echo "{$reviews['rev_num']} star ";
-                                    else 
-                                        echo "{$reviews['rev_num']} stars ";
-                                    echo "</footer>
-                                </blockquote>
-                            </div>
-                        </div>";
+                            </div>";
+                    }
+                }else{
+                    echo "<p class=\"text-center\">No Reviews.</p>";
                 }
-            }else{
-                echo "<p class=\"text-center\">No Reviews.</p>";
-            }
             ?>
         </div>
     </div>
