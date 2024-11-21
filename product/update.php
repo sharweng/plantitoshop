@@ -6,6 +6,7 @@
     $_SESSION['desc'] = trim($_POST['description']);
     $_SESSION['prc'] = trim($_POST['price']);
     $_SESSION['qty'] = $_POST['quantity'];
+    $_SESSION['defi'] = trim($_POST['definition']);
 
     $u_id = $_SESSION['u_id'];
     $_SESSION['u_id'] = $u_id;
@@ -20,6 +21,17 @@
             $desc = trim($_POST['description']);
             if(!preg_match("/^[a-zA-Z0-9\s\-_]{1,50}$/", $desc)){
                 $_SESSION['descError'] = 'Error: must only contain up to 50 letters, numbers, spaces, hyphens, and underscores.';
+                header("Location: edit.php");
+            }
+        }
+
+        if(empty($_POST['definition'])){
+            $_SESSION['defiError'] = 'Error: please enter a product definition.';
+            header("Location: edit.php");
+        }else{
+            $defi = trim($_POST['definition']);
+            if(!preg_match("/^[a-zA-Z0-9\s.,\-:;!?]{10,255}$/", $defi)){
+                $_SESSION['defiError'] = 'Error: must only contain only alphanumeric and puntuation characters, min 10 characters.';
                 header("Location: edit.php");
             }
         }
@@ -47,8 +59,20 @@
         }
 
         if((preg_match("/^[a-zA-Z0-9\s\-_]{1,50}$/", $desc))&&(preg_match("/^(0|[1-9]\d*)(\.\d{1,2})?$/", $prc))
-        &&(preg_match("/^[1-9]\d*$/", $qty))){
-            $sql = "UPDATE product SET description = '{$desc}', price = '{$prc}', cat_id = '{$cat}' WHERE prod_id = {$u_id}";
+        &&(preg_match("/^[1-9]\d*$/", $qty))&&((preg_match("/^[a-zA-Z0-9\s.,\-:;!?]{10,255}$/", $defi)))){
+
+            $badWords = ['putangina', "putang ina", 'gago', 'tanga', 'ulol', 'bobo', 'lintek', 'yawa', 'pokpok', 'tarantado',
+                        'inamo', 'pucha', 'putcha', 'puta', 'gagi', 'idiot', 'moron', 'stupid', 'bitch', 'ass',
+                        'jerk', 'loser', 'slut', 'whore', 'asshole', 'bastard', 'fuck', 'dick', 'burat', 'bayag',
+                        'inutil', 'nigger', 'nigga', 'cunt', 'dumbass', 'fucker', 'shithead', 'douchebag', 'retard', 'faggot',
+                        'douche', 'jackass', 'bayot', 'pakshet', 'bwisit', 'leche', 'gaga', 'buang', 'boang', 'putragis', 'kupal',
+                        'punyeta', 'shet', 'tangina', 'pakyu'];
+            $pattern = '/\b(' . implode('|', array_map('preg_quote', $badWords)) . ')\b/i';
+            $maskedMessage = preg_replace_callback($pattern, function($matches) {
+                return str_repeat('*', strlen($matches[0]));
+            }, $defi);
+
+            $sql = "UPDATE product SET description = '{$desc}', price = '{$prc}', definition = '{$maskedMessage}', cat_id = '{$cat}' WHERE prod_id = {$u_id}";
             $result = mysqli_query($conn, $sql);
 
             $q_stock = "UPDATE stock SET quantity = {$qty} WHERE prod_id = {$u_id}";
@@ -142,6 +166,7 @@
             if($result && $result2) {
                 $_SESSION['desc'] = "";
                 $_SESSION['prc'] = "";
+                $_SESSION['defi'] = "";
                 header("Location: index.php");
             }
         }

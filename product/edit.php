@@ -7,6 +7,7 @@
     if(isset($_POST['back'])){
         $_SESSION['desc'] = "";
         $_SESSION['prc'] = "";
+        $_SESSION['defi'] = "";
         header("Location: /plantitoshop/product");
     }
 
@@ -20,7 +21,7 @@
     $sql = "SELECT * FROM category";
     $result = mysqli_query($conn, $sql);
 
-    $sql = "SELECT p.prod_id, p.description, p.price, c.cat_id, s.quantity FROM product p INNER JOIN stock s ON p.prod_id = s.prod_id INNER JOIN category c ON p.cat_id = c.cat_id  WHERE p.prod_id = {$u_id}";
+    $sql = "SELECT p.prod_id, p.description, p.definition, p.price, c.cat_id, s.quantity FROM product p INNER JOIN stock s ON p.prod_id = s.prod_id INNER JOIN category c ON p.cat_id = c.cat_id  WHERE p.prod_id = {$u_id}";
     $result2 = mysqli_query($conn, $sql);
     $row = mysqli_fetch_array($result2);
 ?>
@@ -58,6 +59,16 @@
                 if(isset($_SESSION['descError'])){
                     echo $_SESSION['descError'];
                     unset($_SESSION['descError']);
+                }
+            ?></label><br>
+             <label class="form-label">Product Definition:</label>
+            <input class="form-control" type="text" name="definition"  value="<?php
+                echo $row['definition'];
+            ?>"/>
+            <label class="form-text text-danger" ><?php
+                if(isset($_SESSION['defiError'])){
+                    echo $_SESSION['defiError'];
+                    unset($_SESSION['defiError']);
                 }
             ?></label><br>
             <label class="form-label">Category:</label>

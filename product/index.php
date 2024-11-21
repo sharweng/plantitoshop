@@ -9,7 +9,7 @@
     else
         $keyword = "";
 
-    $sql = "SELECT p.prod_id, p.description, p.price, s.quantity, c.description as cat FROM product p INNER JOIN stock s ON p.prod_id = s.prod_id INNER JOIN category c ON p.cat_id = c.cat_id";
+    $sql = "SELECT p.prod_id, p.description, p.price, p.definition, s.quantity, c.description as cat FROM product p INNER JOIN stock s ON p.prod_id = s.prod_id INNER JOIN category c ON p.cat_id = c.cat_id";
     if($keyword){
         $sql = $sql . " WHERE p.description LIKE '%{$keyword}%'";  
     }
@@ -90,6 +90,7 @@
                 }
                             echo "</td>
                             <div class=\"col d-grid align-items-center fw-bold justify-content-center text-wrap\">{$row['description']}</div>
+                            <div class=\"col d-grid align-items-center text-center fst-italic justify-content-center text-wrap\">{$row['definition']}</div>
                             <td class=\"col d-flex align-items-center\">
                                 <div class=\"col d-grid align-items-center\">{$row['prod_id']}</div>
                                 <div class=\"col d-grid align-items-center text-wrap\">{$row['cat']}</div>

@@ -23,6 +23,7 @@ CREATE TABLE product(
     prod_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     description varchar(200) NOT NULL,
     price decimal(7,2),
+    definition TEXT,
     cat_id INT
 );
 
@@ -150,27 +151,27 @@ INSERT INTO user(email, password, lname, fname, addressline, phone, pfp_path, ro
 ('elediak@gmail.com', 'e83d6fd53b9d1176232f5131b5b81c035b144b26', 'Eledia', 'Kimberly', 'Taguig', '09125474775', 'images/default-avatar-icon.jpg', 2),
 ('calungsodmp@gmail.com', 'adc8347c5f07d03e9d9dee22b8888aff349d5af7', 'Calungsod', 'Mary', 'Taguig', '09334567445', 'images/default-avatar-icon.jpg', 2);
 
-INSERT INTO product(description, price, cat_id)VALUES
-('Watering Can', 100, 1),
-('Trowel', 130, 1),
-('Garden Rake', 170, 1),
-('Loam Soil', 150, 1),
-('Basil', 100, 2),
-('Parsley', 120, 2),
-('Rosemery', 200, 2),
-('Thyme', 150, 2),
-('Gumamela', 100, 3),
-('Santan', 200, 3),
-('Bougainvillea', 300, 3),
-('Yellow Bells', 250, 3),
-('Golden Pothos', 110, 4),
-('English Ivy', 220, 4),
-('String of Hearts', 310, 4),
-('Blue Pea Vine', 170, 4),
-('Philodendron Heartleaf', 230, 5),
-('Jasmine', 250, 5),
-('Philippine Flame Vine', 340, 5),
-('Passion Flower', 400, 5);
+INSERT INTO product(description, price, definition, cat_id)VALUES
+('Watering Can', 100, 'A lightweight, durable can with a long spout for watering plants, allowing for precise water flow without disturbing the soil.', 1),
+('Trowel', 130, 'A small, handheld shovel for digging, transplanting, or loosening soil in pots or gardens.', 1),
+('Garden Rake', 170, 'Sturdier with metal tines, perfect for breaking up soil and leveling.', 1),
+('Loam Soil', 150, 'Nutrient-rich soil ideal for outdoor gardens and general planting. Often pre-mixed with compost for better growth.', 1),
+('Basil', 100, 'A fragrant herb commonly used in Italian dishes, especially in pesto, pastas, and salads.', 2),
+('Parsley', 120, 'A versatile herb often used as a garnish or ingredient in soups, salads, and sauces.', 2),
+('Rosemery', 200, 'Perfect for seasoning meat, potatoes, and bread.', 2),
+('Thyme', 150, 'A fragrant herb ideal for soups, roasts, and stews.', 2),
+('Gumamela', 100, 'A tropical favorite with large, showy flowers, available in a wide range of colors.', 3),
+('Santan', 200, 'A colorful shrub with red, yellow, or orange flowers, ideal for hedges or as ornamental plants.', 3),
+('Bougainvillea', 300, 'Known for its vibrant bracts in various colors, it’s perfect for fences or walls.', 3),
+('Yellow Bells', 250, 'A bright yellow flowering shrub that thrives in sunny conditions.', 3),
+('Golden Pothos', 110, 'A popular low-maintenance plant, great for beginners.', 4),
+('English Ivy', 220, 'Classic choice for both indoor and outdoor vertical greenery.', 4),
+('String of Hearts', 310, 'Known for its delicate, heart-shaped leaves and trailing habit.', 4),
+('Blue Pea Vine', 170, 'A fast-growing climber with stunning blue flowers, often used in teas.', 4),
+('Philodendron Heartleaf', 230, ' A classic climbing plant with vibrant, heart-shaped green leaves that thrive in low to medium light.', 5),
+('Jasmine', 250, 'Known for its fragrant white blooms, jasmine is a fast-growing climber perfect for pergolas and trellises, adding an aromatic ambiance to gardens.', 5),
+('Philippine Flame Vine', 340, 'A stunning ornamental climber with bright orange, trumpet-shaped flowers, often used to create dramatic vertical gardens.', 5),
+('Passion Flower', 400, 'An exotic climber with intricate, eye-catching flowers in various colors, often used as ornamental vines. Some varieties produce edible passion fruits.', 5);
 
 INSERT INTO stock(prod_id, quantity)VALUES
 (1, 100),

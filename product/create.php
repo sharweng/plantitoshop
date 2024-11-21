@@ -7,6 +7,7 @@
     if(isset($_POST['back'])){
         $_SESSION['desc'] = "";
         $_SESSION['prc'] = "";
+        $_SESSION['defi'] = "";
         header("Location: /plantitoshop/product");
     }
 
@@ -49,6 +50,17 @@
                     if(isset($_SESSION['descError'])){
                         echo $_SESSION['descError'];
                         unset($_SESSION['descError']);
+                    }
+                ?></label><br>
+                <label class="form-label">Product Definition:</label>
+                <input class="form-control" type="text" name="definition" value="<?php
+                    if(isset($_SESSION['defi'])){
+                        echo $_SESSION['defi'];
+                    }?>"/>
+                <label class="form-text text-danger"><?php
+                    if(isset($_SESSION['defiError'])){
+                        echo $_SESSION['defiError'];
+                        unset($_SESSION['defiError']);
                     }
                 ?></label><br>
                 <label class="form-label">Category:</label>

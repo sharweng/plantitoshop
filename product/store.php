@@ -4,6 +4,7 @@
     include('../includes/notAdminRedirect.php');
 
     $_SESSION['desc'] = trim($_POST['description']);
+    $_SESSION['defi'] = trim($_POST['definition']);
     $_SESSION['prc'] = trim($_POST['price']);
     $_SESSION['cat'] = $_POST['category'];
     $_SESSION['qty'] = $_POST['quantity'];
@@ -12,6 +13,7 @@
     $_SESSION['prcError'] = "";
     $_SESSION['qtyError'] = "";
     $_SESSION['imgcError'] = "";
+    $_SESSION['defiError'] = "";
     if (isset($_POST['submit'])) {
         $cat = $_POST['category'];
 
@@ -48,13 +50,24 @@
             }
         }
 
+        if(empty($_POST['definition'])){
+            $_SESSION['defiError'] = 'Error: please enter a product definition.';
+            header("Location: create.php");
+        }else{
+            $defi = trim($_POST['definition']);
+            if(!preg_match("/^[a-zA-Z0-9\s.,\-:;!?]{10,255}$/", $defi)){
+                $_SESSION['defiError'] = 'Error: must only contain only alphanumeric and puntuation characters, min 10 characters.';
+                header("Location: create.php");
+            }
+        }
+
         if(empty($_FILES['img_path']['name'][0])){
             $_SESSION['imgError'] = 'Error: upload atleast one file.';
             header("Location: create.php");
         }
 
         if((preg_match("/^[a-zA-Z0-9\s\-_]{1,50}$/", $desc))&&(preg_match("/^(0|[1-9]\d*)(\.\d{1,2})?$/", $prc))
-        &&(preg_match("/^[1-9]\d*$/", $qty))&&(!empty($_FILES['img_path']['name'][0]))){
+        &&(preg_match("/^[1-9]\d*$/", $qty))&&(!empty($_FILES['img_path']['name'][0])&&(preg_match("/^[a-zA-Z0-9\s.,\-:;!?]{10,255}$/", $defi)))){
 
             $searchsql = "SELECT description FROM product";
             $prodExists = mysqli_query($conn, $searchsql);
@@ -66,7 +79,19 @@
                 }
             }
             // PRODUCT INSERT
-            $sql = "INSERT INTO product(description, price, cat_id) VALUES('{$desc}', '{$prc}', '{$cat}')";
+
+            $badWords = ['putangina', "putang ina", 'gago', 'tanga', 'ulol', 'bobo', 'lintek', 'yawa', 'pokpok', 'tarantado',
+                        'inamo', 'pucha', 'putcha', 'puta', 'gagi', 'idiot', 'moron', 'stupid', 'bitch', 'ass',
+                        'jerk', 'loser', 'slut', 'whore', 'asshole', 'bastard', 'fuck', 'dick', 'burat', 'bayag',
+                        'inutil', 'nigger', 'nigga', 'cunt', 'dumbass', 'fucker', 'shithead', 'douchebag', 'retard', 'faggot',
+                        'douche', 'jackass', 'bayot', 'pakshet', 'bwisit', 'leche', 'gaga', 'buang', 'boang', 'putragis', 'kupal',
+                        'punyeta', 'shet', 'tangina', 'pakyu'];
+            $pattern = '/\b(' . implode('|', array_map('preg_quote', $badWords)) . ')\b/i';
+            $maskedMessage = preg_replace_callback($pattern, function($matches) {
+                return str_repeat('*', strlen($matches[0]));
+            }, $defi);
+
+            $sql = "INSERT INTO product(description, price, definition, cat_id) VALUES('{$desc}', '{$prc}', '{$maskedMessage}', '{$cat}')";
             $result = mysqli_query($conn, $sql);
 
             $getLastId = "SELECT MAX(prod_id) as max FROM product";
@@ -120,6 +145,7 @@
             if($result && $result2 && $isSuccess) {
                 $_SESSION['desc'] = "";
                 $_SESSION['prc'] = "";
+                $_SESSION['defi'] = "";
                 header("Location: index.php");
             }
         }
