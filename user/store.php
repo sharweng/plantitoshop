@@ -88,9 +88,9 @@
             }
         }
 
-        if(!isset($_FILES['pfp_path'])){
-            $_SESSION['pfpErr'] = 'Error: please upload one file.';
-            header("Location: register.php");    
+        if(empty($_FILES['pfp_path']['name'][0])){
+            $_SESSION['pfpErr'] = 'Error: upload atleast one file.';
+            header("Location: register.php");
         }
 
         if((preg_match("/^[A-Za-z' -]{2,50}$/", $lname))&&(preg_match("/^[A-Za-z' -]{2,50}$/", $fname))

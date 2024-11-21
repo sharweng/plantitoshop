@@ -81,7 +81,7 @@
                         break;
                     }
                     echo "<div class=\"card-body \">
-                                <h5 class=\"card-title fw-bold\">{$row['description']}</h5>
+                                <h5 class=\"card-title fw-bold text-truncate\">{$row['description']}</h5>
                                 <p class=\"card-text\">Price: &#x20B1;{$row['price']}<br>Stock: {$row['quantity']}</p>
                                 <div class=\"d-flex gap-1\">
                                     <form action=\"\" method=\"post\" class=\"col\">
