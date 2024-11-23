@@ -103,15 +103,14 @@
             <h3 class="fw-bold text-center">Reviews</h3>
             <?php
                 if(!empty($_SESSION['user_id'])){
-                    $deliveredsql = "SELECT oi.stat_id, u.user_id FROM user u INNER JOIN orderinfo oi ON u.user_id = oi.user_id WHERE oi.stat_id = 2 AND u.user_id = {$_SESSION['user_id']}";
+                    $deliveredsql = "SELECT oi.stat_id, ol.prod_id, u.user_id FROM user u INNER JOIN orderinfo oi ON u.user_id = oi.user_id INNER JOIN orderline ol ON oi.orderinfo_id = ol.orderinfo_id WHERE oi.stat_id = 2 AND u.user_id = {$_SESSION['user_id']} AND ol.prod_id = {$_SESSION['prod_id']}";
                     $deliveredquery = mysqli_query($conn, $deliveredsql);
-                    
                     if($deliveredquery->num_rows != 0){
                         echo "<button class=\"btn btn-success btn-sm\" type=\"button\" data-bs-toggle=\"collapse\" data-bs-target=\"#collapseExample\" aria-expanded=\"false\" aria-controls=\"collapseExample\">
                                 ADD REVIEW
                             </button>";
                     }
-                
+                      
             ?>
             <div class="mt-2 collapse" id="collapseExample">
                 <div class="card card-body">
