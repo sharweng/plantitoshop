@@ -1,6 +1,7 @@
 <?php
     if($_SESSION['roleDesc'] == 'deactivated'){
         $_SESSION['message'] = 'Account deactivated: Your account is currently inactive. Please contact support for assistance.';
+        session_destroy();
         header("Location: /plantitoshop/user/login.php");
         exit();
     }elseif(($_SESSION['roleDesc'] != 'admin')&&($_SESSION['roleDesc'] != 'user')){
