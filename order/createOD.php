@@ -73,8 +73,13 @@
                 </select>
                 <label class="form-label col-3  my-1">Shipping:</label>
                 <select class="form-select col" name="shipping">
-                    <option selected value="40">Standard: &#x20B1;40</option>
-                    <option value="120">Fast Delivery: &#x20B1;120</option>
+                    <?php
+                        $ship_sql = "SELECT * FROM shipping";
+                        $ship_query = mysqli_query($conn, $ship_sql);
+                        while($shipping = mysqli_fetch_array($ship_query)) {
+                            echo "<option value=\"{$shipping['ship_id']}\">{$shipping['ship_name']}: &#x20B1;{$shipping['ship_price']}</option>";
+                        }
+                    ?>
                 </select>
                 <button type="submit" class="col btn btn-success mt-3 w-100" name="createOD">CREATE ORDER INFO</button>
             </form>

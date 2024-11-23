@@ -71,6 +71,11 @@ $order_result->data_seek(0); // Reset result pointer for detailed items
                     <p><strong>Email:</strong> <?php echo $order_general['customer_email']; ?></p>
                     <p><strong>Shipping Address:</strong> <?php echo $order_general['shipping_address']; ?></p>
                     <p><strong>Order Status:</strong> <?php echo $order_general['order_status']; ?></p>
+                    <?php 
+                        if($order_general['date_shipped'] != NULL)
+                            echo "<p><strong>Order Date Shipped:</strong> {$order_general['date_shipped']}</p>";
+                    ?>
+
                 </div>
             </div>
             <h3 class="mt-3 fw-bold text-center">Ordered Products</h3>

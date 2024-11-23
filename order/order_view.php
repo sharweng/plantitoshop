@@ -11,7 +11,8 @@
     else
         $keyword = "";
 
-    $sql = "SELECT oi.orderinfo_id, CONCAT(u.lname,', ', u.fname) AS uname, u.email, oi.date_placed, os.stat_name, oi.shipping FROM orderinfo oi INNER JOIN user u ON oi.user_id = u.user_id INNER JOIN orderstatus os ON os.stat_id = oi.stat_id";
+    $sql = "SELECT oi.orderinfo_id, CONCAT(u.lname,', ', u.fname) AS uname, u.email, oi.date_placed, oi.date_shipped, os.stat_name, sh.ship_price, sh.ship_name FROM orderinfo oi INNER JOIN user u ON oi.user_id = u.user_id 
+    INNER JOIN orderstatus os ON os.stat_id = oi.stat_id INNER JOIN shipping sh ON sh.ship_id = oi.ship_id";
     if(isset($_POST['view_id'])){
         $view_id = $_POST['view_id'];
         $_SESSION['view_id'] = $view_id;
@@ -68,7 +69,7 @@
                     <th>Name</th>
                     <th>Date Placed</th>
                     <th>Status</th>
-                    <th>Ship Fee</th>
+                    <th>Ship Type</th>
                     <th></th>
                 </tr>
                 
@@ -79,7 +80,7 @@
                         <td class=\"col text-wrap\">{$row['uname']}</td>
                         <td class=\"col \">{$row['date_placed']}</td>
                         <td class=\"col \">{$row['stat_name']}</td>
-                        <td class=\"col \">{$row['shipping']}</td>
+                        <td class=\"col \">{$row['ship_name']}</td>
                         <td class=\"col \">
                             <div class=\"row\">
                                 <form action=\"editOD.php\" method=\"post\">

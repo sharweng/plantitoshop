@@ -1,5 +1,4 @@
 body {
-    font-family: Helvetica;
     margin: 0;
     padding-top: 80px;
     padding-bottom: 90px;
@@ -13,7 +12,6 @@ form {
     border: none;
     background: none;
     font-size: 16px;
-    font-family: Helvetica;
 }
 
 /* HEADER CSS */

@@ -9,7 +9,9 @@
     else
         $keyword = "";
 
-    $sql = "SELECT oi.orderinfo_id, CONCAT(u.lname,', ', u.fname) AS uname, oi.date_placed, os.stat_name, oi.shipping FROM orderinfo oi INNER JOIN user u ON oi.user_id = u.user_id INNER JOIN orderstatus os ON os.stat_id = oi.stat_id";
+    $sql = "SELECT oi.orderinfo_id, CONCAT(u.lname,', ', u.fname) AS uname, oi.date_placed, oi.date_shipped, os.stat_name, sh.ship_name FROM orderinfo oi 
+        INNER JOIN user u ON oi.user_id = u.user_id INNER JOIN orderstatus os ON os.stat_id = oi.stat_id
+        INNER JOIN shipping sh ON sh.ship_id = oi.ship_id ORDER BY oi.orderinfo_id ASC";
     if($keyword){
         $sql = $sql . " WHERE CONCAT(u.lname,', ', u.fname) LIKE '%{$keyword}%'";  
     }
@@ -57,8 +59,8 @@
                 <th>id</th>
                 <th>Name</th>
                 <th>Date Placed</th>
+                <th>Date Shipped</th>
                 <th>Status</th>
-                <th>Ship Fee</th>
                 <th></th>
             </tr>
             
@@ -67,9 +69,12 @@
                 echo "<tr class='align-middle'>
                 <td class=\"col \">{$row['orderinfo_id']}</td>
                 <td class=\"col text-wrap\">{$row['uname']}</td>
-                <td class=\"col \">{$row['date_placed']}</td>
-                <td class=\"col \">{$row['stat_name']}</td>
-                <td class=\"col \">{$row['shipping']}</td>
+                <td class=\"col \">{$row['date_placed']}</td>";
+                if($row['date_shipped'] != NULL)
+                    echo "<td class=\"col \">{$row['date_shipped']}</td>";
+                else
+                    echo "<td class=\"col \">N/A</td>";
+                echo "<td class=\"col \">{$row['stat_name']}</td>
                 <td class=\"col \">
                     <div class=\"row d-grid gap-1\">
                         <form action=\"order_view.php\" method=\"post\">

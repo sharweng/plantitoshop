@@ -7,16 +7,16 @@ if (isset($_SESSION["cart_products"]) && !empty($_SESSION["cart_products"])) {
     $order_total = 0;
     $status = 1; // Default order placed status (Pending, etc.)
     $user_id = $_SESSION['user_id']; // Ensure this exists
-    $shipping = ($_POST['shipping'] == 1) ? 40 : 120;
+    $shipping = $_SESSION['shipping'];
     
 
     $conn->begin_transaction();
 
     try {
         // Insert into `orderinfo`
-        $sql_order = "INSERT INTO orderinfo (user_id, date_placed, stat_id, shipping) VALUES (?, NOW(), ?, ?)";
+        $sql_order = "INSERT INTO orderinfo (user_id, date_placed, date_shipped, stat_id, ship_id) VALUES (?, NOW(), NULL, ?, ?)";
         $stmt_order = $conn->prepare($sql_order);
-        $stmt_order->bind_param("iii", $user_id, $status, $shipping);
+        $stmt_order->bind_param("iid", $user_id, $status, $shipping);
         $stmt_order->execute();
 
         $orderinfo_id = $conn->insert_id; // Get generated order ID
@@ -52,9 +52,8 @@ if (isset($_SESSION["cart_products"]) && !empty($_SESSION["cart_products"])) {
             
         }
 
-
         $conn->commit();
-        
+        unset($_SESSION['shipping']);
         unset($_SESSION["cart_products"]); // Clear cart after checkout
         $_SESSION['success'] = "Order placed successfully! Thank you for your purchase.";
         header("Location: send_email.php");

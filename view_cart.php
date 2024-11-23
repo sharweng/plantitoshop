@@ -3,6 +3,13 @@
     include('includes/config.php');
     include('includes/notUserRedirect.php');
     include('includes/headerBS.php');
+    
+    if(!isset($_SESSION['shipping'])){
+        $_SESSION['shipping'] = 1;
+    }
+    if(isset($_POST['shipping'])){
+        $_SESSION['shipping'] = $_POST['shipping'];
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -31,10 +38,12 @@
         <div class="container inner-box border border-success border-2 py-2">
         <?php include("includes/alert.php"); ?>
         <?php
-        $shipping_cost = 40;
-        if (isset($_POST['shipping'])) {
-            $shipping_cost = $_POST['shipping'] == '2' ? 120 : 40;
+        if($_SESSION['shipping'] == 1){
+            $shipping_cost = 40;
+        }else{
+            $shipping_cost = 120;
         }
+
         if (isset($_SESSION["cart_products"]) && !empty($_SESSION["cart_products"])) {
             echo "<form action='cart_update.php' method='POST'>";
             echo "<table class='table table-bordered align-middle'>";
@@ -73,14 +82,23 @@
             <div class="">
                 <div class="row d-flex align-items-center">
                     <label class="form-label col-3">Shipping:</label>
-                    <select class="form-select col" name="shipping"  onchange="this.form.submit()">
-                        <option value="1" <?php echo (!isset($_POST['shipping']) || $_POST['shipping'] == '1') ? 'selected' : ''; ?>>Standard: &#x20B1;40</option>
-                        <option value="2" <?php echo (isset($_POST['shipping']) && $_POST['shipping'] == '2') ? 'selected' : ''; ?>>Fast Delivery: &#x20B1;120</option>
+                    <select class="form-select col" name="shipping" onchange="this.form.submit()">
+                        <?php 
+                            $ship_sql = "SELECT * FROM shipping";
+                            $ship_query = mysqli_query($conn, $ship_sql);
+                            while($shipping = mysqli_fetch_array($ship_query)) {
+                                if($shipping['ship_id'] == $_SESSION['shipping'])
+                                    echo "<option value=\"{$shipping['ship_id']}\" selected>{$shipping['ship_name']}: {$shipping['ship_price']}</option>";
+                                else
+                                echo "<option value=\"{$shipping['ship_id']}\">{$shipping['ship_name']}: &#x20B1;{$shipping['ship_price']}</option>";
+                               
+                            }
+                        ?>
                     </select>
                 </div>
             </div>
         </form>
-        <form action="/plantitoshop/checkout.php" method="post" class="gap-1 row d-flex justify-content-center my-2">
+        <form action="/plantitoshop/checkout.php" method="post" class="row d-flex justify-content-center my-2">
             <button class="btn btn-warning w-50" name="checkout">Checkout</button>
         </form>
         </div>

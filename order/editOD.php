@@ -18,7 +18,8 @@
     $stat_sql = "SELECT * FROM orderstatus";
     $stat_query = mysqli_query($conn, $stat_sql);
 
-    $oi_sql = "SELECT oi.orderinfo_id, u.email, oi.date_placed, os.stat_id, oi.shipping FROM orderinfo oi INNER JOIN user u ON oi.user_id = u.user_id INNER JOIN orderstatus os ON os.stat_id = oi.stat_id WHERE oi.orderinfo_id = {$_SESSION['view_id']}";
+    $oi_sql = "SELECT oi.orderinfo_id, u.email, oi.date_placed, oi.date_shipped, os.stat_id, oi.ship_id, sh.ship_name, sh.ship_price FROM orderinfo oi INNER JOIN user u ON oi.user_id = u.user_id INNER JOIN orderstatus os ON os.stat_id = oi.stat_id 
+    INNER JOIN shipping sh ON sh.ship_id = oi.ship_id WHERE oi.orderinfo_id = {$_SESSION['view_id']}";
     $oi_query = mysqli_query($conn, $oi_sql);
     $orderinfo = mysqli_fetch_assoc($oi_query);
 ?>
@@ -90,16 +91,23 @@
                 <label class="form-label col-3  my-1">Shipping:</label>
                 <select class="form-select col" name="shipping">
                     <?php
-                        if($orderinfo['shipping'] == 40){
-                            echo "<option selected value=\"40\">Standard: &#x20B1;40</option>
-                            <option value=\"120\">Fast Delivery: &#x20B1;120</option>";
-                        }else{
-                            echo "<option value=\"40\">Standard: &#x20B1;40</option>
-                            <option selected value=\"120\">Fast Delivery: &#x20B1;120</option>";
+                        $ship_sql = "SELECT * FROM shipping";
+                        $ship_query = mysqli_query($conn, $ship_sql);
+                        while($shipping = mysqli_fetch_array($ship_query)) {
+                            if($shipping['ship_id'] == $orderinfo['ship_id'])
+                                echo "<option value=\"{$shipping['ship_id']}\" selected>{$shipping['ship_name']}: &#x20B1;{$shipping['ship_price']}</option>";
+                            else
+                            echo "<option value=\"{$shipping['ship_id']}\">{$shipping['ship_name']}: &#x20B1;{$shipping['ship_price']}</option>";
+                           
                         }
                     ?>
-
                 </select>
+                <?php 
+                    if($orderinfo['date_shipped'] != NULL){
+                        echo "<label for=\"date_shipped\" class=\" my-1 form-label\">Date Shipped:</label>
+                <input type=\"date\" class=\"form-control\" name=\"date_shipped\" value=\"{$orderinfo['date_shipped']}\">";
+                    }
+                ?>
                 <button type="submit" class="col btn btn-success mt-3 w-100" name="updateOD">UPDATE ORDER INFO</button>
             </form>
         </div>

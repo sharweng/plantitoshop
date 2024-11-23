@@ -22,7 +22,7 @@ CREATE TABLE role(
 CREATE TABLE product(
     prod_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     description varchar(200) NOT NULL,
-    price decimal(7,2),
+    price decimal(9,2),
     definition TEXT,
     cat_id INT
 );
@@ -50,10 +50,17 @@ CREATE TABLE orderinfo (
     orderinfo_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     user_id INT NOT NULL,
     date_placed date NOT NULL,
+    date_shipped date,
     stat_id INT,
-    shipping decimal(7,2),
+    ship_id INT,
     INDEX(user_id),
     CONSTRAINT orderinfo_user_id_fk FOREIGN KEY (user_id) REFERENCES user(user_id) ON DELETE CASCADE
+);
+
+CREATE TABLE shipping (
+    ship_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    ship_name varchar(32),
+    ship_price decimal(9,2)
 );
 
 CREATE TABLE orderstatus(
@@ -84,6 +91,7 @@ CREATE VIEW order_transaction_details AS
 SELECT 
     oi.orderinfo_id,
     oi.date_placed,
+    oi.date_shipped,
     CONCAT(u.fname, ' ', u.lname) AS customer_name,
     u.email AS customer_email,
     u.addressline AS shipping_address,
@@ -93,8 +101,8 @@ SELECT
     p.price AS unit_price,
     ol.quantity AS quantity_ordered,
     (p.price * ol.quantity) AS total_price,
-    oi.shipping AS shipping_fee,
-    ((p.price * ol.quantity) + oi.shipping) AS grand_total
+    s.ship_price AS shipping_fee,
+    ((p.price * ol.quantity) + s.ship_price) AS grand_total
 FROM 
     orderinfo oi
 JOIN 
@@ -104,7 +112,9 @@ JOIN
 JOIN 
     orderline ol ON oi.orderinfo_id = ol.orderinfo_id
 JOIN 
-    product p ON ol.prod_id = p.prod_id;
+    product p ON ol.prod_id = p.prod_id
+JOIN 
+    shipping s ON s.ship_id = oi.ship_id;
 
 DELIMITER $$
 CREATE TRIGGER update_stock_after_order
@@ -141,6 +151,10 @@ INSERT INTO orderstatus(stat_name)VALUES
 ('Ongoing'),
 ('Delivered'),
 ('Cancelled');
+
+INSERT INTO shipping(ship_name, ship_price)VALUES
+('Standard', 40),
+('Fast Delivery', 120);
 
 
 INSERT INTO user(email, password, lname, fname, addressline, phone, pfp_path, role_id)VALUES

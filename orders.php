@@ -9,7 +9,8 @@
     else
         $keyword = "";
 
-    $sql = "SELECT oi.orderinfo_id, u.user_id, oi.date_placed, os.stat_name, oi.shipping FROM orderinfo oi INNER JOIN user u ON oi.user_id = u.user_id INNER JOIN orderstatus os ON os.stat_id = oi.stat_id WHERE u.user_id = {$_SESSION['user_id']}";
+    $sql = "SELECT oi.orderinfo_id, u.user_id, oi.date_placed, oi.date_shipped, os.stat_name, sh.ship_price FROM orderinfo oi INNER JOIN user u ON oi.user_id = u.user_id 
+    INNER JOIN orderstatus os ON os.stat_id = oi.stat_id INNER JOIN shipping sh ON sh.ship_id = oi.ship_id WHERE u.user_id = {$_SESSION['user_id']} ORDER BY oi.orderinfo_id DESC";
     $result = mysqli_query($conn, $sql);
 ?>
 <!DOCTYPE html>
@@ -47,6 +48,7 @@
             <tr class="">
                 <th>Order #</th>
                 <th>Date Placed</th>
+                <th>Date Shipped</th>
                 <th>Status</th>
                 <th>Total</th>
                 <th></th>
@@ -60,11 +62,15 @@
                 while($subtotalresult = mysqli_fetch_array($total_query)){
                     $subtotal = $subtotal + $subtotalresult['total'];
                 }
-                $grand_total = $row['shipping']+$subtotal;
+                $grand_total = $row['ship_price']+$subtotal;
                 echo "<tr class='align-middle'>
                 <td class=\"col text-wrap\">{$row['orderinfo_id']}</td>
-                <td class=\"col \">{$row['date_placed']}</td>
-                <td class=\"col \">{$row['stat_name']}</td>
+                <td class=\"col \">{$row['date_placed']}</td>";
+                if($row['date_shipped']!=NULL)
+                    echo "<td class=\"col \">{$row['date_shipped']}</td>";
+                else
+                    echo "<td class=\"col \">N/A</td>";
+                echo "<td class=\"col \">{$row['stat_name']}</td>
                 <td class=\"col \">&#x20B1;$grand_total</td>
                 <td class=\"col \">
                     <div class=\"row d-grid gap-1\">

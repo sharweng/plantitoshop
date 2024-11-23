@@ -84,8 +84,14 @@
                 <tr>
                     <td><strong>Order Status:</strong></td>
                     <td>{$order_general['order_status']}</td>
-                </tr>
-            </table>
+                </tr>";
+                if($order_general['date_shipped'] != NULL){
+                    $mail->Body .= "<tr>
+                        <td><strong>Order Date Shipped:</strong></td>
+                        <td>{$order_general['date_shipped']}</td>
+                    </tr>";
+                }
+            $mail->Body .= "</table>
             <h3 class=\"mt-3 fw-bold text-center\">Ordered Products</h3>
             <table class=\"table table-bordered mt-2\">
                 <thead>

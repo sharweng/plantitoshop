@@ -10,7 +10,20 @@
         $stat_id = $_POST['stat_id'];
         $shipping = $_POST['shipping'];
 
-        $sql_orderinfo = "UPDATE orderinfo SET user_id = '$user_id', date_placed = '$date_placed', stat_id = '$stat_id', shipping = '$shipping' WHERE orderinfo_id = $orderinfo_id";
+        if($stat_id != 2){
+            if($_POST['date_shipped']){
+                $sql_orderinfo = "UPDATE orderinfo SET user_id = '$user_id', date_placed = '$date_placed', date_shipped = NULL, stat_id = '$stat_id', ship_id = '$shipping' WHERE orderinfo_id = $orderinfo_id";
+            }else{
+                $sql_orderinfo = "UPDATE orderinfo SET user_id = '$user_id', date_placed = '$date_placed', stat_id = '$stat_id', ship_id = '$shipping' WHERE orderinfo_id = $orderinfo_id";
+            }
+        }else{
+            if($_POST['date_shipped']){
+                $date_shipped = $_POST['date_shipped'];
+                $sql_orderinfo = "UPDATE orderinfo SET user_id = '$user_id', date_placed = '$date_placed', date_shipped = '$date_shipped', stat_id = '$stat_id', ship_id = '$shipping' WHERE orderinfo_id = $orderinfo_id";
+            }else{
+                $sql_orderinfo = "UPDATE orderinfo SET user_id = '$user_id', date_placed = '$date_placed', date_shipped = NOW(), stat_id = '$stat_id', ship_id = '$shipping' WHERE orderinfo_id = $orderinfo_id";
+            }
+        }
         $result = mysqli_query($conn, $sql_orderinfo);
 
         if($stat_id != 1){
