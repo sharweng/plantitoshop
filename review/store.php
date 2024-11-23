@@ -13,8 +13,8 @@
                     'jerk', 'loser', 'slut', 'whore', 'asshole', 'bastard', 'fuck', 'dick', 'burat', 'bayag',
                     'inutil', 'nigger', 'nigga', 'cunt', 'dumbass', 'fucker', 'shithead', 'douchebag', 'retard', 'faggot',
                     'douche', 'jackass', 'bayot', 'pakshet', 'bwisit', 'leche', 'gaga', 'buang', 'boang', 'putragis', 'kupal',
-                    'punyeta', 'shet', 'tangina', 'pakyu'];
-        $pattern = '/\b(' . implode('|', array_map('preg_quote', $badWords)) . ')\b/i';
+                    'punyeta', 'shet', 'tangina', 'pakyu', 'shit'];
+        $pattern = '/' . implode('|', array_map('preg_quote', $badWords)) . '/i';
         $maskedMessage = preg_replace_callback($pattern, function($matches) {
             return str_repeat('*', strlen($matches[0]));
         }, $message);
