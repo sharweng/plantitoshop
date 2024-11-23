@@ -125,20 +125,20 @@
                 $_SESSION['cpass'] = '';
                 $_SESSION['add'] = '';
                 $_SESSION['phone'] = '';
-
-                $last_id = $conn->insert_id;
-                $_SESSION['user_id'] = $last_id;
-                $_SESSION['email'] = $email;
-                if($role == 1)
-                    $_SESSION['roleDesc'] = "admin";
-                else
-                    $_SESSION['roleDesc'] = "user";
                 
-                    if($_SESSION['adminEdit']){
-                        header("Location: /plantitoshop/user/");
-                    }else{
-                        header("Location: /plantitoshop/");
-                    }
+                if($_SESSION['adminEdit']){
+                    header("Location: /plantitoshop/user/");
+                }else{
+                    $last_id = $conn->insert_id;
+                    $_SESSION['user_id'] = $last_id;
+                    $_SESSION['email'] = $email;
+                    if($role == 1)
+                        $_SESSION['roleDesc'] = "admin";
+                    else
+                        $_SESSION['roleDesc'] = "user";
+                    
+                    header("Location: /plantitoshop/");
+                }
             }
         }
     }

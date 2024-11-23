@@ -201,8 +201,13 @@
                         unset($_SESSION['pfpErr']);
                     }
                 ?></label><br>
-
-                <button type="submit" class="btn btn-success w-100 form-btn my-2" name="submit">REGISTER</button>
+                <?php 
+                    if($_SESSION['adminEdit']){
+                        echo "<button type=\"submit\" class=\"btn btn-success w-100 form-btn my-2\" name=\"submit\">ADD USER</button>";
+                    }else{
+                        echo "<button type=\"submit\" class=\"btn btn-success w-100 form-btn my-2\" name=\"submit\">REGISTER</button>";
+                    }   
+                ?>
             </form>
         </div>
     </div>
