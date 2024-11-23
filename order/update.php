@@ -23,11 +23,11 @@
         }
 
         if($result){
-            header('Location: /plantitoshop/order/');
+            header('Location: /plantitoshop/order/order_view.php');
             exit();
         }else{
             $_SESSION['message'] = "Failed to create orderinfo.";
-            header('Location: /plantitoshop/order/');
+            header('Location: /plantitoshop/order/order_view.php');
             exit();
         }
     }
@@ -86,9 +86,6 @@
             }
             
         }
-
-
-        
 
         if ($result) {
             header('Location: /plantitoshop/order/order_view.php');
