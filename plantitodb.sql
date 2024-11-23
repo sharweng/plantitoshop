@@ -158,7 +158,7 @@ INSERT INTO product(description, price, definition, cat_id)VALUES
 ('Loam Soil', 150, 'Nutrient-rich soil ideal for outdoor gardens and general planting. Often pre-mixed with compost for better growth.', 1),
 ('Basil', 100, 'A fragrant herb commonly used in Italian dishes, especially in pesto, pastas, and salads.', 2),
 ('Parsley', 120, 'A versatile herb often used as a garnish or ingredient in soups, salads, and sauces.', 2),
-('Rosemery', 200, 'Perfect for seasoning meat, potatoes, and bread.', 2),
+('Rosemary', 200, 'Perfect for seasoning meat, potatoes, and bread.', 2),
 ('Thyme', 150, 'A fragrant herb ideal for soups, roasts, and stews.', 2),
 ('Gumamela', 100, 'A tropical favorite with large, showy flowers, available in a wide range of colors.', 3),
 ('Santan', 200, 'A colorful shrub with red, yellow, or orange flowers, ideal for hedges or as ornamental plants.', 3),
