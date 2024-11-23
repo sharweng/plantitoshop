@@ -74,6 +74,7 @@
             </div>
         </div>
         <div class="container inner-box border border-success border-2 py-3 px-4">
+        <?php include("../includes/alert.php"); ?>
         <?php 
         if($result->num_rows!=0){
             while($row = mysqli_fetch_array($result)){

@@ -1,7 +1,15 @@
 <?php
 session_start();
 include('includes/config.php');
-include('includes/notUserRedirect.php');
+if($_SESSION['roleDesc'] == 'deactivated'){
+    $_SESSION['message'] = 'Account deactivated: Your account is currently inactive. Please contact support for assistance.';
+    header("Location: /plantitoshop/user/login.php");
+    exit();
+}elseif(($_SESSION['roleDesc'] != 'admin')&&($_SESSION['roleDesc'] != 'user')){
+    $_SESSION['message'] = 'Access denied: You must be a registered user to add to cart. Please log in or sign up to continue.';
+    header("Location: /plantitoshop/user/login.php");
+    exit();
+}
 
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
     if (isset($_POST["type"]) && $_POST["type"] == 'add' && $_POST["quantity"] > 0) {
