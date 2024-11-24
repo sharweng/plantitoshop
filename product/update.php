@@ -30,7 +30,7 @@
             header("Location: edit.php");
         }else{
             $defi = trim($_POST['definition']);
-            if(!preg_match("/^[a-zA-Z0-9\s.,\-:;!?]{10,255}$/", $defi)){
+            if(!preg_match("/^[a-zA-Z0-9\s.,'\-:;!?]{10,255}$/", $defi)){
                 $_SESSION['defiError'] = 'Error: must only contain only alphanumeric and puntuation characters, min 10 characters.';
                 header("Location: edit.php");
             }
@@ -59,7 +59,7 @@
         }
 
         if((preg_match("/^[a-zA-Z0-9\s\-_]{1,50}$/", $desc))&&(preg_match("/^(0|[1-9]\d*)(\.\d{1,2})?$/", $prc))
-        &&(preg_match("/^[1-9]\d*$/", $qty))&&((preg_match("/^[a-zA-Z0-9\s.,\-:;!?]{10,255}$/", $defi)))){
+        &&(preg_match("/^[1-9]\d*$/", $qty))&&((preg_match("/^[a-zA-Z0-9\s.,'\-:;!?]{10,255}$/", $defi)))){
 
             $badWords = ['putangina', "putang ina", 'gago', 'tanga', 'ulol', 'bobo', 'lintek', 'yawa', 'pokpok', 'tarantado',
                         'inamo', 'pucha', 'putcha', 'puta', 'gagi', 'idiot', 'moron', 'stupid', 'bitch', 'ass',
@@ -136,10 +136,12 @@
                     if (move_uploaded_file($source, $target)) {
                         if($counter < $existingCount){
                             $sql = "SELECT img_path FROM image WHERE img_id = {$existingImages[$counter]['img_id']}";
-                            $result2 = mysqli_query($conn, $sql);
-                            while($row = mysqli_fetch_array($result2)){
-                                copy($row['img_path'], $target);
+                            $deleteresult = mysqli_query($conn, $sql);
+                            while($row = mysqli_fetch_array($deleteresult)){
+                                unlink($row['img_path']);
                             }
+                            $sql = "UPDATE image SET img_path = '' WHERE img_id = {$existingImages[$counter]['img_id']}";
+                            $result2 = mysqli_query($conn, $sql);
                             $img_sql = "UPDATE image SET img_path = '{$target}' WHERE img_id = {$existingImages[$counter]['img_id']}";
                         }elseif ($counter < $uploadCount) {
                             $img_sql = "INSERT INTO image (prod_id, img_path) VALUES ({$u_id}, '{$target}')";
@@ -154,6 +156,8 @@
 
                         echo $img_sql . "<br>";
                         $result3 = mysqli_query($conn, $img_sql);
+                        if($result3)
+                            echo "Success<br>";
 
                         if(!$result3)
                             $isSuccess = false;
