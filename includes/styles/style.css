@@ -1,8 +1,7 @@
 body {
     margin: 0;
     padding-top: 80px;
-    padding-bottom: 90px;
-    height: (100vh - 150px);
+    height: 100vh;
 }
 form {
     padding: 0;
@@ -32,9 +31,8 @@ form {
     font-family: sans-serif;
     }
 .footer {
-    position: fixed;
+    position: relative;
     z-index: 10;
-    bottom: 0;
     left: 0;
     right: 0;
     padding: 2rem;
@@ -45,6 +43,8 @@ form {
     justify-content: center;
     align-items: center;
     gap: 0.2rem;
+    margin-top: auto;
+    bottom: -100;
 }
 
 .green-hover{
@@ -116,9 +116,7 @@ form {
 }
 
 body{
-    background: linear-gradient(to bottom, #99ff99 0%, #339966 94%);
-    background-size: cover; 
-    background-repeat: no-repeat;
-    background-attachment: fixed;
+    background: url('/plantshopimg.jpg') no-repeat center center;
+    background-size: cover;
 }
 
