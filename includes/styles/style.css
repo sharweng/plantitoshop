@@ -107,3 +107,18 @@ form {
     min-width: 420px;
 }
 
+.btn {
+    transition: transform 0.1s ease; /* Smooth animation */
+}
+
+.btn:hover {
+    transform: scale(1.02); /* Increases size to 110% on hover */
+}
+
+body{
+    background: linear-gradient(to bottom, #99ff99 0%, #339966 94%);
+    background-size: cover; 
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
