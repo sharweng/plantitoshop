@@ -26,6 +26,16 @@
 
     $prod_query = mysqli_query($conn, $product_sql);
     $result = mysqli_query($conn, $sql);
+
+    // Fetch order details from the view
+    $order_query = "SELECT * FROM order_transaction_details WHERE orderinfo_id = ?";
+    $stmt = $conn->prepare($order_query);
+    $stmt->bind_param("i", $_SESSION['view_id']);
+    $stmt->execute();
+    $order_result = $stmt->get_result();
+
+    $order_general = $order_result->fetch_assoc();
+    $order_result->data_seek(0);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -68,6 +78,7 @@
                     <th>id</th>
                     <th>Name</th>
                     <th>Date Placed</th>
+                    <th>Date Shipped</th>
                     <th>Status</th>
                     <th>Ship Type</th>
                     <th></th>
@@ -78,10 +89,14 @@
                         echo "<tr class='align-middle'>
                         <td class=\"col \">{$row['orderinfo_id']}</td>
                         <td class=\"col text-wrap\">{$row['uname']}</td>
-                        <td class=\"col \">{$row['date_placed']}</td>
-                        <td class=\"col \">{$row['stat_name']}</td>
+                        <td class=\"col \">{$row['date_placed']}</td>";
+                        if($row['date_shipped'] != NULL)
+                            echo "<td class=\"col \">{$row['date_shipped']}</td>";
+                        else
+                            echo "<td class=\"col \">N/A</td>";
+                        echo "<td class=\"col \">{$row['stat_name']}</td>
                         <td class=\"col \">{$row['ship_name']}</td>
-                        <td class=\"col \">
+                        <td class=\"col\">
                             <div class=\"row\">
                                 <form action=\"editOD.php\" method=\"post\">
                                     <button class=\"btn btn-warning btn-sm w-100 px-4\" name=\"update_id\" value=\"{$row['orderinfo_id']}\">EDIT</button>
@@ -92,7 +107,7 @@
                     }
                 ?>
                 <tr>
-                    <td colspan="6">
+                    <td colspan="7">
                         <form action="/plantitoshop/send_email.php" method="post">
                             <input type="number" name="orderinfo_id" hidden value="<?php $email = mysqli_fetch_assoc($result); echo $email['orderinfo_id']; ?>">
                             <button class="btn btn-secondary w-100 btn-sm" name="send_order_receipt" value="<?php
@@ -105,29 +120,45 @@
             </table>
             <table class="table text-center align-middle">
                 <tr>
-                    <td colspan="4" class="fw-bold h3">ORDERS</td>
+                    <td colspan="6" class="fw-bold h3">ORDERS</td>
                 </tr>
                 <tr>
-                    <td colspan="4" class="">
+                    <td colspan="6" class="">
                         <a href="/plantitoshop/order/createOI.php" class="btn btn-success w-100">ADD PRODUCT</a>
                     </td>
                 </tr>
                 <tr>
                     <th>prodID</th>
                     <th>Product Name</th>
+                    <th>Unit Price</th>
                     <th>Quantity</th>
+                    <th>Total Price</th>
                     <th></th>
                 </tr>
                 <?php
-                    while($products = mysqli_fetch_array($prod_query)){
+                    $order_general = $order_result->fetch_assoc();
+                    $order_result->data_seek(0);
+                    $subtotal = 0;
+
+                    $ship_fee_sql = "SELECT sh.ship_price, sh.ship_name FROM orderinfo oi INNER JOIN shipping sh ON oi.ship_id = sh.ship_id WHERE orderinfo_id = {$_SESSION['view_id']}";
+                    $ship_query = mysqli_query($conn, $ship_fee_sql);
+                    $shipping = mysqli_fetch_assoc($ship_query);
+
+                    while ($item = $order_result->fetch_assoc()): 
+                    $subtotal += $item['total_price'];
+                    $grand_total_calculated = $subtotal + $shipping['ship_price'];
+                    $unit_price = number_format($item['unit_price'], 2);
+                    $total_price = number_format($item['total_price'], 2);
                         echo "<tr class='align-middle'>
-                                <td class=\"col \">{$products['prod_id']}</td>
-                                <td class=\"col text-wrap\">{$products['description']}</td>
-                                <td class=\"col \">{$products['quantity']}</td>
+                                <td class=\"col \">{$item['product_id']}</td>
+                                <td class=\"col text-wrap\">{$item['product_name']}</td>
+                                <td class=\"col \">&#x20B1;{$unit_price}</td>
+                                <td class=\"col \">{$item['quantity_ordered']}</td>
+                                <td class=\"col \">&#x20B1;{$total_price}</td>
                                 <td class=\"col \">
                                     <div class=\"row d-grid gap-1\">
                                         <form action=\"editOI.php\" method=\"post\">
-                                            <button class=\"btn btn-warning btn-sm w-100\" name=\"prod_id\" value=\"{$products['prod_id']}\">EDIT</button>
+                                            <button class=\"btn btn-warning btn-sm w-100\" name=\"prod_id\" value=\"{$item['product_id']}\">EDIT</button>
                                         </form>
                                         <div class=\"dropdown d-block\">
                                             <button class=\"btn btn-danger btn-sm w-100 dropdown-toggle\" type=\"button\" data-bs-toggle=\"dropdown\" aria-expanded=\"false\">
@@ -135,19 +166,35 @@
                                             </button>
                                             <ul class=\"dropdown-menu\">
                                                 <form action=\"delete.php\" method=\"post\">
-                                                    <input type=\"hidden\" name=\"oi_id\" value=\"{$products['orderinfo_id']}\"/>
-                                                    <button class=\"dropdown-item btn-sm w-100\" name=\"orderline\" value=\"{$products['prod_id']}\">YES</button>
+                                                    <input type=\"hidden\" name=\"oi_id\" value=\"{$item['orderinfo_id']}\"/>
+                                                    <button class=\"dropdown-item btn-sm w-100\" name=\"orderline\" value=\"{$item['product_id']}\">YES</button>
                                                 </form>
                                                 <form action=\"\" method=\"post\">
-                                                    <button class=\"dropdown-item btn-sm w-100\" name=\"no\" value=\"{$products['prod_id']}\">NO</button>
+                                                    <button class=\"dropdown-item btn-sm w-100\" name=\"no\" value=\"{$item['product_id']}\">NO</button>
                                                 </form>
                                             </ul>
                                         </div>
                                     </div>
                                 </td>
                             </tr>";
-                    }
+                    endwhile;
                 ?>
+                <tr>
+                    <td colspan="4" class="text-start"><strong>Subtotal</strong></td>
+                    <td>&#x20B1;<?php echo number_format($subtotal, 2); ?></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="text-start"><strong>Shipping Fee</strong></td>
+                    <td colspan="2" class="text-end"><strong><?php echo $shipping['ship_name'] ?></strong></td>
+                    <td>&#x20B1;<?php echo number_format($shipping['ship_price'], 2); ?></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td colspan="4" class="text-start"><strong>Grand Total</strong></td>
+                    <td>&#x20B1;<?php echo number_format($grand_total_calculated, 2); ?></td>
+                    <td></td>
+                </tr>
             </table>
             
         </div>
