@@ -159,7 +159,7 @@ INSERT INTO shipping(ship_name, ship_price)VALUES
 
 INSERT INTO user(email, password, lname, fname, addressline, phone, pfp_path, role_id)VALUES
 ('marbellasj@gmail.com', '472abab1382a164fe6f0212122bbb12a215457b8', 'Marbella', 'Sharwin', 'Taguig', '09935312681', 'images/default-avatar-icon.jpg', 1),
-('lacortekc@gmail.com', 'f64f01582774b4b4c5eb970d1585d830903c52a5', 'Lacorte', 'Krsmur', 'Taguig', '09937564575', 'images/default-avatar-icon.jpg', 1),
+('lacortekc@gmail.com', 'f64f01582774b4b4c5eb970d1585d830903c52a5', 'Lacorte', 'Krsmur', 'Taguig', '09937564575', 'images/maki.jpg', 1),
 ('pequemes@gmail.com', 'c066b73b07369d10887d9570b8278851a28c6164', 'Peque', 'Erica', 'Taguig', '09063354124', 'images/default-avatar-icon.jpg', 2),
 ('labilabimk@gmail.com', 'c1e93b1f026abeac0e5a356535bfc2e3727c1045', 'Labi-labi', 'Maria', 'Taguig', '09557966852', 'images/default-avatar-icon.jpg', 2),
 ('elediak@gmail.com', 'e83d6fd53b9d1176232f5131b5b81c035b144b26', 'Eledia', 'Kimberly', 'Taguig', '09125474775', 'images/default-avatar-icon.jpg', 2),
