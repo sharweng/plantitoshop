@@ -89,7 +89,7 @@
         }
 
         if(empty($_FILES['pfp_path']['name'][0])){
-            $_SESSION['pfpErr'] = 'Error: upload atleast one file.';
+            $_SESSION['pfpErr'] = 'Error: please upload a file.';
             header("Location: register.php");
         }
 
