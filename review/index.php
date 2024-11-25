@@ -89,25 +89,30 @@
                     </form>
                 </div>
                 <div class="modal-body">
+                    <!-- Email Search Form -->
                     <form action="" method="get" class="row">
                         <label for="user_id" class="form-label my-1">Search Email:</label>
-                        <div class="input-group ">
-                            <input type="text" class="form-control" name="email-search">
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="email-search" value="<?php echo htmlspecialchars($keyword1); ?>">
+                            <input type="hidden" name="prod-search" value="<?php echo htmlspecialchars($keyword2); ?>"> <!-- Preserve product search -->
                             <button class="btn btn-success">Search</button>
                         </div>
                     </form>
+                    <!-- Product Search Form -->
                     <form action="" method="get" class="row">
                         <label for="user_id" class="form-label my-1">Search Product:</label>
-                        <div class="input-group ">
-                            <input type="text" class="form-control" name="prod-search">
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="prod-search" value="<?php echo htmlspecialchars($keyword2); ?>">
+                            <input type="hidden" name="email-search" value="<?php echo htmlspecialchars($keyword1); ?>"> <!-- Preserve email search -->
                             <button class="btn btn-success">Search</button>
                         </div>
                     </form>
+                    <!-- Add Review Form -->
                     <form action="/plantitoshop/review/store.php" method="post">
                         <label for="user_id" class="form-label my-1">Email:</label>
                         <select class="form-select" name="email">
                             <?php
-                            while($emails = mysqli_fetch_array($email_query)){
+                            while ($emails = mysqli_fetch_array($email_query)) {
                                 echo "<option value=\"{$emails['user_id']}\">{$emails['email']}</option>";
                             }
                             ?>
@@ -115,9 +120,9 @@
                         <label for="user_id" class="form-label my-1">Product:</label>
                         <select class="form-select" name="prod">
                             <?php
-                                while($products = mysqli_fetch_array($prod_query)){
-                                    echo "<option value=\"{$products['prod_id']}\">{$products['description']} / {$products['cat']} / &#x20B1;{$products['price']} / {$products['quantity']}</option>";
-                                }
+                            while ($products = mysqli_fetch_array($prod_query)) {
+                                echo "<option value=\"{$products['prod_id']}\">{$products['description']} / {$products['cat']} / &#x20B1;{$products['price']} / {$products['quantity']}</option>";
+                            }
                             ?>
                         </select>
                         <label for="message-text" class="col-form-label">Rating:</label>
@@ -134,8 +139,7 @@
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-success" name="create_send">Send</button>
                 </div>
-                </form>           
-                </div>
+                </form>
             </div>
         </div>
     </div>
@@ -178,80 +182,83 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                <form action="" method="post" class="d-flex w-100 flex-flow-reverse align-items-center">
-                    <h1 class="modal-title fs-5 fw-bold" id="exampleModalLabel">Edit Review</h1>
+                    <form action="" method="post" class="d-flex w-100 flex-flow-reverse align-items-center">
+                        <h1 class="modal-title fs-5 fw-bold" id="exampleModalLabel">Edit Review</h1>
                         <button type="submit" class="btn-close" data-bs-dismiss="modal" aria-label="Close" name="close"></button>
                     </form>
                 </div>
                 <div class="modal-body">
+                    <!-- Email Search -->
                     <form action="" method="get" class="row">
-                        <label for="user_id" class="form-label my-1">Search Email:</label>
-                        <div class="input-group ">
-                            <input type="text" class="form-control" name="email-search2">
+                        <label for="email-search2" class="form-label my-1">Search Email:</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="email-search2" 
+                                value="<?php echo isset($_GET['email-search2']) ? $_GET['email-search2'] : ''; ?>">
+                            <input type="hidden" name="prod-search2" 
+                                value="<?php echo isset($_GET['prod-search2']) ? $_GET['prod-search2'] : ''; ?>">
                             <button class="btn btn-success">Search</button>
                         </div>
                     </form>
+                    <!-- Product Search -->
                     <form action="" method="get" class="row">
-                        <label for="user_id" class="form-label my-1">Search Product:</label>
-                        <div class="input-group ">
-                            <input type="text" class="form-control" name="prod-search2">
+                        <label for="prod-search2" class="form-label my-1">Search Product:</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="prod-search2" 
+                                value="<?php echo isset($_GET['prod-search2']) ? $_GET['prod-search2'] : ''; ?>">
+                            <input type="hidden" name="email-search2" 
+                                value="<?php echo isset($_GET['email-search2']) ? $_GET['email-search2'] : ''; ?>">
                             <button class="btn btn-success">Search</button>
                         </div>
                     </form>
+                    <!-- Form Submission -->
                     <form action="/plantitoshop/review/update.php" method="post">
-                        <label for="user_id" class="form-label my-1">Email:</label>
+                        <!-- Email Dropdown -->
+                        <label for="email" class="form-label my-1">Email:</label>
                         <select class="form-select" name="email">
                             <?php
                             $email_sql_edit = "SELECT user_id, email FROM user";
-
-                            if(isset($_GET['email-search2']))
+                            if (isset($_GET['email-search2'])) {
                                 $keyword1 = strtolower(trim($_GET['email-search2']));
-                            else
-                                $keyword1 = "";
-
-                            if($keyword1){
-                                $email_sql_edit = $email_sql_edit . " WHERE email LIKE '%{$keyword1}%'";  
+                                if ($keyword1) {
+                                    $email_sql_edit .= " WHERE email LIKE '%{$keyword1}%'";
+                                }
                             }
-
                             $email_query_edit = mysqli_query($conn, $email_sql_edit);
-                            while($emails = mysqli_fetch_array($email_query_edit)) {
+                            while ($emails = mysqli_fetch_array($email_query_edit)) {
                                 $selected = ($emails['user_id'] == $select['user_id']) ? "selected" : "";
                                 echo "<option value=\"{$emails['user_id']}\" {$selected}>{$emails['email']}</option>";
                             }
                             ?>
                         </select>
-                        <label for="user_id" class="form-label my-1">Product:</label>
+                        <!-- Product Dropdown -->
+                        <label for="prod" class="form-label my-1">Product:</label>
                         <select class="form-select" name="prod">
                             <?php
-                                $prod_sql_edit = "SELECT p.prod_id, p.description, c.description as cat, p.price, s.quantity 
-                                FROM product p 
-                                INNER JOIN stock s ON p.prod_id = s.prod_id 
-                                INNER JOIN category c ON p.cat_id = c.cat_id";
-                        
-                                if(isset($_GET['prod-search2']))
-                                    $keyword2 = strtolower(trim($_GET['prod-search2']));
-                                else
-                                    $keyword2 = "";
-                            
-                                if($keyword2){
-                                    $prod_sql_edit = $prod_sql_edit . " WHERE p.description LIKE '%{$keyword2}%'";  
+                            $prod_sql_edit = "SELECT p.prod_id, p.description, c.description as cat, p.price, s.quantity 
+                                            FROM product p 
+                                            INNER JOIN stock s ON p.prod_id = s.prod_id 
+                                            INNER JOIN category c ON p.cat_id = c.cat_id";
+                            if (isset($_GET['prod-search2'])) {
+                                $keyword2 = strtolower(trim($_GET['prod-search2']));
+                                if ($keyword2) {
+                                    $prod_sql_edit .= " WHERE p.description LIKE '%{$keyword2}%'";
                                 }
-                                $prod_query_edit = mysqli_query($conn, $prod_sql_edit);
-                                while($products = mysqli_fetch_array($prod_query_edit)) {
-                                    $selected = ($products['prod_id'] == $select['prod_id']) ? "selected" : "";
-                                    echo "<option value=\"{$products['prod_id']}\" {$selected}>{$products['description']} / {$products['cat']} / &#x20B1;{$products['price']} / {$products['quantity']}</option>";
-                                }
-                           ?>
+                            }
+                            $prod_query_edit = mysqli_query($conn, $prod_sql_edit);
+                            while ($products = mysqli_fetch_array($prod_query_edit)) {
+                                $selected = ($products['prod_id'] == $select['prod_id']) ? "selected" : "";
+                                echo "<option value=\"{$products['prod_id']}\" {$selected}>{$products['description']} / {$products['cat']} / &#x20B1;{$products['price']} / {$products['quantity']}</option>";
+                            }
+                            ?>
                         </select>
-                        <label for="message-text" class="col-form-label">Rating:</label>
+                        <!-- Other Inputs -->
+                        <label for="rev_num" class="col-form-label">Rating:</label>
                         <select name="rev_num" class="form-select">
                             <?php
-                                for($i = 1; $i <= 5; $i++){
-                                    if($i == $select['rev_num'])
-                                        echo "<option selected value=\"{$i}\">{$i}</option>";
-                                    else
-                                        echo "<option value=\"{$i}\">{$i}</option>";
-                                }
+                            for ($i = 1; $i <= 5; $i++) {
+                                $selected = ($i == $select['rev_num']) ? "selected" : "";
+                                echo "<option value=\"{$i}\" {$selected}>{$i}</option>";
+                            }
                             ?>
                         </select>
                         <label for="message-text" class="col-form-label">Message:</label>
@@ -260,8 +267,7 @@
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-success" name="create_send">Update</button>
                 </div>
-                </form>           
-                </div>
+                </form>
             </div>
         </div>
     </div>
