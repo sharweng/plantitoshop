@@ -9,7 +9,7 @@ if(isset($_POST['createOD'])){
     $stat_id = $_POST['stat_id'];
     $shipping = $_POST['shipping'];
 
-    $sql_orderinfo = "INSERT INTO orderinfo (user_id, date_placed, date_shipped, stat_id, shipping) VALUES ('$user_id', '$date_placed', NULL, '$stat_id', '$shipping')";
+    $sql_orderinfo = "INSERT INTO orderinfo (user_id, date_placed, date_shipped, stat_id, ship_id) VALUES ('$user_id', '$date_placed', NULL, '$stat_id', '$shipping')";
     $result = mysqli_query($conn, $sql_orderinfo);
 
     if($result){

@@ -24,11 +24,6 @@ $stmt->bind_param("i", $orderinfo_id);
 $stmt->execute();
 $order_result = $stmt->get_result();
 
-if ($order_result->num_rows == 0) {
-    echo "<div class='container mt-5'><h3>Order not found</h3></div>";
-    exit;
-}
-
 // Fetch general order info (assuming all rows have the same order info)
 $order_general = $order_result->fetch_assoc();
 $order_result->data_seek(0); // Reset result pointer for detailed items
@@ -61,6 +56,7 @@ $order_result->data_seek(0); // Reset result pointer for detailed items
             </div>
         </div>
         <div class="container inner-box border border-success border-2">
+            <?php if ($order_result->num_rows != 0) { ?>
             <div class="card mt-3">
                 <div class="card-header">
                     <strong>Order #<?php echo $order_general['orderinfo_id']; ?></strong>
@@ -136,6 +132,10 @@ $order_result->data_seek(0); // Reset result pointer for detailed items
                     </tr>
                 </tbody>
             </table>
+            <?php }else{
+                    echo "<p class=\"text-center mt-2 fw-bold\">No products found. Cannot view order.</p>";
+                } 
+            ?>
         </div>
     </div>
 </body>

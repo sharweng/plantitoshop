@@ -127,6 +127,11 @@
                         <a href="/plantitoshop/order/createOI.php" class="btn btn-success w-100">ADD PRODUCT</a>
                     </td>
                 </tr>
+                <?php
+                    $olcheck_sql = "SELECT * from orderline WHERE orderinfo_id = {$_SESSION['view_id']}";
+                    $olcheck_query = mysqli_query($conn, $olcheck_sql);
+                    if($olcheck_query->num_rows != 0){
+                ?>
                 <tr>
                     <th>prodID</th>
                     <th>Product Name</th>
@@ -195,8 +200,14 @@
                     <td>&#x20B1;<?php echo number_format($grand_total_calculated, 2); ?></td>
                     <td></td>
                 </tr>
+                <?php 
+                    }else{
+                        echo "<tr>
+                                <td colspan=\"6\" class=\"fw-bold h5\">No Products</td>
+                            </tr>";
+                    }
+                ?>
             </table>
-            
         </div>
     </div>
 </body>
