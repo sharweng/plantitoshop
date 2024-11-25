@@ -9,6 +9,12 @@
         $_SESSION['update_id'] = $ud_id;
     }else
         $ud_id = $_SESSION['update_id'];
+
+    if($ud_id == $_SESSION['user_id']){
+        $_SESSION['message'] = "You are attempting to edit your own account. This action is not allowed. Please contact another administrator for assistance.";
+        header("Location: index.php");
+        exit();
+    }
         
     if(isset($_POST['back'])){
         $_SESSION['lname'] = '';
