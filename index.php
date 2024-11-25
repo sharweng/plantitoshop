@@ -43,8 +43,28 @@
     </style>
 </head>
 <body>
-    <h1 class="text-center p-2 fw-bold">Homepage</h1>
     <div class="container">
+        <div class="container d-flex justify-content-center">
+            <div class="slideshow">
+                <!-- Slide container -->
+                <div class="slides">
+                    <div class="slide"><img src="product/images/Herbs/basil3.png" alt="Slide 1"></div>
+                    <div class="slide"><img src="product/images/Shrubs/gumamela1.png" alt="Slide 2"></div>
+                    <div class="slide"><img src="product/images/Creepers/morning1.png" alt="Slide 3"></div>
+                    <div class="slide"><img src="product/images/Climbers/heartleaf5.png" alt="Slide 4"></div>
+                    <div class="slide"><img src="product/images/Miscellaneous/soil3.png" alt="Slide 5"></div>
+                </div>
+                <div class="overlay-text fw-bold">Plantito's Shop</div>
+                <!-- Navigation dots -->
+                <div class="navigation">
+                    <label for="slide1"></label>
+                    <label for="slide2"></label>
+                    <label for="slide3"></label>
+                    <label for="slide4"></label>
+                    <label for="slide5"></label>
+                </div>
+            </div>
+        </div>
         <div class="container d-flex justify-content-center py-2 gap-1">
             <div class="btn-group">
                 <button type="button" class="btn btn-success dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
@@ -74,7 +94,7 @@
             <?php
             if($result->num_rows != 0){
                 while($row = mysqli_fetch_array($result)){
-                    echo "<div class=\"card p-1\" style=\"width: 230px;\">";
+                    echo "<div class=\"card enlarge p-1\" style=\"width: 230px;\">";
                     $sql = "SELECT img_path FROM image WHERE prod_id = {$row['prod_id']}";
                     $result2 = mysqli_query($conn, $sql);
                     while($row2 = mysqli_fetch_array($result2)){

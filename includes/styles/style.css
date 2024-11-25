@@ -107,11 +107,11 @@ form {
     min-width: 420px;
 }
 
-.btn {
+.btn, .enlarge {
     transition: transform 0.1s ease; /* Smooth animation */
 }
 
-.btn:hover {
+.btn:hover, .enlarge:hover {
     transform: scale(1.02); /* Increases size to 110% on hover */
 }
 
@@ -121,6 +121,57 @@ body {
     background-size: cover; 
     background-repeat: no-repeat;
     background-attachment: fixed;
+}
+
+.slideshow {
+    width: 100%;
+    aspect-ratio: 16/6;
+    overflow: hidden;
+    position: relative;
+    border: 1px solid #ccc;
+}
+
+.slides {
+    display: flex;
+    width: auto;
+    animation: slideAnimation 15s infinite; /* Infinite loop of slides */
+}
+
+.slide {
+    width: 100%;
+    flex-shrink: 0;
+}
+
+.slide img {
+    width: 100%;
+    display: block;
+    object-fit: cover;
+    object-position: center;
+}
+
+@keyframes slideAnimation {
+    0% { transform: translateX(0); }     /* Slide 1 */
+    15% { transform: translateX(0); }    /* Pause on Slide 1 */
+    20% { transform: translateX(-100%); } /* Slide 2 */
+    40% { transform: translateX(-100%); } /* Pause on Slide 2 */
+    45% { transform: translateX(-200%); } /* Slide 3 */
+    65% { transform: translateX(-200%); } /* Pause on Slide 3 */
+    70% { transform: translateX(-300%); } /* Slide 4 */
+    90% { transform: translateX(-400%); }   /* Slide 5 */
+    100% { transform: translateX(-400%); }  /* Pause on Slide 5 */
+}
+
+.overlay-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2.6rem; /* Adjust size as needed */
+    color: white;
+    background-color: rgba(0, 0, 0, 0.125); /* Semi-transparent background */
+    padding: 10px 20px;
+    text-align: center;
+    z-index: 10;
 }
 
 
