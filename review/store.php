@@ -19,8 +19,10 @@
             return str_repeat('*', strlen($matches[0]));
         }, $message);
 
-        $query = "INSERT INTO review (user_id, prod_id, rev_num, rev_msg) VALUES ('$user_id', '$prod_id', '$rev_num', '$maskedMessage')";
-        $result = mysqli_query($conn, $query);
+        $query = "INSERT INTO review (user_id, prod_id, rev_num, rev_msg) VALUES (?, ?, ?, ?)";
+        $stmt = $conn->prepare($query);
+        $stmt->bind_param("iiis", $user_id, $prod_id, $rev_num, $maskedMessage);
+        $result = $stmt->execute();
 
         if($result){
             if(isset($_POST['create_send_prod']))

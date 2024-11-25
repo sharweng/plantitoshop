@@ -20,8 +20,10 @@
             return str_repeat('*', strlen($matches[0]));
         }, $message);
 
-        $query = "UPDATE review SET user_id = '$user_id', prod_id = '$prod_id', rev_num = '$rev_num', rev_msg = '$maskedMessage' WHERE rev_id = $rev_id";
-        $result = mysqli_query($conn, $query);
+        $query = "UPDATE review SET user_id = ?, prod_id = ?, rev_num = ?, rev_msg = ? WHERE rev_id = ?";
+        $stmt = $conn->prepare($query);
+        $stmt->bind_param("iiisi", $user_id, $prod_id, $rev_num, $maskedMessage, $rev_id);
+        $result = $stmt->execute();
 
         if($result){
             header("Location: /plantitoshop/review/");
@@ -47,8 +49,10 @@
             return str_repeat('*', strlen($matches[0]));
         }, $message);
 
-        $query = "UPDATE review SET user_id = '$user_id', prod_id = '$prod_id', rev_num = '$rev_num', rev_msg = '$maskedMessage' WHERE rev_id = $rev_id";
-        $result = mysqli_query($conn, $query);
+        $query = "UPDATE review SET user_id = ?, prod_id = ?, rev_num = ?, rev_msg = ? WHERE rev_id = ?";
+        $stmt = $conn->prepare($query);
+        $stmt->bind_param("iiisi", $user_id, $prod_id, $rev_num, $maskedMessage, $rev_id);
+        $result = $stmt->execute();
 
         if($result){
             header("Location: /plantitoshop/view_product.php");
