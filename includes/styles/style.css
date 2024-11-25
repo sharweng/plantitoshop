@@ -125,7 +125,7 @@ body {
 
 .slideshow {
     width: 100%;
-    aspect-ratio: 16/6;
+    max-height: 200px;
     overflow: hidden;
     position: relative;
 }
