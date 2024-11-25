@@ -63,7 +63,7 @@
             ?></label><br>
              <label class="form-label">Product Definition:</label>
             <input class="form-control" type="text" name="definition"  value="<?php
-                echo $row['definition'];
+                echo htmlspecialchars($row['definition'], ENT_QUOTES, 'UTF-8');
             ?>"/>
             <label class="form-text text-danger" ><?php
                 if(isset($_SESSION['defiError'])){

@@ -30,7 +30,7 @@
             header("Location: edit.php");
         }else{
             $defi = trim($_POST['definition']);
-            if(!preg_match("/^[a-zA-Z0-9\s.,'\-:;!?]{10,255}$/", $defi)){
+            if(!preg_match("/^[a-zA-Z0-9\s.,'\"\-:;!?]{10,255}$/", $defi)){
                 $_SESSION['defiError'] = 'Error: must only contain only alphanumeric and puntuation characters, min 10 characters.';
                 header("Location: edit.php");
             }
@@ -59,7 +59,7 @@
         }
 
         if((preg_match("/^[a-zA-Z0-9\s\-_]{1,50}$/", $desc))&&(preg_match("/^(0|[1-9]\d*)(\.\d{1,2})?$/", $prc))
-        &&(preg_match("/^[1-9]\d*$/", $qty))&&((preg_match("/^[a-zA-Z0-9\s.,'\-:;!?]{10,255}$/", $defi)))){
+        &&(preg_match("/^[1-9]\d*$/", $qty))&&((preg_match("/^[a-zA-Z0-9\s.,'\"\-:;!?]{10,255}$/", $defi)))){
 
             $badWords = ['putangina', "putang ina", 'gago', 'tanga', 'ulol', 'bobo', 'lintek', 'yawa', 'pokpok', 'tarantado',
                         'inamo', 'pucha', 'putcha', 'puta', 'gagi', 'idiot', 'moron', 'stupid', 'bitch', 'ass',
@@ -72,8 +72,10 @@
                 return str_repeat('*', strlen($matches[0]));
             }, $defi);
 
-            $sql = "UPDATE product SET description = '{$desc}', price = '{$prc}', definition = '{$maskedMessage}', cat_id = '{$cat}' WHERE prod_id = {$u_id}";
-            $result = mysqli_query($conn, $sql);
+            $sql = "UPDATE product SET description = ?, price = ?, definition = ?, cat_id = ? WHERE prod_id = ?";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("ssssi", $desc, $prc, $maskedMessage, $cat, $u_id);
+            $result = $stmt->execute();
 
             $q_stock = "UPDATE stock SET quantity = {$qty} WHERE prod_id = {$u_id}";
             $result2 = mysqli_query($conn, $q_stock);

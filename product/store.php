@@ -55,7 +55,7 @@
             header("Location: create.php");
         }else{
             $defi = trim($_POST['definition']);
-            if(!preg_match("/^[a-zA-Z0-9\s.,'\-:;!?]{10,255}$/", $defi)){
+            if(!preg_match("/^[a-zA-Z0-9\s.,'\"\-:;!?]{10,255}$/", $defi)){
                 $_SESSION['defiError'] = 'Error: must only contain only alphanumeric and punctuation characters, min 10 characters.';
                 header("Location: create.php");
             }
@@ -67,7 +67,7 @@
         }
 
         if((preg_match("/^[a-zA-Z0-9\s\-_]{1,50}$/", $desc))&&(preg_match("/^(0|[1-9]\d*)(\.\d{1,2})?$/", $prc))
-        &&(preg_match("/^[1-9]\d*$/", $qty))&&(!empty($_FILES['img_path']['name'][0])&&(preg_match("/^[a-zA-Z0-9\s.,'\-:;!?]{10,255}$/", $defi)))){
+        &&(preg_match("/^[1-9]\d*$/", $qty))&&(!empty($_FILES['img_path']['name'][0])&&(preg_match("/^[a-zA-Z0-9\s.,'\"\-:;!?]{10,255}$/", $defi)))){
 
             $searchsql = "SELECT description FROM product";
             $prodExists = mysqli_query($conn, $searchsql);
@@ -91,8 +91,10 @@
                 return str_repeat('*', strlen($matches[0]));
             }, $defi);
 
-            $sql = "INSERT INTO product(description, price, definition, cat_id) VALUES('{$desc}', '{$prc}', \"{$maskedMessage}\", '{$cat}')";
-            $result = mysqli_query($conn, $sql);
+            $sql = "INSERT INTO product (description, price, definition, cat_id) VALUES (?, ?, ?, ?)";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("sssi", $desc, $prc, $maskedMessage, $cat);
+            $result = $stmt->execute();
 
             $getLastId = "SELECT MAX(prod_id) as max FROM product";
             $result = mysqli_query($conn, $getLastId);
