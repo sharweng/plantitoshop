@@ -19,7 +19,7 @@
             header("Location: edit.php");
         }else{
             $desc = trim($_POST['description']);
-            if(!preg_match("/^[a-zA-Z0-9\s\-_]{1,50}$/", $desc)){
+            if(!preg_match("/^[a-zA-Z0-9\s.,'\"\-_]{1,50}$/", $desc)){
                 $_SESSION['descError'] = 'Error: must only contain up to 50 letters, numbers, spaces, hyphens, and underscores.';
                 header("Location: edit.php");
             }
@@ -58,7 +58,7 @@
             }
         }
 
-        if((preg_match("/^[a-zA-Z0-9\s\-_]{1,50}$/", $desc))&&(preg_match("/^(0|[1-9]\d*)(\.\d{1,2})?$/", $prc))
+        if((preg_match("/^[a-zA-Z0-9\s.,'\"\-_]{1,50}$/", $desc))&&(preg_match("/^(0|[1-9]\d*)(\.\d{1,2})?$/", $prc))
         &&(preg_match("/^[1-9]\d*$/", $qty))&&((preg_match("/^[a-zA-Z0-9\s.,'\"\-:;!?]{10,255}$/", $defi)))){
 
             $badWords = ['putangina', "putang ina", 'gago', 'tanga', 'ulol', 'bobo', 'lintek', 'yawa', 'pokpok', 'tarantado',

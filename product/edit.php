@@ -53,7 +53,7 @@
         <form method="post" action="update.php" enctype="multipart/form-data">
             <label class="form-label">Product Name:</label>
             <input class="form-control" type="text" name="description"  value="<?php
-                echo $row['description'];
+                echo htmlspecialchars($row['description'], ENT_QUOTES, 'UTF-8');
             ?>"/>
             <label class="form-text text-danger"><?php
                 if(isset($_SESSION['descError'])){
