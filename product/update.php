@@ -139,11 +139,12 @@
                         if($counter < $existingCount){
                             $sql = "SELECT img_path FROM image WHERE img_id = {$existingImages[$counter]['img_id']}";
                             $deleteresult = mysqli_query($conn, $sql);
-                            while($row = mysqli_fetch_array($deleteresult)){
+                            $row = mysqli_fetch_assoc($deleteresult);
+                            if($row['img_path'] != $target){
                                 unlink($row['img_path']);
+                                $sql = "UPDATE image SET img_path = '' WHERE img_id = {$existingImages[$counter]['img_id']}";
+                                $result2 = mysqli_query($conn, $sql);
                             }
-                            $sql = "UPDATE image SET img_path = '' WHERE img_id = {$existingImages[$counter]['img_id']}";
-                            $result2 = mysqli_query($conn, $sql);
                             $img_sql = "UPDATE image SET img_path = '{$target}' WHERE img_id = {$existingImages[$counter]['img_id']}";
                         }elseif ($counter < $uploadCount) {
                             $img_sql = "INSERT INTO image (prod_id, img_path) VALUES ({$u_id}, '{$target}')";
