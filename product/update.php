@@ -174,7 +174,7 @@
                 $_SESSION['desc'] = "";
                 $_SESSION['prc'] = "";
                 $_SESSION['defi'] = "";
-                header("Location: index.php");
+                header("Location: /plantitoshop/product/");
             }
         }
         
