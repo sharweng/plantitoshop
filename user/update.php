@@ -20,12 +20,18 @@
             if(move_uploaded_file($source, $target)){
                 $sql = "SELECT pfp_path FROM user WHERE user_id = {$ud_id}";
                 $result2 = mysqli_query($conn, $sql);
-                while($row = mysqli_fetch_array($result2)){
-                    if($row['pfp_path'] != 'images/default-avatar-icon.jpg')
+                $row = mysqli_fetch_assoc($result2);
+                $checksql = "SELECT COUNT(pfp_path) as count FROM user WHERE pfp_path = '{$row['pfp_path']}'";
+                $checkresult = mysqli_query($conn, $checksql);
+                $check = mysqli_fetch_assoc($checkresult);
+                if($row['pfp_path'] != $target){
+                    if($row['pfp_path'] != 'images/default-avatar-icon.jpg' && $check['count'] == 1)
                         unlink($row['pfp_path']);
+                    $sql = "UPDATE user SET pfp_path = '$target' WHERE user_id = $ud_id";
+                    $upload = mysqli_query($conn, $sql);
+                }else{
+                    $upload = true;
                 }
-                $sql = "UPDATE user SET pfp_path = '$target' WHERE user_id = $ud_id";
-                $upload = mysqli_query($conn, $sql);
             }else{
                 $upload = false;
             }
@@ -138,6 +144,7 @@
                 $_SESSION['add'] = '';
                 $_SESSION['phone'] = '';
 
+                
                 if($error)
                     header("Location: /plantitoshop/user/edit.php");
                 else
